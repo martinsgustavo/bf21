@@ -38,7 +38,7 @@ public interface ApiInterface {
     @DELETE("/coach/{id}")
     Call<Coach> deleteCoach(@Path("id") String id);
 
-
+    
     //CLIENT
 
     @GET("/client")
