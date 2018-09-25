@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:focusableInTouchMode="true"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Informations sur le client"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/_inputLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Nom"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <EditText
+        android:id="@+id/_inputFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Prénom"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <EditText
+        android:id="@+id/_inputAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Adresse"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <EditText
+        android:id="@+id/_inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="E-mail"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <EditText
+        android:id="@+id/_inputTelephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="Téléphone"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/_inputHeight"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto"
+            android:hint="Taille"
+            android:textSize="20sp"
+            android:imeOptions="actionDone"/>
+
+        <EditText
+            android:id="@+id/_inputWeight"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto"
+            android:hint="Poids"
+            android:textSize="20sp"
+            android:imeOptions="actionDone"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/_inputTDEE"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto"
+        android:hint="TDEE"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_no"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@color/divider"
+            android:clickable="true"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Annuler"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorAccent"
+            android:clickable="true"
+            android:fontFamily="@font/roboto_bold"
+            android:text="+ Ajouter"
+            android:textColor="@color/secondary_text"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

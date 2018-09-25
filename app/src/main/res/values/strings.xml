@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Projet Bf21</string>
+    <string name="toobar_client">Liste de Clients</string>
+    <string name="toobar_coach">Liste d entraîneurs</string>
+    <string name="toobar_food">Liste d aliments</string>
+    <string name="toobar_monitoring">Plan du Client</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

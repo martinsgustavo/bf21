@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_client"
+            android:icon="@drawable/icon_client"
+            android:title="Liste de clients" />
+        <item
+            android:id="@+id/nav_food"
+            android:icon="@drawable/icon_food"
+            android:title="Liste d'aliments" />
+
+        <item
+            android:id="@+id/nav_coach"
+            android:icon="@drawable/icon_entraineur"
+            android:title="Liste d'entraîneur" />
+
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/icon_faq"
+            android:title="FAQ" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icon_logout"
+            android:title="Logout" />
+    </group>
+
+</menu>
