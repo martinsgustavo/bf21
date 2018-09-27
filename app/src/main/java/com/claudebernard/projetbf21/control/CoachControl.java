@@ -58,14 +58,14 @@ public class CoachControl implements GenericControl<Coach>{
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Client Control", "Success - getDataCoach");
+                Log.i("Coach Control", "Success - getDataCoach");
                 String string = new Gson().toJson(response.body().getMeta());
                 coach = new Gson().fromJson(string, Coach.class);
             }
 
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
-                Log.e("Client Control", "Error - getDataCoach");
+                Log.e("Coach Control", "Error - getDataCoach");
                 coach = null;
             }
         });
