@@ -3,39 +3,45 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Client {
 
-    @SerializedName("id")
+    @SerializedName("idClient")
     @Expose
-    private String _id;
+    private Integer _id;
 
-    @SerializedName("first_name")
+    @SerializedName("name")
     @Expose
-    private String _firstName;
+    private String _name;
 
-    @SerializedName("last_name")
+    @SerializedName("age")
     @Expose
-    private String _lastName;
-
-    @SerializedName("address")
-    @Expose
-    private String _address;
+    private Integer _age;
 
     @SerializedName("email")
     @Expose
     private String _eMail;
 
-    @SerializedName("phone")
+    @SerializedName("phoneNumber")
     @Expose
-    private String _phone;
+    private String _phoneNumber;
 
     @SerializedName("height")
     @Expose
-    private String _height;
+    private Double _height;
 
     @SerializedName("weight")
     @Expose
-    private String _weight;
+    private Double _weight;
+
+    @SerializedName("bodyFatPercentage")
+    @Expose
+    private Integer _bodyFatPercentage;
+
+    @SerializedName("clientGoal")
+    @Expose
+    private ClientGoal clientGoal;
 
     @SerializedName("tdee")
     @Expose
@@ -44,72 +50,43 @@ public class Client {
 
     //=====
 
+    public int get_id() { return _id; }
 
-    public String get_id() { return _id; }
+    public void set_id(int _id) { this._id = _id; }
 
-    public void set_id(String _id) { this._id = _id; }
+    public String get_name() { return _name; }
 
-    public String get_firstName() {
-        return _firstName;
-    }
+    public void set_name(String _name) { this._name = _name; }
 
-    public void set_firstName(String _firstName) {
-        this._firstName = _firstName;
-    }
+    public int get_age() { return _age; }
 
-    public String get_lastName() {
-        return _lastName;
-    }
+    public void set_age(int _age) { this._age = _age; }
 
-    public void set_lastName(String _lastName) {
-        this._lastName = _lastName;
-    }
+    public String get_eMail() { return _eMail; }
 
-    public String get_address() {
-        return _address;
-    }
+    public void set_eMail(String _eMail) { this._eMail = _eMail; }
 
-    public void set_address(String _address) {
-        this._address = _address;
-    }
+    public String get_phoneNumber() { return _phoneNumber; }
 
-    public String get_eMail() {
-        return _eMail;
-    }
+    public void set_phoneNumber(String _phoneNumber) { this._phoneNumber = _phoneNumber; }
 
-    public void set_eMail(String _eMail) {
-        this._eMail = _eMail;
-    }
+    public double get_height() { return _height; }
 
-    public String get_phone() {
-        return _phone;
-    }
+    public void set_height(double _height) { this._height = _height; }
 
-    public void set_phone(String _phone) {
-        this._phone = _phone;
-    }
+    public double get_weight() { return _weight; }
 
-    public String get_height() {
-        return _height;
-    }
+    public void set_weight(double _weight) { this._weight = _weight; }
 
-    public void set_height(String _height) {
-        this._height = _height;
-    }
+    public int get_bodyFatPercentage() { return _bodyFatPercentage; }
 
-    public String get_weight() {
-        return _weight;
-    }
+    public void set_bodyFatPercentage(int _bodyFatPercentage) { this._bodyFatPercentage = _bodyFatPercentage; }
 
-    public void set_weight(String _weight) {
-        this._weight = _weight;
-    }
+    public ClientGoal getClientGoal() { return clientGoal; }
 
-    public String get_tdee() {
-        return _tdee;
-    }
+    public void setClientGoal(ClientGoal clientGoal) { this.clientGoal = clientGoal; }
 
-    public void set_tdee(String _tdee) {
-        this._tdee = _tdee;
-    }
+    public String get_tdee() { return _tdee; }
+
+    public void set_tdee(String _tdee) { this._tdee = _tdee; }
 }

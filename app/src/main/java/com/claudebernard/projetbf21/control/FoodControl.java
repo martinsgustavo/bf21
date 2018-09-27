@@ -1,26 +1,47 @@
 package com.claudebernard.projetbf21.control;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.claudebernard.projetbf21.comm.ApiClient;
+import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.model.Food;
+import com.claudebernard.projetbf21.model.ResponseServer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FoodControl {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class FoodControl implements GenericControl<Food> {
 
-    //=====
-    public static ArrayList getDataFoods() {
+    @Override
+    public List<Food> getDataAll() {
+        return null;
+    }
 
-        ArrayList<Food> foods = new ArrayList<>();
+    @Override
+    public Food getData(Integer id) {
+        return null;
+    }
 
-        for (int index = 0; index < 30; index++) {
+    @Override
+    public void saveData(Context c, Food object) {
 
-            Food food = new Food();
+    }
 
-            food.set_name("Food - ");
-            food.set_portion(String.valueOf(index+1));
+    @Override
+    public void editData(Context c, Food object) {
 
-            foods.add(food);
-        }
-        return foods;
+    }
+
+    @Override
+    public void deleteData(Context c, Food object) {
+
     }
 }

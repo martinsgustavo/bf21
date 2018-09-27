@@ -4,12 +4,21 @@ import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.claudebernard.projetbf21.R;
+import com.claudebernard.projetbf21.comm.ApiClient;
+import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.model.Client;
+
+import java.util.List;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 

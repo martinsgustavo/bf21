@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.model.Client;
+import com.claudebernard.projetbf21.model.ClientGoal;
 
 public class DialogClient extends Dialog {
 
@@ -46,13 +47,13 @@ public class DialogClient extends Dialog {
 
         if(option.equals("modify")){
 
-            _firstName.setText(_client.get_firstName());
-            _lastName.setText(_client.get_lastName());
-            _address.setText(_client.get_address());
+            _firstName.setText(_client.get_name());
+            _lastName.setText(_client.get_name());
+            _address.setText(_client.get_eMail());
             _eMail.setText(_client.get_eMail());
-            _phone.setText(_client.get_phone());
-            _height.setText(_client.get_height());
-            _weight.setText(_client.get_weight());
+            _phone.setText(_client.get_phoneNumber());
+            _height.setText(String.valueOf(_client.get_height()));
+            _weight.setText(String.valueOf(_client.get_weight()));
             _tdee.setText(_client.get_tdee());
 
             _yes.setText("Modifier");
@@ -115,15 +116,19 @@ public class DialogClient extends Dialog {
             public void onClick(View v) {
 
                 Client client = new Client();
+                ClientGoal clientGoal = new ClientGoal();
 
-                client.set_firstName(_firstName.getText().toString());
-                client.set_lastName(_lastName.getText().toString());
-                client.set_address(_address.getText().toString());
+                clientGoal.setIdClientGoal(1);
+                clientGoal.setGoal("TESTE");
+
+                client.set_name(_firstName.getText().toString());
+                client.set_age(18);
                 client.set_eMail(_eMail.getText().toString());
-                client.set_phone(_phone.getText().toString());
-                client.set_height(_height.getText().toString());
-                client.set_weight(_weight.getText().toString());
+                client.set_phoneNumber(_phone.getText().toString());
+                client.set_height(Double.parseDouble(_height.getText().toString()));
+                client.set_weight(Double.parseDouble(_weight.getText().toString()));
                 client.set_tdee(_tdee.getText().toString());
+                client.setClientGoal(clientGoal);
 
                 ClientControl clientControl = new ClientControl();
 

@@ -76,7 +76,7 @@ public class CoachActivity extends AppCompatActivity implements NavigationView.O
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(_coach.get_lastName()+", "+_coach.get_firstName());
+        _namePersonal.setText(_coach.getName());
     }
 
 

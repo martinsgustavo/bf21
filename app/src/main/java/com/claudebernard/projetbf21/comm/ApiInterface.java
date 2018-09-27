@@ -1,10 +1,6 @@
 package com.claudebernard.projetbf21.comm;
 
-import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.model.Coach;
-import com.claudebernard.projetbf21.model.Food;
-
-import java.util.List;
+import com.claudebernard.projetbf21.model.ResponseServer;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,64 +13,68 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
 
-    //COACH
+    //LOGIN
 
     @GET("/login/json?")
-    Call<Coach> login();
+    Call<ResponseServer> login();
 
-    @GET("/coach")
-    Call<List<Coach>> findAllCoaches();
 
-    @GET("/coach/{id}")
-    Call<Coach> findCoach();
+    //COACH
 
-    @POST("/coach")
-    @FormUrlEncoded
-    Call<Coach> saveCoach(@Body Coach coach);
+    @GET("/coach/list")
+    Call<ResponseServer> findAllCoaches();
 
-    @PUT("/coach/{id}")
-    Call<Coach> editCoach(@Path("id") String id, @Body Coach coach);
+    @GET("/coach?idCoach={id}")
+    Call<ResponseServer> findCoach(@Path("id") Integer id);
 
-    @DELETE("/coach/{id}")
-    Call<Coach> deleteCoach(@Path("id") String id);
+//    @POST("/coach")
+//    @FormUrlEncoded
+//    Call<Coach> saveCoach(@Body Coach coach);
+//
+//    @PUT("/coach/{id}")
+//    Call<Coach> editCoach(@Path("id") String id, @Body Coach coach);
+//
+//    @DELETE("/coach/{id}")
+//    Call<Coach> deleteCoach(@Path("id") String id);
 
-    
+
     //CLIENT
 
-    @GET("/client")
-    Call<List<Client>> findAllClients();
+    @GET("/client/list")
+    Call<ResponseServer> findAllClients();
 
-    @GET("/client/{id}")
-    Call<Client> findCient();
+    @GET("/client?idClient={id}")
+    Call<ResponseServer> findClient(@Path("id") Integer id);
 
-    @POST("/client")
-    @FormUrlEncoded
-    Call<Client> saveClient(@Body Client client);
 
-    @PUT("/client/{id}")
-    Call<Client> editClient(@Path("id") String id, @Body Client client);
-
-    @DELETE("/client/{id}")
-    Call<Client> deleteClient(@Path("id") String id);
+//    @POST("/client")
+//    @FormUrlEncoded
+//    Call<Client> saveClient(@Body Client client);
+//
+//    @PUT("/client")
+//    Call<Client> editClient(@Body Client client);
+//
+//    @DELETE("/client?idClient={id}")
+//    Call<Client> deleteClient(@Path("id") int id);
 
 
     //FOOD
 
-    @GET("/food")
-    Call<List<Food>> findAllFoods();
+    @GET("/food/list")
+    Call<ResponseServer> findAllFoods();
 
-    @GET("/food")
-    Call<Food> findFood();
+    @GET("/food?idFood={id}")
+    Call<ResponseServer> findFood(@Path("id") Integer id);
 
-    @POST("/food")
-    @FormUrlEncoded
-    Call<Food> saveFood(@Body Food food);
-
-    @PUT("/food/{id}")
-    Call<Food> editFood(@Path("id") String id, @Body Food food);
-
-    @DELETE("/food/{id}")
-    Call<Food> deleteFood(@Path("id") String id);
+//    @POST("/food")
+//    @FormUrlEncoded
+//    Call<Food> saveFood(@Body Food food);
+//
+//    @PUT("/food/{id}")
+//    Call<Food> editFood(@Path("id") String id, @Body Food food);
+//
+//    @DELETE("/food/{id}")
+//    Call<Food> deleteFood(@Path("id") String id);
 
 
 //    //PLAN
