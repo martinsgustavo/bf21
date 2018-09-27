@@ -32,7 +32,7 @@ public class ClientControl implements GenericControl<Client> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Client GenericControl", "Success - getDataClients");
+                Log.i("Client Control", "Success - getDataClients");
                 if(response.body().toString() != ""){
                     String string = new Gson().toJson(response.body().getMeta());
 
@@ -43,7 +43,7 @@ public class ClientControl implements GenericControl<Client> {
 
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
-                Log.e("Client GenericControl", "Error - getDataClients");
+                Log.e("Client Control", "Error - getDataClients");
                 clients = null;
             }
         });
