@@ -65,8 +65,8 @@ public class AdapterCardFood  extends BaseAdapter {
         final Food _food = (Food) this.getItem(position);
 
         TextView    _name       = (TextView)     view.findViewById(R.id._info_name);
-        ImageButton _btn_edit   = (ImageButton)  view.findViewById(R.id._btn_edit);
-        ImageButton _btn_delete = (ImageButton)  view.findViewById(R.id._btn_delete);
+//        ImageButton _btn_edit   = (ImageButton)  view.findViewById(R.id._btn_edit);
+//        ImageButton _btn_delete = (ImageButton)  view.findViewById(R.id._btn_delete);
 
         _name.setText(_food.get_name()+""+_food.get_portion());
 
@@ -78,20 +78,20 @@ public class AdapterCardFood  extends BaseAdapter {
             }
         });
 
-        _btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFood dialogFood = new DialogFood(_activity, "modify", _food);
-                dialogFood.show();
-            }
-        });
-
-        _btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        _btn_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFood dialogFood = new DialogFood(_activity, "modify", _food);
+//                dialogFood.show();
+//            }
+//        });
+//
+//        _btn_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return view;
     }

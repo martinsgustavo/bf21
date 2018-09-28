@@ -1,112 +1,72 @@
 package com.claudebernard.projetbf21.control;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.claudebernard.projetbf21.comm.ApiClient;
-import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.view.ClientActivity;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ClientControl {
 
-    private static ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
+
+    private static ArrayList<Client> _listClients = new ArrayList<>();
 
 
     //=====
     public static ArrayList getDataClients() {
 
-        final ArrayList<Client> clients = new ArrayList<>();
-        Call<List<Client>> call = apiInterface.findAllClients();
-
-        call.enqueue(new Callback<List<Client>>() {
-            @Override
-            public void onResponse(Call<List<Client>> call, Response<List<Client>> response) {
-                for (Client client : response.body()) {
-                    Log.i("Client Control", "Success - getDataClients");
-                    clients.add(client);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Client>> call, Throwable t) {
-                Log.e("Client Control", "Error - getDataClients");
+        Collections.sort(_listClients, new Comparator<Client>() {
+            public int compare(Client c1, Client c2) {
+                return c1.get_name().compareTo(c2.get_name());
             }
         });
 
-        return clients;
+        return _listClients;
     }
 
-    public static Client getDataClient(String id) {
 
-        return null;
+    //=====
+    public static boolean addClient(Client client) {
+        _listClients.add(client);
+
+        return true;
     }
 
-    public void saveClient (final Context c, Client client){
 
-        Call<Client> call = apiInterface.saveClient(client);
+    //=====
+    public static boolean modifyClient(Client client) {
 
-        call.enqueue(new Callback<Client>() {
-            @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
-                if(response.isSuccessful()) {
-                    Log.i("Client Control", "Client saved");
-                    Toast.makeText(c, "Client saved", Toast.LENGTH_SHORT);
-                }
+        for (int i = 0; i < _listClients.size(); i++) {
+
+            if (client.get_id() == _listClients.get(i).get_id()){
+                _listClients.get(i).set_name(client.get_name());
+                _listClients.get(i).set_age(client.get_age());
+                _listClients.get(i).set_eMail(client.get_eMail());
+                _listClients.get(i).set_phoneNumber(client.get_phoneNumber());
+                _listClients.get(i).set_height(client.get_height());
+                _listClients.get(i).set_weight(client.get_weight());
+                _listClients.get(i).set_bodyFatPercentage(client.get_bodyFatPercentage());
+                _listClients.get(i).set_idClientGoal(client.get_idClientGoal());
+                _listClients.get(i).set_tdee(client.get_tdee());
+
+                return true;
             }
-
-            @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-                Log.e("Client Control", "Error - Client not saved");
-            }
-        });
+        }
+        return false;
     }
 
-    public void deleteClient (final Context c, Client client) {
 
-        Call<Client> call = apiInterface.deleteClient(client.get_id());
+    //=====
+    public static boolean removeClient(Client client) {
 
-        call.enqueue(new Callback<Client>() {
-            @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
-                Log.i("Client Control", "Client deleted");
-                Toast.makeText(c, "Client deleted", Toast.LENGTH_SHORT);
+        for (int i = 0; i < _listClients.size(); i++) {
+
+            if (client.get_id() == _listClients.get(i).get_id()){
+                _listClients.remove(i);
+
+                return true;
             }
-
-            @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-                Log.e("Client Control", "Error - Client not deleted");
-            }
-        });
-
-    }
-
-    public void editClient (final Context c, Client client) {
-
-        Call<Client> call = apiInterface.editClient(client.get_id(), client);
-
-        call.enqueue(new Callback<Client>() {
-            @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
-                Log.i("Client Control", "Client edited");
-                Toast.makeText(c, "Client edited", Toast.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-                Log.e("Client Control", "Error - Client not edited");
-            }
-        });
+        }
+        return false;
     }
 }

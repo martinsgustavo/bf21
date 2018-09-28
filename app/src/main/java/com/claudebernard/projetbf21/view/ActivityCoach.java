@@ -18,23 +18,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
-
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
-import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
 
-public class FoodActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Coach _coach;
     private Activity _activity;
     private Context _context;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_coach);
         _activity = this;
         _context = this;
 
@@ -49,17 +48,17 @@ public class FoodActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FloatingActionButton _fabAddFood = (FloatingActionButton) findViewById(R.id.btn_add_food);
-        _fabAddFood.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton _fabAddClient = (FloatingActionButton) findViewById(R.id.btn_add_coach);
+        _fabAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFood dialogFood = new DialogFood(_activity, "add", null);
-                dialogFood.show();
+                DialogCoach dialogCoach = new DialogCoach(_activity, "add", null);
+                dialogCoach.show();
             }
         });
 
         definitionsMenu();
-        loadGridFoods();
+        loadGridCoaches();
     }
 
 
@@ -80,26 +79,11 @@ public class FoodActivity extends AppCompatActivity implements NavigationView.On
 
 
     //=====
-    public void loadGridFoods(){
+    public void loadGridCoaches(){
 
-        GridView _gv = (GridView) findViewById(R.id._gridFoods);
-        AdapterCardFood _adapter = new AdapterCardFood(_activity, _context, FoodControl.getDataFoods());
+        GridView _gv = (GridView) findViewById(R.id._gridCoachs);
+        AdapterCardCoach _adapter = new AdapterCardCoach(_activity, _context, CoachControl.getDataCoaches());
         _gv.setAdapter(_adapter);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.search_view, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        if ( searchManager != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        }
-        searchView.setIconifiedByDefault(false);
-
-        return true;
     }
 
     //=====
@@ -125,26 +109,21 @@ public class FoodActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_client) {
 
-            intent = new Intent(_context, ClientActivity.class);
+            intent = new Intent(_context, ActivityClient.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_food) {
 
-            intent = new Intent(_context, FoodActivity.class);
+            intent = new Intent(_context, ActivityFood.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_coach) {
 
-            intent = new Intent(_context, CoachActivity.class);
+            intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_faq) {
-
-            DialogFAQ dialogFAQ = new DialogFAQ(_activity);
-            dialogFAQ.show();
-
         } else if (id == R.id.nav_logout) {
-            intent = new Intent(_context, MainActivity.class);
+            intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
 
@@ -155,5 +134,4 @@ public class FoodActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
-
 }

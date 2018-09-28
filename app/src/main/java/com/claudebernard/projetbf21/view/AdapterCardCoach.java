@@ -66,8 +66,8 @@ public class AdapterCardCoach extends BaseAdapter {
         final Coach _coach = (Coach) this.getItem(position);
 
         TextView _name = (TextView) view.findViewById(R.id._info_name);
-        ImageButton _btn_edit = (ImageButton) view.findViewById(R.id._btn_edit);
-        ImageButton _btn_delete = (ImageButton) view.findViewById(R.id._btn_delete);
+//        ImageButton _btn_edit = (ImageButton) view.findViewById(R.id._btn_edit);
+//        ImageButton _btn_delete = (ImageButton) view.findViewById(R.id._btn_delete);
 
         _name.setText(_coach.get_lastName() + "" + _coach.get_firstName());
 
@@ -79,20 +79,20 @@ public class AdapterCardCoach extends BaseAdapter {
             }
         });
 
-        _btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogCoach dialogCoach = new DialogCoach(_activity, "modify", _coach);
-                dialogCoach.show();
-            }
-        });
-
-        _btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        _btn_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogCoach dialogCoach = new DialogCoach(_activity, "modify", _coach);
+//                dialogCoach.show();
+//            }
+//        });
+//
+//        _btn_delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return view;
     }

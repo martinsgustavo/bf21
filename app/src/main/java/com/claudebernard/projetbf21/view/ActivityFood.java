@@ -6,40 +6,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.Menu;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.GridView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.SearchView.OnQueryTextListener;
 
 import com.claudebernard.projetbf21.R;
-import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.control.CoachControl;
+import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
-import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 
-public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Coach  _coach;
+    private Coach _coach;
     private Activity _activity;
     private Context _context;
 
-    //=====
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client);
+        setContentView(R.layout.activity_food);
         _activity = this;
         _context = this;
 
@@ -47,24 +42,24 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(_activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FloatingActionButton _fabAddClient = (FloatingActionButton) findViewById(R.id.btn_add_client);
-        _fabAddClient.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton _fabAddFood = (FloatingActionButton) findViewById(R.id.btn_add_food);
+        _fabAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogClient dialogClient = new DialogClient(_activity, _context,"add", null);
-                dialogClient.show();
+                DialogFood dialogFood = new DialogFood(_activity, "add", null);
+                dialogFood.show();
             }
         });
 
         definitionsMenu();
-        loadGridClients();
+        loadGridFoods();
     }
 
 
@@ -85,26 +80,11 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
 
 
     //=====
-    public void loadGridClients(){
+    public void loadGridFoods(){
 
-        GridView _gv = (GridView) findViewById(R.id._gridClients);
-        AdapterCardClient _adapter = new AdapterCardClient(_activity, _context, ClientControl.getDataClients());
+        GridView _gv = (GridView) findViewById(R.id._gridFoods);
+        AdapterCardFood _adapter = new AdapterCardFood(_activity, _context, FoodControl.getDataFoods());
         _gv.setAdapter(_adapter);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.search_view, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        if ( searchManager != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        }
-        searchView.setIconifiedByDefault(false);
-
-        return true;
     }
 
     //=====
@@ -130,26 +110,21 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
 
         if (id == R.id.nav_client) {
 
-            intent = new Intent(_context, ClientActivity.class);
+            intent = new Intent(_context, ActivityClient.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_food) {
 
-            intent = new Intent(_context, FoodActivity.class);
+            intent = new Intent(_context, ActivityFood.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_coach) {
 
-            intent = new Intent(_context, CoachActivity.class);
+            intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_faq) {
-
-            DialogFAQ dialogFAQ = new DialogFAQ(_activity);
-            dialogFAQ.show();
-
         } else if (id == R.id.nav_logout) {
-            intent = new Intent(_context, MainActivity.class);
+            intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
 
@@ -160,4 +135,5 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
 
         return true;
     }
+
 }

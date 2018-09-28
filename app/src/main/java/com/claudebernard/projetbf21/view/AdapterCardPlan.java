@@ -68,14 +68,13 @@ public class AdapterCardPlan extends BaseAdapter {
         TextView _name = (TextView)  view.findViewById(R.id._info_name);
         TextView _obj  = (TextView)  view.findViewById(R.id._info_objective);
 
-        _name.setText(_client.get_firstName());
-        _obj.setText(_client.get_lastName());
+        _name.setText(_client.get_name());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(_context,PlanActivity.class);
-                String message = String.valueOf(_client.get_lastName()+", "+_client.get_firstName());
+                Intent intent = new Intent(_context,ActivityPlan.class);
+                String message = String.valueOf(_client.get_name());
                 intent.putExtra(EXTRA_MESSAGE_HOME, message);
                 _context.startActivity(intent);
             }

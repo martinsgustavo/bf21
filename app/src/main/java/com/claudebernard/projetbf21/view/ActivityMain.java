@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     private TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
     private EditText  _inputLogin, _inputPassword;

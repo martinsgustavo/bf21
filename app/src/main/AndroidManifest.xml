@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.ActivityMain"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".view.ClientActivity"
+            android:name=".view.ActivityClient"
             android:label="@string/toobar_client"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -37,7 +37,7 @@
         </activity>
 
         <activity
-            android:name=".view.PlanActivity"
+            android:name=".view.ActivityPlan"
             android:label="@string/toobar_monitoring"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -48,7 +48,7 @@
         </activity>
 
         <activity
-            android:name=".view.CoachActivity"
+            android:name=".view.ActivityCoach"
             android:label="@string/toobar_coach"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -59,7 +59,7 @@
         </activity>
 
         <activity
-            android:name=".view.FoodActivity"
+            android:name=".view.ActivityFood"
             android:label="@string/toobar_food"
             android:screenOrientation="landscape">
             <intent-filter>
