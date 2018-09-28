@@ -15,6 +15,8 @@ public class Client {
     @Expose
     private String _name;
 
+    private Character _gender;
+
     @SerializedName("age")
     @Expose
     private Integer _age;
@@ -57,6 +59,10 @@ public class Client {
     public String get_name() { return _name; }
 
     public void set_name(String _name) { this._name = _name; }
+
+    public Character get_gender() { return _gender; }
+
+    public void set_gender(Character _gender) { this._gender = _gender; }
 
     public int get_age() { return _age; }
 
