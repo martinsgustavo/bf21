@@ -22,7 +22,7 @@ import com.claudebernard.projetbf21.model.Client;
 
 import java.util.ArrayList;
 
-public class PlanActivity extends AppCompatActivity
+public class ActivityPlan extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Activity _activity;
@@ -82,8 +82,8 @@ public class PlanActivity extends AppCompatActivity
 
             Client client = new Client();
 
-            client.set_lastName("Nom du Client - ");
-            client.set_firstName(String.valueOf(index+1));
+            client.set_name("Nom du Client - ");
+
 
             clients.add(client);
         }
@@ -100,29 +100,6 @@ public class PlanActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search_view, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -132,26 +109,21 @@ public class PlanActivity extends AppCompatActivity
 
         if (id == R.id.nav_client) {
 
-            intent = new Intent(_context, ClientActivity.class);
+            intent = new Intent(_context, ActivityClient.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_food) {
 
-            intent = new Intent(_context, FoodActivity.class);
+            intent = new Intent(_context, ActivityFood.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_coach) {
 
-            intent = new Intent(_context, CoachActivity.class);
+            intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_faq) {
-
-            DialogFAQ dialogFAQ = new DialogFAQ(_activity);
-            dialogFAQ.show();
-
         } else if (id == R.id.nav_logout) {
-            intent = new Intent(_context, MainActivity.class);
+            intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
 

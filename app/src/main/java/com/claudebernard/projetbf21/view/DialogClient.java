@@ -1,36 +1,42 @@
 package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.model.ClientGoal;
 
 public class DialogClient extends Dialog {
 
     private Activity _activity;
-    private Button _yes, _no;
-    private EditText _firstName, _lastName, _address, _eMail, _phone, _height, _weight, _tdee;
-    private String option;
+    private ImageButton _btn1, _btn2, _btn3;
+    private EditText _nameClient, _ageClient, _eMailClient, _phoneNumberClient, _heightClient, _weightClient, _bodyFatPercentageClient, _idClientGoalClient, _tdeeClient;
+    private TextView _titleCard;
+    private String _option;
+    private int _idClient;
     private Client _client;
-    private Context _c;
+    private Context _context;
+    private boolean _retDialogYesNo;
+
 
     //=====
     public DialogClient(Activity a, Context c, String opt, Client client) {
         super(a);
         this._activity = a;
-        this.option = opt;
+        this._option = opt;
         this._client = client;
-        this._c = c;
+        this._context = c;
     }
 
     //=====
@@ -40,110 +46,307 @@ public class DialogClient extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.dialog_client);
-        loadClientModel();
+        setCanceledOnTouchOutside(false);
 
-        this.setCanceledOnTouchOutside(false);
-        loadButtonYesNo();
-
-        if(option.equals("modify")){
-
-            _firstName.setText(_client.get_name());
-            _lastName.setText(_client.get_name());
-            _address.setText(_client.get_eMail());
-            _eMail.setText(_client.get_eMail());
-            _phone.setText(_client.get_phoneNumber());
-            _height.setText(String.valueOf(_client.get_height()));
-            _weight.setText(String.valueOf(_client.get_weight()));
-            _tdee.setText(_client.get_tdee());
-
-            _yes.setText("Modifier");
-        }
+        loadInfoDialog();
+        loadActionButtons();
     }
 
     //====
-    public void loadClientModel(){
+    public void loadInfoDialog() {
 
-        _firstName = (EditText)findViewById(R.id._inputFirstName);
-        _lastName  = (EditText)findViewById(R.id._inputLastName);
-        _address   = (EditText)findViewById(R.id._inputAddress);
-        _eMail     = (EditText)findViewById(R.id._inputEmail);
-        _phone     = (EditText)findViewById(R.id._inputTelephone);
-        _height    = (EditText)findViewById(R.id._inputHeight);
-        _weight    = (EditText)findViewById(R.id._inputWeight);
-        _tdee      = (EditText)findViewById(R.id._inputTDEE);
+        _titleCard = (TextView) findViewById(R.id._title);
+        _nameClient = (EditText) findViewById(R.id._inputName);
+        _ageClient = (EditText) findViewById(R.id._inputAge);
+        _eMailClient = (EditText) findViewById(R.id._inputEmail);
+        _phoneNumberClient = (EditText) findViewById(R.id._inputPhoneNumber);
+        _heightClient = (EditText) findViewById(R.id._inputHeight);
+        _weightClient = (EditText) findViewById(R.id._inputWeight);
+        _bodyFatPercentageClient = (EditText) findViewById(R.id._inputFatPernc);
+        _idClientGoalClient = (EditText) findViewById(R.id._inputGoal);
+        _tdeeClient = (EditText) findViewById(R.id._inputTDEE);
 
-        _firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _btn1 = (ImageButton) findViewById(R.id._btn_1);
+        _btn2 = (ImageButton) findViewById(R.id._btn_2);
+        _btn3 = (ImageButton) findViewById(R.id._btn_3);
+
+
+        _nameClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _ageClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _eMailClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _eMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _phoneNumberClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _heightClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _height.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _weightClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _weight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _bodyFatPercentageClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _tdee.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _idClientGoalClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        _tdeeClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        if (_option.equals("view")) {
+
+            loadOptionView();
+
+        } else if (_option.equals("add")) {
+
+            loadOptionAdd();
+        }
 
     }
 
     //=====
-    public void loadButtonYesNo(){
-        _yes = (Button) findViewById(R.id.btn_yes);
-        _no  = (Button) findViewById(R.id.btn_no);
+    public void loadActionButtons() {
 
-        _yes.setOnClickListener(new View.OnClickListener() {
+        _btn1.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                if (_option.equals("view")) {
+                    dismiss();
+                }
+            }
+        });
 
-                Client client = new Client();
-                ClientGoal clientGoal = new ClientGoal();
+        _btn2.setOnClickListener(new View.OnClickListener() {
 
-                clientGoal.setIdClientGoal(1);
-                clientGoal.setGoal("TESTE");
+            public void onClick(View v) {
+                if (_option.equals("add")){
+                    dismiss();
 
-                client.set_name(_firstName.getText().toString());
-                client.set_age(18);
-                client.set_eMail(_eMail.getText().toString());
-                client.set_phoneNumber(_phone.getText().toString());
-                client.set_height(Double.parseDouble(_height.getText().toString()));
-                client.set_weight(Double.parseDouble(_weight.getText().toString()));
-                client.set_tdee(_tdee.getText().toString());
-                client.setClientGoal(clientGoal);
+                } else if (_option.equals("view") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityClient.loadGridClients();
+                    }
+                } else if (_option.equals("view") && !validationForm()){
+                    alertForm();
+                }
+            }
+        });
 
-                ClientControl clientControl = new ClientControl();
+        _btn3.setOnClickListener(new View.OnClickListener() {
 
-                clientControl.saveClient(_c, client);
+            public void onClick(View v) {
+                if (_option.equals("add") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityClient.loadGridClients();
+                    }
 
+                } else if (_option.equals("add") && !validationForm()) {
+                    alertForm();
+
+                } else if (_option.equals("view")) {
+                   loadOptionModify();
+                }
+            }
+        });
+    }
+
+
+    //=====
+    public boolean getDataDialog() {
+
+        boolean ret = false;
+
+        Client _client = new Client();
+
+        _client.set_name(_nameClient.getText().toString());
+        _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
+        _client.set_eMail(_eMailClient.getText().toString());
+        _client.set_phoneNumber(_phoneNumberClient.getText().toString());
+        _client.set_height(Double.valueOf(_heightClient.getText().toString()));
+        _client.set_weight(Double.valueOf(_weightClient.getText().toString()));
+        _client.set_bodyFatPercentage(Integer.valueOf(_bodyFatPercentageClient.getText().toString()));
+        _client.set_idClientGoal(Integer.valueOf(_idClientGoalClient.getText().toString()));
+        _client.set_tdee(_tdeeClient.getText().toString());
+
+
+        if (_option.equals("modify")) {
+            _client.set_id(_idClient);
+            ret = ClientControl.modifyClient(_client);
+
+        } else if (_option.equals("add")) {
+            ret = ClientControl.addClient(_client);
+
+        } else {
+            dialogYesNo("Vous êtes sure de supprimer ce client ?");
+
+        }
+
+        return ret;
+    }
+
+
+    //====
+    public void loadOptionView() {
+
+        _idClient = _client.get_id();
+
+        _titleCard.setText("Informations sur le client");
+        _nameClient.setText(_client.get_name());
+        _ageClient.setText(String.valueOf(_client.get_age()));
+        _eMailClient.setText(_client.get_eMail());
+        _phoneNumberClient.setText(_client.get_phoneNumber());
+        _heightClient.setText(String.valueOf(_client.get_height()));
+        _weightClient.setText(String.valueOf(_client.get_weight()));
+        _bodyFatPercentageClient.setText(String.valueOf(_client.get_bodyFatPercentage()));
+        _idClientGoalClient.setText(String.valueOf(_client.get_idClientGoal()));
+        _tdeeClient.setText(_client.get_tdee());
+
+        _nameClient.setEnabled(false);
+        _ageClient.setEnabled(false);
+        _eMailClient.setEnabled(false);
+        _phoneNumberClient.setEnabled(false);
+        _heightClient.setEnabled(false);
+        _weightClient.setEnabled(false);
+        _bodyFatPercentageClient.setEnabled(false);
+        _idClientGoalClient.setEnabled(false);
+        _tdeeClient.setEnabled(false);
+    }
+
+
+    //====
+    public void loadOptionAdd() {
+
+        _titleCard.setText("Ajouter - Nouveau client");
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+    }
+
+
+    //====
+    public void loadOptionModify() {
+
+        _titleCard.setText("Modifier - Les informations du client");
+
+        _nameClient.setEnabled(true);
+        _ageClient.setEnabled(true);
+        _eMailClient.setEnabled(true);
+        _phoneNumberClient.setEnabled(true);
+        _heightClient.setEnabled(true);
+        _weightClient.setEnabled(true);
+        _bodyFatPercentageClient.setEnabled(true);
+        _idClientGoalClient.setEnabled(true);
+        _tdeeClient.setEnabled(true);
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+
+        _btn2.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
                 dismiss();
             }
         });
 
-        _no.setOnClickListener(new View.OnClickListener() {
+        _btn3.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                dismiss();
+                _option = "modify";
+
+                if (validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityClient.loadGridClients();
+                    }
+                } else {
+                    alertForm();
+                }
             }
         });
+    }
+
+
+    //=====
+    public boolean dialogYesNo(String message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+
+        builder.setMessage(message).setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _client.set_id(_idClient);
+                _retDialogYesNo = ClientControl.removeClient(_client);
+                dismiss();
+                ActivityClient.loadGridClients();
+            }
+        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _retDialogYesNo = false;
+            }
+        }).create();
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return _retDialogYesNo;
+    }
+
+
+    //=====
+    public boolean validationForm(){
+
+        if (!_nameClient.getText().toString().equals("")){
+            if (!_ageClient.getText().toString().equals("")){
+                if (!_eMailClient.getText().toString().equals("")){
+                    if (!_phoneNumberClient.getText().toString().equals("")){
+                        if (!_heightClient.getText().toString().equals("")){
+                            if (!_weightClient.getText().toString().equals("")){
+                                if (!_bodyFatPercentageClient.getText().toString().equals("")){
+                                    if (!_idClientGoalClient.getText().toString().equals("")){
+                                        if (!_tdeeClient.getText().toString().equals("")){
+
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    //=====
+    public void alertForm(){
+        AlertDialog alertDialog = new AlertDialog.Builder(_context).create();
+        alertDialog.setTitle("Alerte !");
+        alertDialog.setMessage("Tous les champs doivent être remplis.");
+
+        alertDialog.show();
+
     }
 
     //=====

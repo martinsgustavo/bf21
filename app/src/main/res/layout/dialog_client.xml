@@ -13,84 +13,105 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Informations sur le client"
         android:textAlignment="center"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/_inputLastName"
+    <TextView
+        android:id="@+id/_titleName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto"
-        android:hint="Nom"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:fontFamily="@font/roboto_bold"
+        android:text="Nom"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/_inputFirstName"
+        android:id="@+id/_inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Prénom"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titleAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Âge"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
+
 
     <EditText
-        android:id="@+id/_inputAddress"
+        android:id="@+id/_inputAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Adresse"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="number"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/_titleEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Courriel"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/_inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="E-mail"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titlePhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Téléphone"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/_inputTelephone"
+        android:id="@+id/_inputPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Téléphone"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="phone"
+        android:maxLines="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,72 +119,181 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/_inputHeight"
-            android:layout_width="70dp"
+        <LinearLayout
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Taille"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/_inputWeight"
-            android:layout_width="70dp"
+            <TextView
+                android:id="@+id/_titleHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Taille"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:textSize="20sp"
+                android:inputType="numberDecimal"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Poids"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Poids"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:textSize="20sp"
+                android:inputType="numberDecimal"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleFatPernc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Taux de graisse"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputFatPernc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="number"
+                android:maxLines="1"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/_inputTDEE"
-        android:layout_width="100dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto"
-        android:hint="TDEE"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Objectif"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/_inputGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleTDEE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="TDEE"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputTDEE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionDone"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_no"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@color/divider"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Annuler"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/_btn_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_cancel" />
 
-        <Button
-            android:id="@+id/btn_yes"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorAccent"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="+ Ajouter"
-            android:textColor="@color/secondary_text"
-            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/_btn_2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_trash" />
+
+        <ImageButton
+            android:id="@+id/_btn_3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_edit" />
 
     </LinearLayout>
 

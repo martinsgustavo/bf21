@@ -20,7 +20,7 @@ import java.util.List;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     private TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
     private EditText  _inputLogin, _inputPassword;
