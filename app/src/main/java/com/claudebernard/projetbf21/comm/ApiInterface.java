@@ -16,7 +16,7 @@ public interface ApiInterface {
     //LOGIN
 
     @GET("/login/json?")
-    Call<ResponseServer> login();
+    Call<ResponseServer> login(@Path("login") String login);
 
 
     //COACH

@@ -23,6 +23,8 @@ import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
 
+import java.util.ArrayList;
+
 public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Coach _coach;
@@ -66,9 +68,11 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
-        _coach = CoachControl.getDataCoach(_login);
+        CoachControl coachControl = new CoachControl();
+
+        _coach = coachControl.getData(_id);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
@@ -81,8 +85,10 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     //=====
     public void loadGridCoaches(){
 
+        CoachControl coachControl = new CoachControl();
+
         GridView _gv = (GridView) findViewById(R.id._gridCoachs);
-        AdapterCardCoach _adapter = new AdapterCardCoach(_activity, _context, CoachControl.getDataCoaches());
+        AdapterCardCoach _adapter = new AdapterCardCoach(_activity, _context, new ArrayList<Coach>(coachControl.getDataAll()));
         _gv.setAdapter(_adapter);
     }
 
