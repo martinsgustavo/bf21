@@ -1,32 +1,42 @@
 package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
+import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.model.Food;
 
 public class DialogFood extends Dialog {
 
     private Activity _activity;
-    private Button _yes, _no;
-    private EditText _name, _portion, _calorie, _protein, _lipids, _glycides, _fibre, _glycemicIndex;
-    private String option;
+    private ImageButton _btn1, _btn2, _btn3;
+    private EditText _nameFood, _brandFood, _portionFood, _calorieFood, _proteinFood, _lipidsFood, _glycidesFood, _fibreFood, _glycemicIndexFood;
+    private TextView _titleCard;
+    private String _option;
     private Food _food;
+    private int _idFood;
+    private Context _context;
+    private boolean _retDialogYesNo;
+
 
     //=====
-    public DialogFood(Activity a, String opt, Food food) {
+    public DialogFood(Activity a, Context c, String opt, Food food) {
         super(a);
         this._activity = a;
-        this.option = opt;
+        this._option = opt;
         this._food = food;
+        this._context = c;
     }
 
     //=====
@@ -36,115 +46,293 @@ public class DialogFood extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.dialog_food);
-        loadFoodModel();
+        setCanceledOnTouchOutside(false);
 
-        this.setCanceledOnTouchOutside(false);
-        loadButtonYesNo();
-
-        if(option.equals("modify") || option.equals("view")){
-
-            _name.setText(_food.get_name());
-//            _portion.setText(_food.get_portion());
-//            _calorie.setText(_food.get_calorie());
-//            _protein.setText(_food.get_protein());
-//            _lipids.setText(_food.get_lipids());
-//            _glycides.setText(_food.get_glycides());
-//            _fibre.setText(_food.get_fibre());
-//            _glycemicIndex.setText(_food.get_glycemicIndex());
-
-            if(option.equals("modify")) {
-
-                _yes.setText("Modifier");
-
-            } else {
-
-                _name.setFocusable(false);
-                _portion.setFocusable(false);
-                _calorie.setFocusable(false);
-                _protein.setFocusable(false);
-                _lipids.setFocusable(false);
-                _glycides.setFocusable(false);
-                _fibre.setFocusable(false);
-                _glycemicIndex.setFocusable(false);
-                _yes.setVisibility(View.GONE);
-                _no.setVisibility(View.GONE);
-
-                LinearLayout _layout_dialog_food = (LinearLayout) findViewById(R.id._layout_dialog_food);
-
-                _layout_dialog_food.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View v) {
-                        dismiss();
-                    }
-                });
-            }
-        }
+        loadInfoDialog();
+        loadActionButtons();
     }
 
     //====
-    public void loadFoodModel(){
+    public void loadInfoDialog() {
 
+        _titleCard = (TextView) findViewById(R.id._title);
+        _nameFood = (EditText) findViewById(R.id._inputName);
+        _brandFood = (EditText) findViewById(R.id._inputBrand);
+        _portionFood = (EditText) findViewById(R.id._inputPortionSize);
+        _calorieFood = (EditText) findViewById(R.id._inputCalorie);
+        _proteinFood = (EditText) findViewById(R.id._inputProteine);
+        _lipidsFood = (EditText) findViewById(R.id._inputLipide);
+        _glycidesFood = (EditText) findViewById(R.id._inputGlucide);
+        _fibreFood = (EditText) findViewById(R.id._inputFibre);
+        _glycemicIndexFood = (EditText) findViewById(R.id._inputIndGlycemique);
 
-        _name          = (EditText)findViewById(R.id._inputName);
-        _portion       = (EditText)findViewById(R.id._inputPortion);
-        _calorie       = (EditText)findViewById(R.id._inputCalorie);
-        _protein       = (EditText)findViewById(R.id._inputProteine);
-        _lipids        = (EditText)findViewById(R.id._inputLipide);
-        _glycides      = (EditText)findViewById(R.id._inputGlucide);
-        _fibre         = (EditText)findViewById(R.id._inputFibre);
-        _glycemicIndex = (EditText)findViewById(R.id._inputIndGlycemique);
+        _btn1 = (ImageButton) findViewById(R.id._btn_1);
+        _btn2 = (ImageButton) findViewById(R.id._btn_2);
+        _btn3 = (ImageButton) findViewById(R.id._btn_3);
 
-        _name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _nameFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _portion.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _brandFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _calorie.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _portionFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _protein.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _calorieFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _lipids.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _proteinFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _glycides.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _lipidsFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _fibre.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _glycidesFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _glycemicIndex.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _fibreFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        _glycemicIndexFood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        if (_option.equals("view")) {
+
+            loadOptionView();
+
+        } else if (_option.equals("add")) {
+
+            loadOptionAdd();
+        }
+
     }
 
     //=====
-    public void loadButtonYesNo(){
-        _yes = (Button) findViewById(R.id.btn_yes);
-        _no  = (Button) findViewById(R.id.btn_no);
+    public void loadActionButtons() {
 
-        _yes.setOnClickListener(new View.OnClickListener() {
+        _btn1.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                if (_option.equals("view")) {
+                    dismiss();
+                }
+            }
+        });
+
+        _btn2.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                if (_option.equals("add")){
+                    dismiss();
+
+                } else if (_option.equals("view") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityFood.loadGridFoods();
+                    }
+                } else if (_option.equals("view") && !validationForm()){
+                    alertForm();
+                }
+            }
+        });
+
+        _btn3.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                if (_option.equals("add") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityFood.loadGridFoods();
+                    }
+
+                } else if (_option.equals("add") && !validationForm()) {
+                    alertForm();
+
+                } else if (_option.equals("view")) {
+                    loadOptionModify();
+                }
+            }
+        });
+    }
+
+
+    //=====
+    public boolean getDataDialog() {
+
+        boolean ret = false;
+
+        Food _food = new Food();
+
+        _food.set_name(_nameFood.getText().toString());
+        _food.set_brand(_brandFood.getText().toString());
+        _food.set_portionSize(_portionFood.getText().toString());
+
+
+        if (_option.equals("modify")) {
+            _food.set_id(_idFood);
+            ret = FoodControl.modifyFood(_food);
+
+        } else if (_option.equals("add")) {
+            ret = FoodControl.addFood(_food);
+
+        } else {
+            dialogYesNo("Vous êtes sure de supprimer ce Aliment ?");
+
+        }
+
+        return ret;
+    }
+
+
+    //====
+    public void loadOptionView() {
+
+        _idFood = _food.get_id();
+
+        _titleCard.setText("Informations sur l aliment");
+        _nameFood.setText(_food.get_name());
+        _brandFood.setText(_food.get_brand());
+        _portionFood.setText(_food.get_portionSize());
+
+        _nameFood.setEnabled(false);
+        _brandFood.setEnabled(false);
+        _portionFood.setEnabled(false);
+        _calorieFood.setEnabled(false);
+        _proteinFood.setEnabled(false);
+        _lipidsFood.setEnabled(false);
+        _glycidesFood.setEnabled(false);
+        _fibreFood.setEnabled(false);
+        _glycemicIndexFood.setEnabled(false);
+    }
+
+
+    //====
+    public void loadOptionAdd() {
+
+        _titleCard.setText("Ajouter - Nouveau Aliment");
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+    }
+
+
+    //====
+    public void loadOptionModify() {
+
+        _titleCard.setText("Modifier - Les informations d aliment");
+
+        _nameFood.setEnabled(true);
+        _brandFood.setEnabled(true);
+        _portionFood.setEnabled(true);
+        _calorieFood.setEnabled(true);
+        _proteinFood.setEnabled(true);
+        _lipidsFood.setEnabled(true);
+        _glycidesFood.setEnabled(true);
+        _fibreFood.setEnabled(true);
+        _glycemicIndexFood.setEnabled(true);
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+
+        _btn2.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 dismiss();
             }
         });
 
-        _no.setOnClickListener(new View.OnClickListener() {
+        _btn3.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                dismiss();
+                _option = "modify";
+
+                if (validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityFood.loadGridFoods();
+                    }
+                } else {
+                    alertForm();
+                }
             }
         });
+    }
+
+
+    //=====
+    public boolean dialogYesNo(String message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+
+        builder.setMessage(message).setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _food.set_id(_idFood);
+                _retDialogYesNo = FoodControl.removeFood(_food);
+                dismiss();
+                ActivityFood.loadGridFoods();
+            }
+        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _retDialogYesNo = false;
+            }
+        }).create();
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return _retDialogYesNo;
+    }
+
+
+    //=====
+    public boolean validationForm(){
+
+        if (!_nameFood.getText().toString().equals("")){
+            if (!_brandFood.getText().toString().equals("")){
+                if (!_portionFood.getText().toString().equals("")){
+                    if (!_calorieFood.getText().toString().equals("")){
+                        if (!_proteinFood.getText().toString().equals("")){
+                            if (!_lipidsFood.getText().toString().equals("")){
+                                if (!_glycidesFood.getText().toString().equals("")){
+                                    if (!_fibreFood.getText().toString().equals("")){
+                                        if (!_glycemicIndexFood.getText().toString().equals("")){
+
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    //=====
+    public void alertForm(){
+        AlertDialog alertDialog = new AlertDialog.Builder(_context).create();
+        alertDialog.setTitle("Alerte !");
+        alertDialog.setMessage("Tous les champs doivent être remplis.");
+
+        alertDialog.show();
     }
 
     //=====

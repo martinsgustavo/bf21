@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/_layout_dialog_food"
     android:layout_width="450dp"
-    android:layout_height="450dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical|center_horizontal"
     android:focusableInTouchMode="true"
     android:isScrollContainer="true"
@@ -14,147 +13,310 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Informations sur le produit alimentaire"
         android:textAlignment="center"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/_titleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Nom d'aliment"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/_inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Nom d'aliment"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titleBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Marque"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/_inputPortion"
+        android:id="@+id/_inputBrand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
-        android:hint="Portion"
+        android:imeOptions="actionNext"
         android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/_titlePortionSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:fontFamily="@font/roboto_bold"
+        android:text="Taille des portions"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
-        <EditText
-            android:id="@+id/_inputCalorie"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Calories"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-
-        <EditText
-            android:id="@+id/_inputProteine"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Protéines"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-
-        <EditText
-            android:id="@+id/_inputLipide"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Lipides"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/_inputGlucide"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Glucides"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-
-        <EditText
-            android:id="@+id/_inputFibre"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Fribes"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-
-        <EditText
-            android:id="@+id/_inputIndGlycemique"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/roboto"
-            android:hint="Indice Glycémique"
-            android:textSize="20sp"
-            android:imeOptions="actionDone"/>
-    </LinearLayout>
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/_inputPortionSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="30dp"
+        android:fontFamily="@font/roboto"
+        android:imeOptions="actionNext"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_no"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@color/divider"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Annuler"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_yes"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorAccent"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="+ Ajouter"
-            android:textColor="@color/secondary_text"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/_titleCalorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Calories"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputCalorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleProteine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Protéines"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputProteine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleLipide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Lipides"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputLipide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleGlucide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Glucides"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputGlucide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleFibre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Fribes"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputFibre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleIndGlycemique"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Indice Glycémique"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputIndGlycemique"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/_btn_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_cancel" />
+
+        <ImageButton
+            android:id="@+id/_btn_2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_trash" />
+
+        <ImageButton
+            android:id="@+id/_btn_3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_edit" />
 
     </LinearLayout>
 
