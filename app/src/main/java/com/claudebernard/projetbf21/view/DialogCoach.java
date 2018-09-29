@@ -1,32 +1,41 @@
 package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
+import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.model.Coach;
 
 public class DialogCoach extends Dialog {
 
     private Activity _activity;
-    private Button _yes, _no;
-    private EditText _firstName, _lastName, _address, _eMail, _phone;
-    private String option;
+    private ImageButton _btn1, _btn2, _btn3;
+    private EditText _nameCoach, _eMailCoach, _phoneCoach, _loginCoach, _passwordCoach;
+    private TextView _titleCard;
+    private String _option;
+    private int _idCoach;
     private Coach _coach;
+    private Context _context;
+    private boolean _retDialogYesNo;
 
     //=====
-    public DialogCoach(Activity a, String opt, Coach coach) {
+    public DialogCoach(Activity a, Context c, String opt, Coach coach) {
         super(a);
         this._activity = a;
-        this.option = opt;
+        this._option = opt;
         this._coach = coach;
+        this._context = c;
     }
 
     //=====
@@ -36,94 +45,261 @@ public class DialogCoach extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.dialog_coach);
-        loadClientModel();
+        setCanceledOnTouchOutside(false);
 
-        this.setCanceledOnTouchOutside(false);
-        loadButtonYesNo();
+        loadInfoDialog();
+        loadActionButtons();
+    }
 
-        if(option.equals("modify") || option.equals("view")){
+    public void loadInfoDialog() {
 
-            _firstName.setText(_coach.get_firstName());
-            _lastName.setText(_coach.get_lastName());
-            _address.setText(_coach.get_address());
-            _eMail.setText(_coach.get_eMail());
-            _phone.setText(_coach.get_phone());
+        _titleCard = (TextView) findViewById(R.id._title);
+        _nameCoach = (EditText) findViewById(R.id._inputName);
+        _eMailCoach = (EditText) findViewById(R.id._inputEmail);
+        _phoneCoach = (EditText) findViewById(R.id._inputPhoneNumber);
+        _loginCoach = (EditText) findViewById(R.id._inputLogin);
+        _passwordCoach = (EditText) findViewById(R.id._inputPassword);
 
-            if(option.equals("modify")) {
+        _btn1 = (ImageButton) findViewById(R.id._btn_1);
+        _btn2 = (ImageButton) findViewById(R.id._btn_2);
+        _btn3 = (ImageButton) findViewById(R.id._btn_3);
 
-                _yes.setText("Modifier");
 
-            } else {
-                _firstName.setFocusable(false);
-                _lastName.setFocusable(false);
-                _address.setFocusable(false);
-                _eMail.setFocusable(false);
-                _phone.setFocusable(false);
-                _yes.setVisibility(View.GONE);
-                _no.setVisibility(View.GONE);
+        _nameCoach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-                LinearLayout _layout_dialog_coach = (LinearLayout) findViewById(R.id._layout_dialog_coach);
+        _eMailCoach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-                _layout_dialog_coach.setOnClickListener(new View.OnClickListener() {
+        _phoneCoach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-                    public void onClick(View v) {
-                        dismiss();
-                    }
-                });
-            }
+        _loginCoach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        _passwordCoach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+
+        if (_option.equals("view")) {
+
+            loadOptionView();
+
+        } else if (_option.equals("add")) {
+
+            loadOptionAdd();
         }
     }
 
-    //====
-    public void loadClientModel(){
+    //=====
+    public void loadActionButtons() {
 
+        _btn1.setOnClickListener(new View.OnClickListener() {
 
-        _firstName = (EditText)findViewById(R.id._inputFirstName);
-        _lastName  = (EditText)findViewById(R.id._inputLastName);
-        _address   = (EditText)findViewById(R.id._inputAddress);
-        _eMail     = (EditText)findViewById(R.id._inputEmail);
-        _phone     = (EditText)findViewById(R.id._inputTelephone);
+            public void onClick(View v) {
+                if (_option.equals("view")) {
+                    dismiss();
+                }
+            }
+        });
 
+        _btn2.setOnClickListener(new View.OnClickListener() {
 
-        _firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onClick(View v) {
+                if (_option.equals("add")){
+                    dismiss();
 
-        _lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+                } else if (_option.equals("view") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityCoach.loadGridCoaches();
+                    }
+                } else if (_option.equals("view") && !validationForm()){
+                    alertForm();
+                }
+            }
+        });
 
-        _address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+        _btn3.setOnClickListener(new View.OnClickListener() {
 
-        _eMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+            public void onClick(View v) {
+                if (_option.equals("add") && validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityCoach.loadGridCoaches();
+                    }
 
-        _phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v);} }});
+                } else if (_option.equals("add") && !validationForm()) {
+                    alertForm();
+
+                } else if (_option.equals("view")) {
+                    loadOptionModify();
+                }
+            }
+        });
     }
 
+
     //=====
-    public void loadButtonYesNo(){
-        _yes = (Button) findViewById(R.id.btn_yes);
-        _no  = (Button) findViewById(R.id.btn_no);
+    public boolean getDataDialog() {
 
-        _yes.setOnClickListener(new View.OnClickListener() {
+        boolean ret = false;
+
+        Coach _coach = new Coach();
+
+        _coach.set_name(_nameCoach.getText().toString());
+        _coach.set_eMail(_eMailCoach.getText().toString());
+        _coach.set_phone(_phoneCoach.getText().toString());
+        _coach.set_login(_loginCoach.getText().toString());
+        _coach.set_password(_passwordCoach.getText().toString());
+
+
+        if (_option.equals("modify")) {
+            _coach.set_id(_idCoach);
+            ret = CoachControl.modifyCoach(_coach);
+
+        } else if (_option.equals("add")) {
+            ret = CoachControl.addCoach(_coach);
+
+        } else {
+            dialogYesNo("Vous êtes sure de supprimer ce coach ?");
+
+        }
+
+        return ret;
+    }
+
+
+    //====
+    public void loadOptionView() {
+
+        _idCoach = _coach.get_id();
+
+        _titleCard.setText("Informations sur le coach");
+        _nameCoach.setText(_coach.get_name());
+        _eMailCoach.setText(_coach.get_eMail());
+        _phoneCoach.setText(_coach.get_phone());
+        _loginCoach.setText(_coach.get_login());
+        _passwordCoach.setText(_coach.get_password());
+
+        _nameCoach.setEnabled(false);
+        _eMailCoach.setEnabled(false);
+        _phoneCoach.setEnabled(false);
+        _loginCoach.setEnabled(false);
+        _passwordCoach.setEnabled(false);
+    }
+
+
+    //====
+    public void loadOptionAdd() {
+
+        _titleCard.setText("Ajouter - Nouveau Coach");
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+    }
+
+
+    //====
+    public void loadOptionModify() {
+
+        _titleCard.setText("Modifier - Les informations du coach");
+
+        _nameCoach.setEnabled(true);
+        _eMailCoach.setEnabled(true);
+        _phoneCoach.setEnabled(true);
+        _loginCoach.setEnabled(true);
+        _passwordCoach.setEnabled(true);
+
+        _btn1.setVisibility(View.GONE);
+        _btn2.setBackgroundResource(R.drawable.icon_cancel);
+        _btn3.setBackgroundResource(R.drawable.icon_ok);
+
+        _btn2.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 dismiss();
             }
         });
 
-        _no.setOnClickListener(new View.OnClickListener() {
+        _btn3.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                dismiss();
+                _option = "modify";
+
+                if (validationForm()) {
+                    if (getDataDialog()) {
+                        dismiss();
+                        ActivityCoach.loadGridCoaches();
+                    }
+                } else {
+                    alertForm();
+                }
             }
         });
+    }
+
+
+    //=====
+    public boolean dialogYesNo(String message) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+
+        builder.setMessage(message).setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _coach.set_id(_idCoach);
+                _retDialogYesNo = CoachControl.removeCoach(_coach);
+                dismiss();
+                ActivityCoach.loadGridCoaches();
+            }
+        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _retDialogYesNo = false;
+            }
+        }).create();
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+        return _retDialogYesNo;
+    }
+
+
+    //=====
+    public boolean validationForm(){
+
+        if (!_nameCoach.getText().toString().equals("")){
+            if (!_eMailCoach.getText().toString().equals("")){
+                if (!_phoneCoach.getText().toString().equals("")){
+                    if (!_loginCoach.getText().toString().equals("")){
+                        if (!_passwordCoach.getText().toString().equals("")){
+
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    //=====
+    public void alertForm(){
+        AlertDialog alertDialog = new AlertDialog.Builder(_context).create();
+        alertDialog.setTitle("Alerte !");
+        alertDialog.setMessage("Tous les champs doivent être remplis.");
+
+        alertDialog.show();
+
     }
 
     //=====

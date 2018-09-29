@@ -22,8 +22,7 @@ import com.claudebernard.projetbf21.model.Client;
 
 import java.util.ArrayList;
 
-public class ActivityPlan extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityPlan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Activity _activity;
     private Context _context;

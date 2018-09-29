@@ -17,7 +17,7 @@ public class FoodControl {
             Food food = new Food();
 
             food.set_name("Food - ");
-            food.set_portion(String.valueOf(index+1));
+            //food.set_portion(String.valueOf(index+1));
 
             foods.add(food);
         }

@@ -27,7 +27,6 @@ import com.claudebernard.projetbf21.model.Coach;
 
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Coach _coach;
     private Activity _activity;
     private Context _context;
 
@@ -69,13 +68,11 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
         Intent _intent = getIntent();
         String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
 
-        _coach = CoachControl.getDataCoach(_login);
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(_coach.get_lastName()+", "+_coach.get_firstName());
+        _namePersonal.setText(CoachControl.getNameCoach(_login));
     }
 
 

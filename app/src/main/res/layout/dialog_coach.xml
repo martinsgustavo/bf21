@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/_layout_dialog_coach"
     android:layout_width="450dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical|center_horizontal"
@@ -14,115 +13,158 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Informations sur l'entraîneur"
         android:textAlignment="center"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/_inputLastName"
+    <TextView
+        android:id="@+id/_titleName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto"
-        android:hint="Nom"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
-        android:imeOptions="actionDone"
-        android:inputType="text" />
+        android:fontFamily="@font/roboto_bold"
+        android:text="Nom"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/_inputFirstName"
+        android:id="@+id/_inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Prénom"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
 
-    <EditText
-        android:id="@+id/_inputAddress"
+    <TextView
+        android:id="@+id/_titleEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto"
-        android:hint="Adresse"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:fontFamily="@font/roboto_bold"
+        android:text="Courriel"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/_inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="E-mail"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titlePhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Téléphone"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/_inputTelephone"
+        android:id="@+id/_inputPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
-        android:hint="Téléphone"
+        android:imeOptions="actionNext"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:typeface="normal"
-        android:imeOptions="actionDone"/>
+        android:inputType="phone"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Login"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/_inputLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto"
+        android:imeOptions="actionNext"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/_titlePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Mot de passe"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/_inputPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/roboto"
+        android:padding="5dp"
+        android:shadowRadius="@android:integer/config_mediumAnimTime"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:maxLines="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_no"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@color/divider"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Annuler"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/_btn_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_cancel" />
 
-        <Button
-            android:id="@+id/btn_yes"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorAccent"
-            android:clickable="true"
-            android:fontFamily="@font/roboto_bold"
-            android:text="+ Ajouter"
-            android:textColor="@color/secondary_text"
-            android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/_btn_2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_trash" />
+
+        <ImageButton
+            android:id="@+id/_btn_3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="85dp"
+            android:background="@drawable/icon_edit" />
 
     </LinearLayout>
 

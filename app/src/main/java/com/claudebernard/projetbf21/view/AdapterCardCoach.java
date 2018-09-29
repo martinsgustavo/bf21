@@ -2,12 +2,10 @@ package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
@@ -59,40 +57,22 @@ public class AdapterCardCoach extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
+        final Coach _coach = (Coach) this.getItem(position);
+
         if (view == null) {
             view = LayoutInflater.from(_context).inflate(R.layout.card_list_all, viewGroup, false);
         }
 
-        final Coach _coach = (Coach) this.getItem(position);
-
-        TextView _name = (TextView) view.findViewById(R.id._info_name);
-//        ImageButton _btn_edit = (ImageButton) view.findViewById(R.id._btn_edit);
-//        ImageButton _btn_delete = (ImageButton) view.findViewById(R.id._btn_delete);
-
-        _name.setText(_coach.get_lastName() + "" + _coach.get_firstName());
+        TextView _inputName = (TextView) view.findViewById(R.id._info_name);
+        _inputName.setText(_coach.get_name());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogCoach dialogCoach = new DialogCoach(_activity, "view", _coach);
+                DialogCoach dialogCoach = new DialogCoach(_activity, _context,"view", _coach);
                 dialogCoach.show();
             }
         });
-
-//        _btn_edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DialogCoach dialogCoach = new DialogCoach(_activity, "modify", _coach);
-//                dialogCoach.show();
-//            }
-//        });
-//
-//        _btn_delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 
         return view;
     }

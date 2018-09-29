@@ -68,7 +68,7 @@ public class AdapterCardFood  extends BaseAdapter {
 //        ImageButton _btn_edit   = (ImageButton)  view.findViewById(R.id._btn_edit);
 //        ImageButton _btn_delete = (ImageButton)  view.findViewById(R.id._btn_delete);
 
-        _name.setText(_food.get_name()+""+_food.get_portion());
+        //_name.setText(_food.get_name()+""+_food.get_portion());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
