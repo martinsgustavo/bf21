@@ -19,17 +19,20 @@ public class PlanControl implements GenericControl<Plan>{
     }
 
     @Override
-    public void saveData(Context c, Plan object) {
+    public boolean saveData(Plan object) {
 
+        return false;
     }
 
     @Override
-    public void editData(Context c, Plan object) {
+    public boolean editData(Plan object) {
 
+        return false;
     }
 
     @Override
-    public void deleteData(Context c, Plan object) {
+    public boolean deleteData(Plan object) {
 
+        return false;
     }
 }

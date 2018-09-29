@@ -43,9 +43,9 @@ public class DialogCoach extends Dialog {
 
         if(option.equals("modify") || option.equals("view")){
 
-            _firstName.setText(_coach.get_firstName());
-            _lastName.setText(_coach.get_lastName());
-            _address.setText(_coach.get_address());
+            _firstName.setText(_coach.getName());
+            _lastName.setText(_coach.getName());
+//            _address.setText(_coach.get_address());
             _eMail.setText(_coach.get_eMail());
             _phone.setText(_coach.get_phone());
 

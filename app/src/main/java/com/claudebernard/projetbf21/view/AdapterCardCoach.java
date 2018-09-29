@@ -69,7 +69,7 @@ public class AdapterCardCoach extends BaseAdapter {
 //        ImageButton _btn_edit = (ImageButton) view.findViewById(R.id._btn_edit);
 //        ImageButton _btn_delete = (ImageButton) view.findViewById(R.id._btn_delete);
 
-        _name.setText(_coach.get_lastName() + "" + _coach.get_firstName());
+        _name.setText(_coach.getName());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

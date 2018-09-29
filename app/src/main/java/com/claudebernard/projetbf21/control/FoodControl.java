@@ -31,17 +31,20 @@ public class FoodControl implements GenericControl<Food> {
     }
 
     @Override
-    public void saveData(Context c, Food object) {
+    public boolean saveData(Food object) {
 
+        return false;
     }
 
     @Override
-    public void editData(Context c, Food object) {
+    public boolean editData(Food object) {
 
+        return false;
     }
 
     @Override
-    public void deleteData(Context c, Food object) {
+    public boolean deleteData(Food object) {
 
+        return false;
     }
 }

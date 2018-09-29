@@ -74,18 +74,21 @@ public class ClientControl implements GenericControl<Client> {
     }
 
     @Override
-    public void saveData(Context c, Client object) {
+    public boolean saveData(Client object) {
 
+        return false;
     }
 
     @Override
-    public void editData(Context c, Client object) {
+    public boolean editData(Client object) {
 
+        return false;
     }
 
     @Override
-    public void deleteData(Context c, Client object) {
+    public boolean deleteData(Client object) {
 
+        return false;
     }
 
 //    public void saveClient (final Context c, Client client){

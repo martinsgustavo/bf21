@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.model.Client;
+import com.claudebernard.projetbf21.model.ClientGoal;
 
 public class DialogClient extends Dialog {
 
@@ -172,7 +173,12 @@ public class DialogClient extends Dialog {
 
         boolean ret = false;
 
+        ClientControl clientControl = new ClientControl();
+
         Client _client = new Client();
+        ClientGoal _clientGoal = new ClientGoal();
+
+        _clientGoal.setIdClientGoal(Integer.valueOf(_idClientGoalClient.getText().toString()));
 
         _client.set_name(_nameClient.getText().toString());
         _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
@@ -181,16 +187,16 @@ public class DialogClient extends Dialog {
         _client.set_height(Double.valueOf(_heightClient.getText().toString()));
         _client.set_weight(Double.valueOf(_weightClient.getText().toString()));
         _client.set_bodyFatPercentage(Integer.valueOf(_bodyFatPercentageClient.getText().toString()));
-        _client.set_idClientGoal(Integer.valueOf(_idClientGoalClient.getText().toString()));
+        _client.setClientGoal(_clientGoal);
         _client.set_tdee(_tdeeClient.getText().toString());
 
 
         if (_option.equals("modify")) {
             _client.set_id(_idClient);
-            ret = ClientControl.modifyClient(_client);
+            ret = clientControl.editData(_client);
 
         } else if (_option.equals("add")) {
-            ret = ClientControl.addClient(_client);
+            ret = clientControl.saveData(_client);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce client ?");
@@ -214,7 +220,7 @@ public class DialogClient extends Dialog {
         _heightClient.setText(String.valueOf(_client.get_height()));
         _weightClient.setText(String.valueOf(_client.get_weight()));
         _bodyFatPercentageClient.setText(String.valueOf(_client.get_bodyFatPercentage()));
-        _idClientGoalClient.setText(String.valueOf(_client.get_idClientGoal()));
+        _idClientGoalClient.setText(String.valueOf(_client.getClientGoal().getIdClientGoal()));
         _tdeeClient.setText(_client.get_tdee());
 
         _nameClient.setEnabled(false);
@@ -287,13 +293,15 @@ public class DialogClient extends Dialog {
     //=====
     public boolean dialogYesNo(String message) {
 
+        final ClientControl clientControl = new ClientControl();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(_context);
 
         builder.setMessage(message).setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _client.set_id(_idClient);
-                _retDialogYesNo = ClientControl.removeClient(_client);
+                _retDialogYesNo = clientControl.deleteData(_client);
                 dismiss();
                 ActivityClient.loadGridClients();
             }

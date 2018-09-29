@@ -74,18 +74,21 @@ public class CoachControl implements GenericControl<Coach>{
     }
 
     @Override
-    public void saveData(Context c, Coach object) {
+    public boolean saveData(Coach object) {
 
+        return false;
     }
 
     @Override
-    public void editData(Context c, Coach object) {
+    public boolean editData(Coach object) {
 
+        return false;
     }
 
     @Override
-    public void deleteData(Context c, Coach object) {
+    public boolean deleteData(Coach object) {
 
+        return false;
     }
 
 //    public void saveCoach (final Context c, Coach coach){

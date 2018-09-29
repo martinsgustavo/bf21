@@ -25,6 +25,8 @@ import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
 
+import java.util.ArrayList;
+
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Coach _coach;
@@ -67,23 +69,27 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
-        _coach = CoachControl.getDataCoach(_login);
+        CoachControl coachControl = new CoachControl();
+
+        _coach = coachControl.getData(_id);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(_coach.get_lastName()+", "+_coach.get_firstName());
+        _namePersonal.setText(_coach.getName());
     }
 
 
     //=====
     public void loadGridFoods(){
 
+        FoodControl foodControl = new FoodControl();
+
         GridView _gv = (GridView) findViewById(R.id._gridFoods);
-        AdapterCardFood _adapter = new AdapterCardFood(_activity, _context, FoodControl.getDataFoods());
+        AdapterCardFood _adapter = new AdapterCardFood(_activity, _context, new ArrayList<>(foodControl.getDataAll()));
         _gv.setAdapter(_adapter);
     }
 

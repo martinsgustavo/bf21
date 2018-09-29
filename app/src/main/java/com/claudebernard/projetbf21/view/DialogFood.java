@@ -44,13 +44,13 @@ public class DialogFood extends Dialog {
         if(option.equals("modify") || option.equals("view")){
 
             _name.setText(_food.get_name());
-            _portion.setText(_food.get_portion());
-            _calorie.setText(_food.get_calorie());
-            _protein.setText(_food.get_protein());
-            _lipids.setText(_food.get_lipids());
-            _glycides.setText(_food.get_glycides());
-            _fibre.setText(_food.get_fibre());
-            _glycemicIndex.setText(_food.get_glycemicIndex());
+//            _portion.setText(_food.get_portion());
+//            _calorie.setText(_food.get_calorie());
+//            _protein.setText(_food.get_protein());
+//            _lipids.setText(_food.get_lipids());
+//            _glycides.setText(_food.get_glycides());
+//            _fibre.setText(_food.get_fibre());
+//            _glycemicIndex.setText(_food.get_glycemicIndex());
 
             if(option.equals("modify")) {
 
