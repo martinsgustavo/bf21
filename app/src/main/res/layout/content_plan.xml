@@ -1,16 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.ActivityPlan" >
+    tools:context=".view.ActivityPlan"
+    tools:showIn="@layout/app_bar_plan" >
 
-    <View
+    <TextView
+        android:id="@+id/_spaceNav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <android.support.v7.widget.CardView
         android:id="@+id/_header"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@android:color/holo_blue_dark" />
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/_nameClient"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Claude-Bernard Millen"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/_titleObjClient"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:lines="1"
+                    android:text="Objective :"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/_titleCalJour"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:lines="1"
+                    android:text="Calories par jour :"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/_titleQttJour"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:lines="1"
+                    android:text="Qtée des jours :"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/_namePlan"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:paddingRight="10dp"
+                    android:text="Nom du plan de la semaine 1"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/_objClient"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Perte de poids"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/_caloriesJourClient"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="2000"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="405dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/_titleProteineClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="Protéines : "
+                            android:textAlignment="textStart"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/_proteineClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="155 G./jour"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/_titleLipidesClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="Lipides : "
+                            android:textAlignment="textStart"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/_lipidesClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="59 G./jour"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/_titleGlucideClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="Glucides : "
+                            android:textAlignment="textStart"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/_glucideClient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="116 G./jour"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
     <GridView
         android:id="@+id/_gridPlan"
