@@ -26,7 +26,6 @@ public class CoachControl {
 
 
     //=====
-    //=====
     public static String getNameCoach(String login) {
 
         String ret = "Name Coach";

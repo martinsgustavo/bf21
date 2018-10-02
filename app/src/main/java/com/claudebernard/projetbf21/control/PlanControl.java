@@ -28,6 +28,29 @@ public class PlanControl {
 
 
     //=====
+    public static boolean addPlan(Plan plan) {
+        _listPlans.add(plan);
+
+        return true;
+    }
+
+
+    //=====
+    public static boolean removePlan(Plan plan) {
+
+        for (int i = 0; i < _listPlans.size(); i++) {
+
+            if (plan.get_name().equals(_listPlans.get(i).get_name())){
+                _listPlans.remove(i);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    //=====
     public static void insertData() {
 
         for (int index = 0; index < 42; index++) {

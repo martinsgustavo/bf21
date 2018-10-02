@@ -137,33 +137,34 @@
         android:maxLines="1"/>
 
     <LinearLayout
+        android:id="@+id/_layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="30dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/_btn_1"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_cancel" />
 
         <ImageButton
             android:id="@+id/_btn_2"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_trash" />
 
         <ImageButton
             android:id="@+id/_btn_3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
             android:background="@drawable/icon_edit" />
 
     </LinearLayout>

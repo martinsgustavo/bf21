@@ -118,8 +118,6 @@ public class DialogCoach extends Dialog {
                         dismiss();
                         ActivityCoach.loadGridCoaches();
                     }
-                } else if (_option.equals("view") && !validationForm()){
-                    alertForm();
                 }
             }
         });
@@ -132,9 +130,6 @@ public class DialogCoach extends Dialog {
                         dismiss();
                         ActivityCoach.loadGridCoaches();
                     }
-
-                } else if (_option.equals("add") && !validationForm()) {
-                    alertForm();
 
                 } else if (_option.equals("view")) {
                     loadOptionModify();
@@ -237,8 +232,6 @@ public class DialogCoach extends Dialog {
                         dismiss();
                         ActivityCoach.loadGridCoaches();
                     }
-                } else {
-                    alertForm();
                 }
             }
         });
@@ -275,28 +268,43 @@ public class DialogCoach extends Dialog {
     //=====
     public boolean validationForm(){
 
-        if (!_nameCoach.getText().toString().equals("")){
-            if (!_eMailCoach.getText().toString().equals("")){
-                if (!_phoneCoach.getText().toString().equals("")){
-                    if (!_loginCoach.getText().toString().equals("")){
-                        if (!_passwordCoach.getText().toString().equals("")){
+        String _message;
+
+        if (!_nameCoach.getText().toString().equals("") && _nameCoach.getText().length() < 45){
+            if (!_eMailCoach.getText().toString().equals("") && _eMailCoach.getText().length() < 45){
+                if (!_phoneCoach.getText().toString().equals("") && _phoneCoach.getText().length() < 45){
+                    if (!_loginCoach.getText().toString().equals("") && _loginCoach.getText().length() < 45){
+                        if (!_passwordCoach.getText().toString().equals("") && _passwordCoach.getText().length() < 45){
 
                             return true;
+
+                        } else {
+                            _message = "Le champ Mot de passe doit être remplis et le maximum sont 45 caractères.\n";
                         }
+                    } else {
+                        _message = "Le champ Login doit être remplis et le maximum sont 45 caractères.\n";
                     }
+                } else {
+                    _message = "Le champ Téléphone doit être remplis et le maximum sont 45 caractères.\n";
                 }
+            } else {
+                _message = "Le champ Courriel doit être remplis et le maximum sont 45 caractères.\n";
             }
+        } else {
+            _message = "Le champ Nom doit être remplis et le maximum sont 45 caractères.\n";
         }
+
+        alertForm(_message);
 
         return false;
     }
 
 
     //=====
-    public void alertForm(){
+    public void alertForm(String message){
         AlertDialog alertDialog = new AlertDialog.Builder(_context).create();
         alertDialog.setTitle("Alerte !");
-        alertDialog.setMessage("Tous les champs doivent être remplis.");
+        alertDialog.setMessage(message);
 
         alertDialog.show();
 
