@@ -3,13 +3,13 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FoodNutrients {
+public class FoodNutrient {
 
     @SerializedName("idNutrient")
     @Expose
     private Integer _id;
 
-    @SerializedName("nutrient")
+    @SerializedName("name")
     @Expose
     private String _nutrient;
 
@@ -17,6 +17,12 @@ public class FoodNutrients {
     @Expose
     private Boolean _isMacro;
 
+    @SerializedName("total")
+    @Expose
+    private int _total;
+
+
+    //=====
     public Integer get_id() { return _id; }
 
     public void set_id(Integer _id) { this._id = _id; }
@@ -29,4 +35,11 @@ public class FoodNutrients {
 
     public void set_isMacro(Boolean _isMacro) { this._isMacro = _isMacro; }
 
+    public int get_total() {
+        return _total;
+    }
+
+    public void set_total(int _total) {
+        this._total = _total;
+    }
 }

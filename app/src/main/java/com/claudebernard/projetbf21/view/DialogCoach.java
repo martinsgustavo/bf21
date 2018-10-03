@@ -270,11 +270,11 @@ public class DialogCoach extends Dialog {
 
         String _message;
 
-        if (!_nameCoach.getText().toString().equals("") && _nameCoach.getText().length() < 45){
-            if (!_eMailCoach.getText().toString().equals("") && _eMailCoach.getText().length() < 45){
-                if (!_phoneCoach.getText().toString().equals("") && _phoneCoach.getText().length() < 45){
-                    if (!_loginCoach.getText().toString().equals("") && _loginCoach.getText().length() < 45){
-                        if (!_passwordCoach.getText().toString().equals("") && _passwordCoach.getText().length() < 45){
+        if (!_nameCoach.getText().toString().equals("") && _nameCoach.getText().length() <= 45){
+            if (!_eMailCoach.getText().toString().equals("") && _eMailCoach.getText().length() <= 45){
+                if (!_phoneCoach.getText().toString().equals("") && _phoneCoach.getText().length() <= 45){
+                    if (!_loginCoach.getText().toString().equals("") && _loginCoach.getText().length() <= 45){
+                        if (!_passwordCoach.getText().toString().equals("") && _passwordCoach.getText().length() <= 45){
 
                             return true;
 

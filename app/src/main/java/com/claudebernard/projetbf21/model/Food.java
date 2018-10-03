@@ -3,6 +3,8 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Food {
 
     @SerializedName("")
@@ -21,10 +23,16 @@ public class Food {
     @Expose
     private String _portionSize;
 
+    @SerializedName("")
+    @Expose
+    private ArrayList<FoodNutrient> _listNutrients;
+
+    @SerializedName("")
+    @Expose
+    private ArrayList<FoodMacro> _listMacro;
+
 
     //=====
-
-
     public int get_id() {
         return _id;
     }
@@ -55,5 +63,21 @@ public class Food {
 
     public void set_portionSize(String _portionSize) {
         this._portionSize = _portionSize;
+    }
+
+    public ArrayList<FoodNutrient> get_listNutrients() {
+        return _listNutrients;
+    }
+
+    public void set_listNutrients(ArrayList<FoodNutrient> _listNutrients) {
+        this._listNutrients = _listNutrients;
+    }
+
+    public ArrayList<FoodMacro> get_listMacro() {
+        return _listMacro;
+    }
+
+    public void set_listMacro(ArrayList<FoodMacro> _listMacro) {
+        this._listMacro = _listMacro;
     }
 }

@@ -1,6 +1,5 @@
 package com.claudebernard.projetbf21.control;
 
-import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.Food;
 
 import java.util.ArrayList;
@@ -42,6 +41,8 @@ public class FoodControl {
                 _listFoods.get(i).set_name(food.get_name());
                 _listFoods.get(i).set_brand(food.get_brand());
                 _listFoods.get(i).set_portionSize(food.get_portionSize());
+                _listFoods.get(i).set_listNutrients(food.get_listNutrients());
+                _listFoods.get(i).set_listMacro(food.get_listMacro());
 
                 return true;
             }

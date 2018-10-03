@@ -79,14 +79,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/roboto"
+        android:hint="0gr"
         android:imeOptions="actionNext"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:typeface="normal"
-        android:inputType="text"
-        android:maxLines="1"/>
+        android:typeface="normal" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,68 +98,7 @@
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/_titleCalorie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Calories"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/_inputCalorie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto"
-                android:imeOptions="actionNext"
-                android:padding="5dp"
-                android:shadowRadius="@android:integer/config_mediumAnimTime"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/_titleProteine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Protéines"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/_inputProteine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/roboto"
-                android:imeOptions="actionNext"
-                android:padding="5dp"
-                android:shadowRadius="@android:integer/config_mediumAnimTime"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -175,28 +115,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
+                android:hint="0gr"
                 android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
                 android:padding="5dp"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:typeface="normal" />
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -213,21 +147,53 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
+                android:hint="0gr"
                 android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
                 android:padding="5dp"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:typeface="normal" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleProteine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Protéines"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputProteine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:hint="0gr"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -244,21 +210,125 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
+                android:hint="0gr"
                 android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
                 android:padding="5dp"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleSugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Sucre"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputSugar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:hint="0gr"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleSodium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Sodium"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputSodium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:hint="0gr"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleCholesterol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Cholestérol"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputCholesterol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:hint="0gr"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
             android:orientation="vertical">
 
             <TextView
@@ -275,14 +345,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto"
+                android:hint="0gr"
                 android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
                 android:padding="5dp"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:typeface="normal" />
 
         </LinearLayout>
 
@@ -291,7 +362,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/_cbFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Lipide" />
+
+        <CheckBox
+            android:id="@+id/_cbCarbohydrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Glicide" />
+
+        <CheckBox
+            android:id="@+id/_cbProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Protein" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
@@ -303,20 +406,20 @@
             android:id="@+id/_btn_1"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_cancel" />
 
         <ImageButton
             android:id="@+id/_btn_2"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_trash" />
 
         <ImageButton
             android:id="@+id/_btn_3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
             android:background="@drawable/icon_edit" />
 
     </LinearLayout>
