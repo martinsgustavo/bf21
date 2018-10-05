@@ -1,13 +1,12 @@
 package com.claudebernard.projetbf21.control;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.ResponseServer;
+import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,14 +23,15 @@ public class CoachControl implements GenericControl<Coach>{
     private ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
     private List<Coach> coaches;
     private Coach coach;
+    private boolean isCorrect;
 
     @Override
     public List<Coach> getDataAll() {
-        Call<ResponseServer> call = apiInterface.findAllCoaches();
+        Call<ResponseServerArray> call = apiInterface.findAllCoaches();
 
-        call.enqueue(new Callback<ResponseServer>() {
+        call.enqueue(new Callback<ResponseServerArray>() {
             @Override
-            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+            public void onResponse(Call<ResponseServerArray> call, Response<ResponseServerArray> response) {
                 Log.i("Coach Control", "Success - getDataCoaches");
                 if(response.body().toString() != ""){
                     String string = new Gson().toJson(response.body().getMeta());
@@ -42,7 +42,7 @@ public class CoachControl implements GenericControl<Coach>{
             }
 
             @Override
-            public void onFailure(Call<ResponseServer> call, Throwable t) {
+            public void onFailure(Call<ResponseServerArray> call, Throwable t) {
                 Log.e("Coach Control", "Error - getDataCoaches");
                 coaches = null;
             }
@@ -53,7 +53,10 @@ public class CoachControl implements GenericControl<Coach>{
 
     @Override
     public Coach getData(Integer id) {
-        Call<ResponseServer> call = apiInterface.findCoach(id);
+        StringBuilder sb = new StringBuilder("/coach?idCoach=");
+        sb.append(id);
+
+        Call<ResponseServer> call = apiInterface.findCoach(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
@@ -69,83 +72,69 @@ public class CoachControl implements GenericControl<Coach>{
                 coach = null;
             }
         });
-
         return coach;
     }
 
     @Override
     public boolean saveData(Coach object) {
+        Call<ResponseServer> call = apiInterface.saveCoach(object);
 
-        return false;
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("Coach Control", "Success - saveData");
+                isCorrect = true;
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("Coach Control", "Error - saveData");
+                isCorrect = false;
+            }
+        });
+
+        return isCorrect;
     }
 
     @Override
     public boolean editData(Coach object) {
+        Call<ResponseServer> call = apiInterface.editCoach(object);
 
-        return false;
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("Coach Control", "Success - editData");
+                isCorrect = true;
+            }
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("Coach Control", "Error - editData");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
     }
 
     @Override
     public boolean deleteData(Coach object) {
+        StringBuilder sb = new StringBuilder("/coach?idCoach=");
+        sb.append(object.get_id());
 
-        return false;
+        Call<ResponseServer> call = apiInterface.deleteCoach(sb.toString());
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("Coach Control", "Success - deleteData");
+                isCorrect = true;
+            }
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("Coach Control", "Error - deleteData");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
     }
-
-//    public void saveCoach (final Context c, Coach coach){
-//
-//        Call<Coach> call = apiInterface.saveCoach(coach);
-//
-//        call.enqueue(new Callback<Coach>() {
-//            @Override
-//            public void onResponse(Call<Coach> call, Response<Coach> response) {
-//                if(response.isSuccessful()) {
-//                    Log.i("Coach GenericControl", "Coach saved");
-//                    Toast.makeText(c, "Client saved", Toast.LENGTH_SHORT);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Coach> call, Throwable t) {
-//                Log.e("Coach GenericControl", "Error - Coach not saved");
-//            }
-//        });
-//    }
-//
-//    public void deleteCoach (final Context c, Coach coach) {
-//
-//        Call<Coach> call = apiInterface.deleteCoach(coach.get_id());
-//
-//        call.enqueue(new Callback<Coach>() {
-//            @Override
-//            public void onResponse(Call<Coach> call, Response<Coach> response) {
-//                Log.i("Coach GenericControl", "Coach deleted");
-//                Toast.makeText(c, "Coach deleted", Toast.LENGTH_SHORT);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Coach> call, Throwable t) {
-//                Log.e("Coach GenericControl", "Error - Coach not deleted");
-//            }
-//        });
-//
-//    }
-//
-//    public void editCoach (final Context c, Coach coach) {
-//
-//        Call<Coach> call = apiInterface.editCoach(coach.get_id(), coach);
-//
-//        call.enqueue(new Callback<Coach>() {
-//            @Override
-//            public void onResponse(Call<Coach> call, Response<Coach> response) {
-//                Log.i("Coach GenericControl", "Coach edited");
-//                Toast.makeText(c, "Coach edited", Toast.LENGTH_SHORT);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Coach> call, Throwable t) {
-//                Log.e("Coach GenericControl", "Error - Coach not edited");
-//            }
-//        });
-//    }
 
 }

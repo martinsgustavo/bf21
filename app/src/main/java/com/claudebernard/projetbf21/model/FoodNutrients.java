@@ -9,24 +9,47 @@ public class FoodNutrients {
     @Expose
     private Integer _id;
 
-    @SerializedName("nutrient")
+    @SerializedName("name")
     @Expose
-    private String _nutrient;
+    private String _name;
 
     @SerializedName("isMacro")
     @Expose
     private Boolean _isMacro;
 
-    public Integer get_id() { return _id; }
+    @SerializedName("total")
+    @Expose
+    private Double _total;
 
-    public void set_id(Integer _id) { this._id = _id; }
+    public Integer get_id() {
+        return _id;
+    }
 
-    public String get_nutrient() { return _nutrient; }
+    public void set_id(Integer _id) {
+        this._id = _id;
+    }
 
-    public void set_nutrient(String _nutrient) { this._nutrient = _nutrient; }
+    public String get_name() {
+        return _name;
+    }
 
-    public Boolean get_isMacro() { return _isMacro; }
+    public void set_name(String _name) {
+        this._name = _name;
+    }
 
-    public void set_isMacro(Boolean _isMacro) { this._isMacro = _isMacro; }
+    public Boolean get_isMacro() {
+        return _isMacro;
+    }
 
+    public void set_isMacro(Boolean _isMacro) {
+        this._isMacro = _isMacro;
+    }
+
+    public Double get_total() {
+        return _total;
+    }
+
+    public void set_total(Double _total) {
+        this._total = _total;
+    }
 }

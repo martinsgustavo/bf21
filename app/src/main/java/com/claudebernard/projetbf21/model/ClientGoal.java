@@ -7,10 +7,25 @@ public class ClientGoal {
 
     @SerializedName("idClientGoal")
     @Expose
-    private int idClientGoal;
+    private Integer _idClientGoal;
 
-    public int getIdClientGoal() { return idClientGoal; }
+    @SerializedName("goal")
+    @Expose
+    private String _goal;
 
-    public void setIdClientGoal(int idClientGoal) { this.idClientGoal = idClientGoal; }
+    public Integer get_idClientGoal() {
+        return _idClientGoal;
+    }
 
+    public void set_idClientGoal(Integer _idClientGoal) {
+        this._idClientGoal = _idClientGoal;
+    }
+
+    public String get_goal() {
+        return _goal;
+    }
+
+    public void set_goal(String _goal) {
+        this._goal = _goal;
+    }
 }

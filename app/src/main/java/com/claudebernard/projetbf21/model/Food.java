@@ -7,22 +7,29 @@ import java.util.Date;
 
 public class Food {
 
-    @SerializedName("")
+    @SerializedName("idFood")
     @Expose
     private int _id;
 
-    @SerializedName("")
+    @SerializedName("name")
     @Expose
     private String _name;
 
-    @SerializedName("")
+    @SerializedName("brand")
     @Expose
     private String _brand;
 
-    @SerializedName("")
+    @SerializedName("portionSize")
     @Expose
     private String _portionSize;
 
+    @SerializedName("nutrients")
+    @Expose
+    private FoodNutrients[] foodNutrients;
+
+    @SerializedName("macros")
+    @Expose
+    private FoodMacros[] foodMacros;
 
     //=====
 
@@ -57,5 +64,21 @@ public class Food {
 
     public void set_portionSize(String _portionSize) {
         this._portionSize = _portionSize;
+    }
+
+    public FoodNutrients[] getFoodNutrients() {
+        return foodNutrients;
+    }
+
+    public void setFoodNutrients(FoodNutrients[] foodNutrients) {
+        this.foodNutrients = foodNutrients;
+    }
+
+    public FoodMacros[] getFoodMacros() {
+        return foodMacros;
+    }
+
+    public void setFoodMacros(FoodMacros[] foodMacros) {
+        this.foodMacros = foodMacros;
     }
 }

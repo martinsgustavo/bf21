@@ -13,11 +13,6 @@ public class CaloricCalculation {
     private final double FIXED_NUMBER_STEP2_RANGE3 = 0.90;
     private final double FIXED_NUMBER_STEP2_RANGE4 = 0.85;
 
-    private final double VERY_LIGHT = 1.30;
-    private final double LIGHT = 1.55;
-    private final double MODERATE = 1.65;
-    private final double HEAVY = 1.80;
-
     public Double findBasilMetabolicRate(Client client){
         Double bmr;
         Double step1;
@@ -56,26 +51,7 @@ public class CaloricCalculation {
         return bmr;
     }
 
-    public Double totalDailyCalories (Double bmr, Client client){
-        Double dce;
-
-        switch (client.get_tdee()) {
-            case "Very Light" :
-                dce = bmr * VERY_LIGHT;
-                break;
-            case "Light" :
-                dce = bmr * LIGHT;
-                break;
-            case "Moderate" :
-                dce = bmr * MODERATE;
-                break;
-            case "Heavy" :
-                dce = bmr * HEAVY;
-                break;
-            default :
-                dce = bmr;
-                break;
-        }
-        return dce;
+    public Double totalDailyCalories (Client client){
+        return client.get_bmr() * client.getClientactivityLevel().getTax();
     }
 }
