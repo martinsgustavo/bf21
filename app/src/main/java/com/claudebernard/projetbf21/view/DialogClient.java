@@ -9,21 +9,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.model.ClientGoal;
 
 public class DialogClient extends Dialog {
 
     private Activity _activity;
     private ImageButton _btn1, _btn2, _btn3;
-    private EditText _nameClient, _ageClient, _eMailClient, _phoneNumberClient, _heightClient, _weightClient, _bodyFatPercentageClient, _idClientGoalClient, _tdeeClient;
+    private EditText _nameClient, _ageClient, _eMailClient, _phoneNumberClient, _heightClient, _weightClient, _bodyFatPercentageClient, _tdceClient, _bmrClient;
     private TextView _titleCard;
+    private Spinner _spClientGoal, _spActLevel, _spProteinReq;
     private String _option;
     private int _idClient;
     private Client _client;
@@ -64,13 +66,16 @@ public class DialogClient extends Dialog {
         _heightClient = (EditText) findViewById(R.id._inputHeight);
         _weightClient = (EditText) findViewById(R.id._inputWeight);
         _bodyFatPercentageClient = (EditText) findViewById(R.id._inputFatPernc);
-        _idClientGoalClient = (EditText) findViewById(R.id._inputGoal);
-        _tdeeClient = (EditText) findViewById(R.id._inputTDEE);
+        _tdceClient = (EditText) findViewById(R.id._inputFatPernc);
+        _bmrClient = (EditText) findViewById(R.id._inputFatPernc);
+
+        _spClientGoal = (Spinner) findViewById(R.id._inputSpClientGoal);
+        _spActLevel   = (Spinner) findViewById(R.id._inputSpActLevel);
+        _spProteinReq = (Spinner) findViewById(R.id._inputSpProteinReq);
 
         _btn1 = (ImageButton) findViewById(R.id._btn_1);
         _btn2 = (ImageButton) findViewById(R.id._btn_2);
         _btn3 = (ImageButton) findViewById(R.id._btn_3);
-
 
         _nameClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -100,13 +105,17 @@ public class DialogClient extends Dialog {
             @Override
             public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        _idClientGoalClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+        ArrayAdapter<CharSequence> _adapterClientGoal = ArrayAdapter.createFromResource(_context, R.array.spClientGoal, android.R.layout.simple_spinner_item);
+        _adapterClientGoal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _spClientGoal.setAdapter(_adapterClientGoal);
 
-        _tdeeClient.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
+        ArrayAdapter<CharSequence> _adapterActLevel = ArrayAdapter.createFromResource(_context, R.array.spActLevel, android.R.layout.simple_spinner_item);
+        _adapterActLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _spActLevel.setAdapter(_adapterActLevel);
+
+        ArrayAdapter<CharSequence> _adapterProteinReq = ArrayAdapter.createFromResource(_context, R.array.spProteinReq, android.R.layout.simple_spinner_item);
+        _adapterProteinReq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _spProteinReq.setAdapter(_adapterProteinReq);
 
         if (_option.equals("view")) {
 
@@ -118,6 +127,7 @@ public class DialogClient extends Dialog {
         }
 
     }
+
 
     //=====
     public void loadActionButtons() {
@@ -173,12 +183,7 @@ public class DialogClient extends Dialog {
 
         boolean ret = false;
 
-        ClientControl clientControl = new ClientControl();
-
         Client _client = new Client();
-        ClientGoal _clientGoal = new ClientGoal();
-
-        _clientGoal.setIdClientGoal(Integer.valueOf(_idClientGoalClient.getText().toString()));
 
         _client.set_name(_nameClient.getText().toString());
         _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
@@ -187,16 +192,14 @@ public class DialogClient extends Dialog {
         _client.set_height(Double.valueOf(_heightClient.getText().toString()));
         _client.set_weight(Double.valueOf(_weightClient.getText().toString()));
         _client.set_bodyFatPercentage(Integer.valueOf(_bodyFatPercentageClient.getText().toString()));
-        _client.setClientGoal(_clientGoal);
-        _client.set_tdee(_tdeeClient.getText().toString());
 
 
         if (_option.equals("modify")) {
             _client.set_id(_idClient);
-            ret = clientControl.editData(_client);
+            ret = ClientControl.modifyClient(_client);
 
         } else if (_option.equals("add")) {
-            ret = clientControl.saveData(_client);
+            ret = ClientControl.addClient(_client);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce client ?");
@@ -220,8 +223,8 @@ public class DialogClient extends Dialog {
         _heightClient.setText(String.valueOf(_client.get_height()));
         _weightClient.setText(String.valueOf(_client.get_weight()));
         _bodyFatPercentageClient.setText(String.valueOf(_client.get_bodyFatPercentage()));
-        _idClientGoalClient.setText(String.valueOf(_client.getClientGoal().getIdClientGoal()));
-        _tdeeClient.setText(_client.get_tdee());
+        _tdceClient.setText("X");
+        _bmrClient.setText("X");
 
         _nameClient.setEnabled(false);
         _ageClient.setEnabled(false);
@@ -230,8 +233,6 @@ public class DialogClient extends Dialog {
         _heightClient.setEnabled(false);
         _weightClient.setEnabled(false);
         _bodyFatPercentageClient.setEnabled(false);
-        _idClientGoalClient.setEnabled(false);
-        _tdeeClient.setEnabled(false);
     }
 
 
@@ -258,8 +259,6 @@ public class DialogClient extends Dialog {
         _heightClient.setEnabled(true);
         _weightClient.setEnabled(true);
         _bodyFatPercentageClient.setEnabled(true);
-        _idClientGoalClient.setEnabled(true);
-        _tdeeClient.setEnabled(true);
 
         _btn1.setVisibility(View.GONE);
         _btn2.setBackgroundResource(R.drawable.icon_cancel);
@@ -293,15 +292,13 @@ public class DialogClient extends Dialog {
     //=====
     public boolean dialogYesNo(String message) {
 
-        final ClientControl clientControl = new ClientControl();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(_context);
 
         builder.setMessage(message).setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _client.set_id(_idClient);
-                _retDialogYesNo = clientControl.deleteData(_client);
+                _retDialogYesNo = ClientControl.removeClient(_client);
                 dismiss();
                 ActivityClient.loadGridClients();
             }
@@ -329,12 +326,9 @@ public class DialogClient extends Dialog {
                         if (!_heightClient.getText().toString().equals("")){
                             if (!_weightClient.getText().toString().equals("")){
                                 if (!_bodyFatPercentageClient.getText().toString().equals("")){
-                                    if (!_idClientGoalClient.getText().toString().equals("")){
-                                        if (!_tdeeClient.getText().toString().equals("")){
 
-                                            return true;
-                                        }
-                                    }
+                                    return true;
+
                                 }
                             }
                         }

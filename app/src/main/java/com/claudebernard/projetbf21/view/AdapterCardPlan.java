@@ -1,5 +1,6 @@
 package com.claudebernard.projetbf21.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.model.Client;
+import com.claudebernard.projetbf21.model.Plan;
 
 import java.util.ArrayList;
 
@@ -19,14 +21,16 @@ public class AdapterCardPlan extends BaseAdapter {
 
     public static final String EXTRA_MESSAGE_HOME = "com.claudebernard.projetbf21.HOME";
     public Context _context;
-    public ArrayList<Client> _listClients;
+    public Activity _activity;
+    public ArrayList<Plan> _listPlans;
+    public int _numberMeal = 1;
 
 
     //=====
-    public AdapterCardPlan(Context c, ArrayList<Client> clients){
-
+    public AdapterCardPlan(Activity a,Context c, ArrayList<Plan> plans){
+        this._activity = a;
         this._context = c;
-        this._listClients = clients;
+        this._listPlans = plans;
     }
 
 
@@ -34,7 +38,7 @@ public class AdapterCardPlan extends BaseAdapter {
     @Override
     public int getCount() {
 
-        return _listClients.size();
+        return _listPlans.size();
     }
 
 
@@ -42,7 +46,7 @@ public class AdapterCardPlan extends BaseAdapter {
     @Override
     public Object getItem(int position) {
 
-        return _listClients.get(position);
+        return _listPlans.get(position);
     }
 
 
@@ -58,27 +62,35 @@ public class AdapterCardPlan extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
-        if(view == null) {
-            view = LayoutInflater.from(_context).inflate(R.layout.card_plan_plate,viewGroup,false);
-        }
+        final Plan _plan = (Plan) this.getItem(position);
 
-        final Client _client = (Client) this.getItem(position);
+        if (position == 0 || position % 7 == 0) {
+            view = LayoutInflater.from(_context).inflate(R.layout.card_plan_day, viewGroup, false);
 
-        ImageView _img = (ImageView) view.findViewById(R.id._photoClient);
-        TextView _name = (TextView)  view.findViewById(R.id._info_name);
-        TextView _obj  = (TextView)  view.findViewById(R.id._info_objective);
+        } else {
+            view = LayoutInflater.from(_context).inflate(R.layout.card_plan_plate, viewGroup, false);
+            TextView _title = (TextView)  view.findViewById(R.id._title_repas);
+            _title.setText("Repas "+_numberMeal);
 
-        _name.setText(_client.get_name());
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(_context,ActivityPlan.class);
+//                String message = String.valueOf(_client.get_name());
+//                intent.putExtra(EXTRA_MESSAGE_HOME, message);
+//                _context.startActivity(intent);
+//            }
+//        });
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(_context,ActivityPlan.class);
-                String message = String.valueOf(_client.get_name());
-                intent.putExtra(EXTRA_MESSAGE_HOME, message);
-                _context.startActivity(intent);
+
+
+            if (_numberMeal == 6){
+                _numberMeal = 1;
+
+            } else {
+                _numberMeal++;
             }
-        });
+        }
 
         return view;
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="450dp"
+    android:layout_width="650dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical|center_horizontal"
     android:focusableInTouchMode="true"
@@ -20,59 +20,34 @@
         android:id="@+id/_titleName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Nom"
-        android:textSize="12sp"
-        android:layout_marginTop="20dp"/>
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/_inputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center"
         android:fontFamily="@font/roboto"
         android:imeOptions="actionNext"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
         android:inputType="text"
-        android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/_titleAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Âge"
-        android:textSize="12sp"
-        android:layout_marginTop="20dp"/>
-
-
-    <EditText
-        android:id="@+id/_inputAge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/roboto"
-        android:imeOptions="actionNext"
+        android:maxLines="1"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:typeface="normal"
-        android:inputType="number"
-        android:maxLines="1" />
+        android:typeface="normal" />
 
     <TextView
         android:id="@+id/_titleEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Courriel"
-        android:textSize="12sp"
-        android:layout_marginTop="20dp"/>
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/_inputEmail"
@@ -81,37 +56,13 @@
         android:layout_gravity="center"
         android:fontFamily="@font/roboto"
         android:imeOptions="actionNext"
-        android:padding="5dp"
-        android:shadowRadius="@android:integer/config_mediumAnimTime"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:typeface="normal"
         android:inputType="text"
-        android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/_titlePhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Téléphone"
-        android:textSize="12sp"
-        android:layout_marginTop="20dp"/>
-
-    <EditText
-        android:id="@+id/_inputPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/roboto"
-        android:imeOptions="actionNext"
+        android:maxLines="1"
         android:padding="5dp"
         android:shadowRadius="@android:integer/config_mediumAnimTime"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:typeface="normal"
-        android:inputType="phone"
-        android:maxLines="1"/>
+        android:typeface="normal" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,8 +71,68 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titlePhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Téléphone"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/_inputPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Âge"
+                android:textSize="12sp" />
+
+
+            <EditText
+                android:id="@+id/_inputAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:shadowRadius="@android:integer/config_mediumAnimTime"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -138,16 +149,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:imeOptions="actionNext"
-                android:textSize="20sp"
                 android:inputType="numberDecimal"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -164,16 +175,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:imeOptions="actionNext"
-                android:textSize="20sp"
                 android:inputType="numberDecimal"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -190,12 +201,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="number"
-                android:maxLines="1"/>
+                android:typeface="normal" />
 
         </LinearLayout>
 
@@ -210,59 +221,154 @@
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/_titleGoal"
+                android:id="@+id/_titleTDCE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Objectif"
-                android:textSize="12sp"/>
+                android:text="TDCE"
+                android:inputType="numberDecimal"
+                android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/_inputGoal"
+                android:id="@+id/_inputTDCE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:fontFamily="@font/roboto"
-                android:imeOptions="actionNext"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/_titleTDEE"
+                android:id="@+id/_titleBMR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="TDEE"
+                android:inputType="numberDecimal"
+                android:text="BMR"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/_inputTDEE"
+                android:id="@+id/_inputBMR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:fontFamily="@font/roboto"
-                android:imeOptions="actionDone"
                 android:shadowRadius="@android:integer/config_mediumAnimTime"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:typeface="normal"
-                android:inputType="text"
-                android:maxLines="1"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp">
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Homme" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Femme" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleSpClientGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Objective"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/_inputSpClientGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleSpActLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Activity Level"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/_inputSpActLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/_titleSpProteinReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Protein Level"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/_inputSpProteinReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -273,26 +379,27 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="30dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/_btn_1"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_cancel" />
 
         <ImageButton
             android:id="@+id/_btn_2"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
+            android:layout_marginRight="85dp"
             android:background="@drawable/icon_trash" />
 
         <ImageButton
             android:id="@+id/_btn_3"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="85dp"
             android:background="@drawable/icon_edit" />
 
     </LinearLayout>

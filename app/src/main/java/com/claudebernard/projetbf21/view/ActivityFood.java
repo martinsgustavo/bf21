@@ -25,20 +25,21 @@ import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
 
-import java.util.ArrayList;
-
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Coach _coach;
-    private Activity _activity;
-    private Context _context;
+    private static Activity _activity;
+    private static Context _context;
+    private static AdapterCardFood _adapterFood;
+    private static GridView _gridFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
         _activity = this;
         _context = this;
+        _gridFood = (GridView) findViewById(R.id._gridFoods);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +56,7 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
         _fabAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFood dialogFood = new DialogFood(_activity, "add", null);
+                DialogFood dialogFood = new DialogFood(_activity, _context,"add", null);
                 dialogFood.show();
             }
         });
@@ -69,28 +70,21 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-        CoachControl coachControl = new CoachControl();
-
-        _coach = coachControl.getData(_id);
+        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(_coach.getName());
+        _namePersonal.setText(CoachControl.getNameCoach(_login));
     }
 
 
     //=====
-    public void loadGridFoods(){
+    public static void loadGridFoods(){
 
-        FoodControl foodControl = new FoodControl();
-
-        GridView _gv = (GridView) findViewById(R.id._gridFoods);
-        AdapterCardFood _adapter = new AdapterCardFood(_activity, _context, new ArrayList<>(foodControl.getDataAll()));
-        _gv.setAdapter(_adapter);
+        _adapterFood = new AdapterCardFood(_activity, _context, FoodControl.getDataFoods());
+        _gridFood.setAdapter(_adapterFood);
     }
 
     //=====

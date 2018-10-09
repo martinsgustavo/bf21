@@ -1,7 +1,6 @@
 package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,33 +10,32 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
+
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
-import com.claudebernard.projetbf21.model.Coach;
-
-import java.util.ArrayList;
 
 public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Coach _coach;
-    private Activity _activity;
-    private Context _context;
+    private static Activity _activity;
+    private static Context _context;
+    private static AdapterCardCoach _adapterCoach;
+    private static GridView _gridCoaches;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coach);
+
         _activity = this;
         _context = this;
+        _gridCoaches = (GridView) findViewById(R.id._gridCoachs);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,7 +52,7 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
         _fabAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogCoach dialogCoach = new DialogCoach(_activity, "add", null);
+                DialogCoach dialogCoach = new DialogCoach(_activity, _context,"add", null);
                 dialogCoach.show();
             }
         });
@@ -68,28 +66,22 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-        CoachControl coachControl = new CoachControl();
-
-        _coach = coachControl.getData(_id);
+        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(_coach.getName());
+        _namePersonal.setText(CoachControl.getNameCoach(_login));
     }
 
 
     //=====
-    public void loadGridCoaches(){
+    public static void loadGridCoaches(){
 
-        CoachControl coachControl = new CoachControl();
+        _adapterCoach = new AdapterCardCoach(_activity, _context, CoachControl.getDataCoaches());
+        _gridCoaches.setAdapter(_adapterCoach);
 
-        GridView _gv = (GridView) findViewById(R.id._gridCoachs);
-        AdapterCardCoach _adapter = new AdapterCardCoach(_activity, _context, new ArrayList<Coach>(coachControl.getDataAll()));
-        _gv.setAdapter(_adapter);
     }
 
     //=====

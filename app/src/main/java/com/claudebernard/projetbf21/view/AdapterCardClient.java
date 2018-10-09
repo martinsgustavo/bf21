@@ -72,8 +72,14 @@ public class AdapterCardClient extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                option view inscription client = ok
                 DialogClient dialogClient = new DialogClient(_activity, _context,"view", _client);
                 dialogClient.show();
+
+//                option view plan client
+//                Intent intent = new Intent(_context, ActivityPlan.class);
+//                _context.startActivity(intent);
+
             }
         });
 

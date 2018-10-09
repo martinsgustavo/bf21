@@ -6,4 +6,28 @@
     <string name="toobar_monitoring">Plan du Client</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string-array name="spClientGoal">
+        <item></item>
+        <item>option A1</item>
+        <item>option A2</item>
+        <item>option A3</item>
+        <item>option A4</item>
+        <item>option A5</item>
+    </string-array>
+    <string-array name="spActLevel">
+        <item></item>
+        <item>option B1</item>
+        <item>option B2</item>
+        <item>option B3</item>
+        <item>option B4</item>
+        <item>option B5</item>
+    </string-array>
+    <string-array name="spProteinReq">
+        <item></item>
+        <item>option C1</item>
+        <item>option C2</item>
+        <item>option C3</item>
+        <item>option C4</item>
+        <item>option C5</item>
+    </string-array>
 </resources>
