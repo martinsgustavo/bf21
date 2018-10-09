@@ -32,6 +32,8 @@ public class DialogClient extends Dialog {
     private Context _context;
     private boolean _retDialogYesNo;
 
+    private ClientControl clientControl;
+
 
     //=====
     public DialogClient(Activity a, Context c, String opt, Client client) {
@@ -196,10 +198,10 @@ public class DialogClient extends Dialog {
 
         if (_option.equals("modify")) {
             _client.set_id(_idClient);
-            ret = ClientControl.modifyClient(_client);
+            ret = clientControl.editData(_client);
 
         } else if (_option.equals("add")) {
-            ret = ClientControl.addClient(_client);
+            ret = clientControl.saveData(_client);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce client ?");
@@ -298,7 +300,7 @@ public class DialogClient extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _client.set_id(_idClient);
-                _retDialogYesNo = ClientControl.removeClient(_client);
+                _retDialogYesNo = clientControl.deleteData(_client);
                 dismiss();
                 ActivityClient.loadGridClients();
             }

@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.List;
 
 public class Food {
 
@@ -25,11 +26,11 @@ public class Food {
 
     @SerializedName("nutrients")
     @Expose
-    private FoodNutrients[] foodNutrients;
+    private List<FoodNutrients> _foodNutrients;
 
     @SerializedName("macros")
     @Expose
-    private FoodMacros[] foodMacros;
+    private List<FoodMacros> _foodMacros;
 
     //=====
 
@@ -66,19 +67,19 @@ public class Food {
         this._portionSize = _portionSize;
     }
 
-    public FoodNutrients[] getFoodNutrients() {
-        return foodNutrients;
+    public List<FoodNutrients> get_foodNutrients() {
+        return _foodNutrients;
     }
 
-    public void setFoodNutrients(FoodNutrients[] foodNutrients) {
-        this.foodNutrients = foodNutrients;
+    public void set_foodNutrients(List<FoodNutrients> _foodNutrients) {
+        this._foodNutrients = _foodNutrients;
     }
 
-    public FoodMacros[] getFoodMacros() {
-        return foodMacros;
+    public List<FoodMacros> get_foodMacros() {
+        return _foodMacros;
     }
 
-    public void setFoodMacros(FoodMacros[] foodMacros) {
-        this.foodMacros = foodMacros;
+    public void set_foodMacros(List<FoodMacros> _foodMacros) {
+        this._foodMacros = _foodMacros;
     }
 }

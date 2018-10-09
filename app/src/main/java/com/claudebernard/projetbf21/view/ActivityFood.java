@@ -24,6 +24,9 @@ import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
+import com.claudebernard.projetbf21.model.Food;
+
+import java.util.ArrayList;
 
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +34,8 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     private static Context _context;
     private static AdapterCardFood _adapterFood;
     private static GridView _gridFood;
+
+    private CoachControl coachControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,20 +75,22 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(CoachControl.getNameCoach(_login));
+        _namePersonal.setText(coachControl.getData(_id).get_login());
     }
 
 
     //=====
     public static void loadGridFoods(){
 
-        _adapterFood = new AdapterCardFood(_activity, _context, FoodControl.getDataFoods());
+        FoodControl foodControl = new FoodControl();
+
+        _adapterFood = new AdapterCardFood(_activity, _context, new ArrayList<>(foodControl.getDataAll()));
         _gridFood.setAdapter(_adapterFood);
     }
 

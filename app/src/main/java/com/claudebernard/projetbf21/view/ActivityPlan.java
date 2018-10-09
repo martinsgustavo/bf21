@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.github.clans.fab.FloatingActionButton;
+
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,12 +23,16 @@ import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.PlanControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 
+import java.util.ArrayList;
+
 public class ActivityPlan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Activity _activity;
     private static Context _context;
     private static AdapterCardPlan _adapterPlan;
     private static GridView _gridPlan;
+
+    private CoachControl coachControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +64,13 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(CoachControl.getNameCoach(_login));
+        _namePersonal.setText(coachControl.getData(_id).get_login());
     }
 
     //=====
@@ -111,7 +116,9 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     //=====
     public static void loadGridPlans(){
 
-        _adapterPlan = new AdapterCardPlan(_activity, _context, PlanControl.getDataPlans());
+        PlanControl planControl = new PlanControl();
+
+        _adapterPlan = new AdapterCardPlan(_activity, _context, new ArrayList<>(planControl.getDataAll()));
         _gridPlan.setAdapter(_adapterPlan);
     }
 

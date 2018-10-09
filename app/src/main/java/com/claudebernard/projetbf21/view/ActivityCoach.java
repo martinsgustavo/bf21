@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.model.Coach;
+
+import java.util.ArrayList;
 
 public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -26,6 +29,8 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     private static Context _context;
     private static AdapterCardCoach _adapterCoach;
     private static GridView _gridCoaches;
+
+    private CoachControl coachControl;
 
 
     @Override
@@ -66,20 +71,22 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(CoachControl.getNameCoach(_login));
+        _namePersonal.setText(coachControl.getData(_id).get_login());
     }
 
 
     //=====
     public static void loadGridCoaches(){
 
-        _adapterCoach = new AdapterCardCoach(_activity, _context, CoachControl.getDataCoaches());
+        CoachControl coachControl = new CoachControl();
+
+        _adapterCoach = new AdapterCardCoach(_activity, _context, new ArrayList<>(coachControl.getDataAll()));
         _gridCoaches.setAdapter(_adapterCoach);
 
     }

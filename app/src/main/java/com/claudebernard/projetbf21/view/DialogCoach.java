@@ -29,6 +29,8 @@ public class DialogCoach extends Dialog {
     private Context _context;
     private boolean _retDialogYesNo;
 
+    private CoachControl coachControl;
+
     //=====
     public DialogCoach(Activity a, Context c, String opt, Coach coach) {
         super(a);
@@ -155,10 +157,10 @@ public class DialogCoach extends Dialog {
 
         if (_option.equals("modify")) {
             _coach.set_id(_idCoach);
-            ret = CoachControl.modifyCoach(_coach);
+            ret = coachControl.editData(_coach);
 
         } else if (_option.equals("add")) {
-            ret = CoachControl.addCoach(_coach);
+            ret = coachControl.saveData(_coach);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce coach ?");
@@ -247,7 +249,7 @@ public class DialogCoach extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _coach.set_id(_idCoach);
-                _retDialogYesNo = CoachControl.removeCoach(_coach);
+                _retDialogYesNo = coachControl.deleteData(_coach);
                 dismiss();
                 ActivityCoach.loadGridCoaches();
             }

@@ -27,6 +27,8 @@ public class DialogPlan extends Dialog {
     private Context _context;
     private boolean _retDialogYesNo;
 
+    PlanControl planControl;
+
 
     //=====
     public DialogPlan(Activity a, Context c, Plan plan) {
@@ -135,7 +137,7 @@ public class DialogPlan extends Dialog {
         _plan.set_periodStart(_inputPerStartPlan.getText().toString());
         _plan.set_periodEnd(_inputPerEndPlan.getText().toString());
 
-        return PlanControl.addPlan(_plan);
+        return planControl.saveData(_plan);
     }
 
 

@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.model.Food;
-import com.claudebernard.projetbf21.model.FoodMacro;
-import com.claudebernard.projetbf21.model.FoodNutrient;
+import com.claudebernard.projetbf21.model.FoodMacros;
+import com.claudebernard.projetbf21.model.FoodNutrients;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,8 @@ public class DialogFood extends Dialog {
     private int _idFood;
     private Context _context;
     private boolean _retDialogYesNo;
+
+    private FoodControl foodControl;
 
 
     //=====
@@ -184,8 +186,8 @@ public class DialogFood extends Dialog {
     //=====
     public boolean getDataDialog() {
 
-        ArrayList<FoodNutrient> _listNutrients = new ArrayList<>();
-        ArrayList<FoodMacro>    _listMacro = new ArrayList<>();
+        ArrayList<FoodNutrients> _listNutrients = new ArrayList<>();
+        ArrayList<FoodMacros>    _listMacro = new ArrayList<>();
         Food _food = new Food();
         boolean ret = false;
 
@@ -193,26 +195,26 @@ public class DialogFood extends Dialog {
 
         for (int x = 0; x < 8; x++) {
 
-            final FoodNutrient _foodNutrient = new FoodNutrient();
+            final FoodNutrients _foodNutrient = new FoodNutrients();
 
             _foodNutrient.set_id(0+1);
 
             if (x == 0) {
-                _foodNutrient.set_total(Integer.valueOf(_lipidsFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_lipidsFood.getText().toString()));
             } else if (x == 1){
-                _foodNutrient.set_total(Integer.valueOf(_glycidesFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_glycidesFood.getText().toString()));
             } else if (x == 2){
-                _foodNutrient.set_total(Integer.valueOf(_proteinFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_proteinFood.getText().toString()));
             } else if (x == 3){
-                _foodNutrient.set_total(Integer.valueOf(_fibreFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_fibreFood.getText().toString()));
             } else if (x == 4){
-                _foodNutrient.set_total(Integer.valueOf(_sugarFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_sugarFood.getText().toString()));
             } else if (x == 5){
-                _foodNutrient.set_total(Integer.valueOf(_sodiumFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_sodiumFood.getText().toString()));
             } else if (x == 6){
-                _foodNutrient.set_total(Integer.valueOf(_cholesterolFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_cholesterolFood.getText().toString()));
             } else if (x == 7){
-                _foodNutrient.set_total(Integer.valueOf(_glycemicIndexFood.getText().toString()));
+                _foodNutrient.set_total(Double.valueOf(_glycemicIndexFood.getText().toString()));
             }
 
             _listNutrients.add(_foodNutrient);
@@ -220,16 +222,16 @@ public class DialogFood extends Dialog {
 
         for (int y = 0; y < 3; y++) {
 
-            final FoodMacro _foodMacro = new FoodMacro();
+            final FoodMacros _foodMacro = new FoodMacros();
 
             if (y == 0){
-                if (_macroFat.isChecked()) {_foodMacro.set_id(1);} else {_foodMacro.set_id(0);}
+                if (_macroFat.isChecked()) {_foodMacro.set_idMacro(1);} else {_foodMacro.set_idMacro(null);}
 
             } else if (y == 1) {
-                if (_macroCarbohydrate.isChecked()) { _foodMacro.set_id(2); } else { _foodMacro.set_id(0);}
+                if (_macroCarbohydrate.isChecked()) { _foodMacro.set_idMacro(2); } else { _foodMacro.set_idMacro(null);}
 
             } else if (y == 2) {
-                if (_macroProtein.isChecked()) { _foodMacro.set_id(3); } else { _foodMacro.set_id(0);}
+                if (_macroProtein.isChecked()) { _foodMacro.set_idMacro(3); } else { _foodMacro.set_idMacro(null);}
 
             }
 
@@ -239,16 +241,16 @@ public class DialogFood extends Dialog {
         _food.set_name(_nameFood.getText().toString());
         _food.set_brand(_brandFood.getText().toString());
         _food.set_portionSize(_portionFood.getText().toString());
-        _food.set_listNutrients(_listNutrients);
-        _food.set_listMacro(_listMacro);
+        _food.set_foodNutrients(_listNutrients);
+        _food.set_foodMacros(_listMacro);
 
 
         if (_option.equals("modify")) {
             _food.set_id(_idFood);
-            ret = FoodControl.modifyFood(_food);
+            ret = foodControl.editData(_food);
 
         } else if (_option.equals("add")) {
-            ret = FoodControl.addFood(_food);
+            ret = foodControl.saveData(_food);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce Aliment ?");
@@ -284,9 +286,9 @@ public class DialogFood extends Dialog {
     //====
     public void loadOptionView() {
 
-        boolean _cbFat = _food.get_listMacro().get(0).get_id() != 0 ? true : false;
-        boolean _cbCarbohydrate = _food.get_listMacro().get(1).get_id() != 0 ? true : false;
-        boolean _cbProtein = _food.get_listMacro().get(2).get_id() != 0 ? true : false;
+        boolean _cbFat = _food.get_foodMacros().get(0).get_idMacro() != 0 ? true : false;
+        boolean _cbCarbohydrate = _food.get_foodMacros().get(1).get_idMacro() != 0 ? true : false;
+        boolean _cbProtein = _food.get_foodMacros().get(2).get_idMacro() != 0 ? true : false;
 
         _idFood = _food.get_id();
 
@@ -294,14 +296,14 @@ public class DialogFood extends Dialog {
         _nameFood.setText(_food.get_name());
         _brandFood.setText(_food.get_brand());
         _portionFood.setText(_food.get_portionSize());
-        _lipidsFood.setText(String.valueOf(_food.get_listNutrients().get(0).get_total()));
-        _glycidesFood.setText(String.valueOf(_food.get_listNutrients().get(1).get_total()));
-        _proteinFood.setText(String.valueOf(_food.get_listNutrients().get(2).get_total()));
-        _fibreFood.setText(String.valueOf(_food.get_listNutrients().get(3).get_total()));
-        _sugarFood.setText(String.valueOf(_food.get_listNutrients().get(4).get_total()));
-        _sodiumFood.setText(String.valueOf(_food.get_listNutrients().get(5).get_total()));
-        _cholesterolFood.setText(String.valueOf(_food.get_listNutrients().get(6).get_total()));
-        _glycemicIndexFood.setText(String.valueOf(_food.get_listNutrients().get(7).get_total()));
+        _lipidsFood.setText(String.valueOf(_food.get_foodNutrients().get(0).get_total()));
+        _glycidesFood.setText(String.valueOf(_food.get_foodNutrients().get(1).get_total()));
+        _proteinFood.setText(String.valueOf(_food.get_foodNutrients().get(2).get_total()));
+        _fibreFood.setText(String.valueOf(_food.get_foodNutrients().get(3).get_total()));
+        _sugarFood.setText(String.valueOf(_food.get_foodNutrients().get(4).get_total()));
+        _sodiumFood.setText(String.valueOf(_food.get_foodNutrients().get(5).get_total()));
+        _cholesterolFood.setText(String.valueOf(_food.get_foodNutrients().get(6).get_total()));
+        _glycemicIndexFood.setText(String.valueOf(_food.get_foodNutrients().get(7).get_total()));
         _macroFat.setChecked(_cbFat);
         _macroCarbohydrate.setChecked(_cbCarbohydrate);
         _macroProtein.setChecked(_cbProtein);
@@ -390,7 +392,7 @@ public class DialogFood extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _food.set_id(_idFood);
-                _retDialogYesNo = FoodControl.removeFood(_food);
+                _retDialogYesNo = foodControl.deleteData(_food);
                 dismiss();
                 ActivityFood.loadGridFoods();
             }

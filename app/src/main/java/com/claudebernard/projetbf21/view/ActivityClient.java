@@ -20,6 +20,10 @@ import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.model.Client;
+import com.claudebernard.projetbf21.model.Coach;
+
+import java.util.ArrayList;
 
 public class ActivityClient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,6 +31,8 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
     private static Context _context;
     private static AdapterCardClient _adapterClient;
     private static GridView _gridClient;
+
+    private CoachControl coachControl;
 
 
     //=====
@@ -68,20 +74,22 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        String _login = _intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE);
+        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(CoachControl.getNameCoach(_login));
+        _namePersonal.setText(coachControl.getData(_id).get_login());
     }
 
 
     //=====
     public static void loadGridClients(){
 
-        _adapterClient = new AdapterCardClient(_activity, _context, ClientControl.getDataClients());
+        ClientControl clientControl = new ClientControl();
+
+        _adapterClient = new AdapterCardClient(_activity, _context, new ArrayList<>(clientControl.getDataAll()));
         _gridClient.setAdapter(_adapterClient);
     }
 
