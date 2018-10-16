@@ -4,14 +4,20 @@ import android.util.Log;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
+import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
+import com.claudebernard.projetbf21.view.ActivityClient;
+import com.claudebernard.projetbf21.view.ActivityCoach;
+import com.claudebernard.projetbf21.view.ActivityFood;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,14 +26,16 @@ import retrofit2.Response;
 
 public class CoachControl implements GenericControl<Coach>{
 
-    private ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
-    private List<Coach> coaches;
-    private Coach coach;
-    private boolean isCorrect;
+    private ApiInterface _apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
+    private ArrayList<Coach> _coaches;
+    public static Coach _coach;
+    private boolean _isCorrect;
 
+
+    //=====
     @Override
-    public List<Coach> getDataAll() {
-        Call<ResponseServerArray> call = apiInterface.findAllCoaches();
+    public ArrayList<Coach> getDataAll() {
+        Call<ResponseServerArray> call = _apiInterface.findAllCoaches();
 
         call.enqueue(new Callback<ResponseServerArray>() {
             @Override
@@ -37,104 +45,129 @@ public class CoachControl implements GenericControl<Coach>{
                     String string = new Gson().toJson(response.body().getMeta());
 
                     Type listType = new TypeToken<ArrayList<Coach>>() {}.getType();
-                    coaches = new Gson().fromJson(string, listType);
+                    _coaches = new Gson().fromJson(string, listType);
+
+                    Collections.sort(_coaches, new Comparator<Coach>() {
+                        public int compare(Coach c1, Coach c2) {
+                            return c1.get_name().compareTo(c2.get_name());
+                        }
+                    });
+
+                    ActivityCoach.loadGridCoaches(_coaches);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseServerArray> call, Throwable t) {
                 Log.e("Coach Control", "Error - getDataCoaches");
-                coaches = null;
+                _coaches = null;
             }
         });
-
-        return coaches;
+        return _coaches;
     }
 
+
+    //=====
     @Override
-    public Coach getData(Integer id) {
+    public Coach getData(String option, Integer id) {
+        final String _option = option;
         StringBuilder sb = new StringBuilder("/coach?idCoach=");
         sb.append(id);
 
-        Call<ResponseServer> call = apiInterface.findCoach(sb.toString());
+        Call<ResponseServer> call = _apiInterface.findCoach(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Coach Control", "Success - getDataCoach");
                 String string = new Gson().toJson(response.body().getMeta());
-                coach = new Gson().fromJson(string, Coach.class);
+                _coach = new Gson().fromJson(string, Coach.class);
+                if (_option.equals("client")){
+                    ActivityClient.loadNameCoach(_coach.get_name());
+
+                } else if (_option.equals("coach")){
+                    ActivityCoach.loadNameCoach(_coach.get_name());
+
+                } else {
+                    ActivityFood.loadNameCoach(_coach.get_name());
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - getDataCoach");
-                coach = null;
+                _coach = null;
             }
         });
-        return coach;
+        return _coach;
     }
 
+
+    //=====
     @Override
     public boolean saveData(Coach object) {
-        Call<ResponseServer> call = apiInterface.saveCoach(object);
+        Call<ResponseServer> call = _apiInterface.saveCoach(object);
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Coach Control", "Success - saveData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
-
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - saveData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-
-        return isCorrect;
+        return _isCorrect;
     }
 
+
+    //=====
     @Override
     public boolean editData(Coach object) {
-        Call<ResponseServer> call = apiInterface.editCoach(object);
+        Call<ResponseServer> call = _apiInterface.editCoach(object);
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Coach Control", "Success - editData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - editData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-        return isCorrect;
+        return _isCorrect;
     }
 
+
+    //=====
     @Override
     public boolean deleteData(Coach object) {
         StringBuilder sb = new StringBuilder("/coach?idCoach=");
         sb.append(object.get_id());
 
-        Call<ResponseServer> call = apiInterface.deleteCoach(sb.toString());
+        Call<ResponseServer> call = _apiInterface.deleteCoach(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Coach Control", "Success - deleteData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - deleteData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-        return isCorrect;
+        return _isCorrect;
     }
-
 }

@@ -13,6 +13,11 @@ public class CaloricCalculation {
     private final double FIXED_NUMBER_STEP2_RANGE3 = 0.90;
     private final double FIXED_NUMBER_STEP2_RANGE4 = 0.85;
 
+    private final double FIXED_NUMBER_STEP3_RANGE1 = 1.3;
+    private final double FIXED_NUMBER_STEP3_RANGE2 = 1.55;
+    private final double FIXED_NUMBER_STEP3_RANGE3 = 1.65;
+    private final double FIXED_NUMBER_STEP3_RANGE4 = 1.8;
+
     public Double findBasilMetabolicRate(Client client){
         Double bmr;
         Double step1;
@@ -52,6 +57,29 @@ public class CaloricCalculation {
     }
 
     public Double totalDailyCalories (Client client){
+
+        switch (client.getClientactivityLevel().get_idDailyActivityLevel()){
+
+            case 1 :
+                client.getClientactivityLevel().setTax(FIXED_NUMBER_STEP3_RANGE1);
+                break;
+
+            case 2 :
+                client.getClientactivityLevel().setTax(FIXED_NUMBER_STEP3_RANGE2);
+                break;
+
+            case 3:
+                client.getClientactivityLevel().setTax(FIXED_NUMBER_STEP3_RANGE3);
+                break;
+
+            case 4 :
+                client.getClientactivityLevel().setTax(FIXED_NUMBER_STEP3_RANGE4);
+                break;
+
+            default:
+                break;
+        }
+
         return client.get_bmr() * client.getClientactivityLevel().getTax();
     }
 }

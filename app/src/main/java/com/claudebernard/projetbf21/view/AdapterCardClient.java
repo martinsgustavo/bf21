@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class AdapterCardClient extends BaseAdapter {
 
-    public static final String EXTRA_MESSAGE_HOME = "com.claudebernard.projetbf21.HOME";
     public Context _context;
     public Activity _activity;
     public ArrayList<Client> _listClients;
@@ -72,7 +71,7 @@ public class AdapterCardClient extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                option view inscription client = ok
+//              comentario : option view inscription client = ok
                 DialogClient dialogClient = new DialogClient(_activity, _context,"view", _client);
                 dialogClient.show();
 

@@ -4,14 +4,19 @@ import android.util.Log;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
+import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Food;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
+import com.claudebernard.projetbf21.view.ActivityClient;
+import com.claudebernard.projetbf21.view.ActivityFood;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,14 +25,16 @@ import retrofit2.Response;
 
 public class FoodControl implements GenericControl<Food> {
 
-    private ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
-    private List<Food> foods;
-    private Food food;
-    private boolean isCorrect;
+    private ApiInterface _apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
+    private ArrayList<Food> _foods;
+    private Food _food;
+    private boolean _isCorrect;
 
+
+    //=====
     @Override
-    public List<Food> getDataAll() {
-        Call<ResponseServerArray> call = apiInterface.findAllFoods();
+    public ArrayList<Food> getDataAll() {
+        Call<ResponseServerArray> call = _apiInterface.findAllFoods();
 
         call.enqueue(new Callback<ResponseServerArray>() {
             @Override
@@ -37,103 +44,119 @@ public class FoodControl implements GenericControl<Food> {
                     String string = new Gson().toJson(response.body().getMeta());
 
                     Type listType = new TypeToken<ArrayList<Food>>() {}.getType();
-                    foods = new Gson().fromJson(string, listType);
+                    _foods = new Gson().fromJson(string, listType);
+
+                    Collections.sort(_foods, new Comparator<Food>() {
+                        public int compare(Food f1, Food f2) {
+                            return f1.get_name().compareTo(f2.get_name());
+                        }
+                    });
+
+                    ActivityFood.loadGridFoods(_foods);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseServerArray> call, Throwable t) {
                 Log.e("Food Control", "Error - getDataFoods");
-                foods = null;
+                _foods = null;
             }
         });
-
-        return foods;
+        return _foods;
     }
 
+
+    //=====
     @Override
-    public Food getData(Integer id) {
+    public Food getData(String option, Integer id) {
         StringBuilder sb = new StringBuilder("/food?idFood=");
         sb.append(id);
 
-        Call<ResponseServer> call = apiInterface.findFood(sb.toString());
+        Call<ResponseServer> call = _apiInterface.findFood(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Food Control", "Success - getDataFood");
                 String string = new Gson().toJson(response.body().getMeta());
-                food = new Gson().fromJson(string, Food.class);
+                _food = new Gson().fromJson(string, Food.class);
             }
 
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Food Control", "Error - getDataFood");
-                food = null;
+                _food = null;
             }
         });
-        return food;
+        return _food;
     }
 
+
+    //=====
     @Override
     public boolean saveData(Food object) {
-        Call<ResponseServer> call = apiInterface.saveFood(object);
+        Call<ResponseServer> call = _apiInterface.saveFood(object);
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Food Control", "Success - saveData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
-
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Food Control", "Error - saveData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-
-        return isCorrect;
+        return _isCorrect;
     }
 
+
+    //=====
     @Override
     public boolean editData(Food object) {
-        Call<ResponseServer> call = apiInterface.editFood(object);
+        Call<ResponseServer> call = _apiInterface.editFood(object);
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Food Control", "Success - editData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Food Control", "Error - editData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-        return isCorrect;
+        return _isCorrect;
     }
 
+
+    //=====
     @Override
     public boolean deleteData(Food object) {
         StringBuilder sb = new StringBuilder("/food?idFood=");
         sb.append(object.get_id());
 
-        Call<ResponseServer> call = apiInterface.deleteFood(sb.toString());
+        Call<ResponseServer> call = _apiInterface.deleteFood(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Food Control", "Success - deleteData");
-                isCorrect = true;
+                _isCorrect = true;
+                getDataAll();
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Food Control", "Error - deleteData");
-                isCorrect = false;
+                _isCorrect = false;
             }
         });
-        return isCorrect;
+        return _isCorrect;
     }
 }

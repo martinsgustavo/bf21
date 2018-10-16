@@ -60,7 +60,7 @@ public interface ApiInterface {
 
     //FOOD
 
-    @GET("/client/list")
+    @GET("/food/list")
     Call<ResponseServerArray> findAllFoods();
 
     @GET

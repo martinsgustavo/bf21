@@ -279,19 +279,19 @@
             android:layout_marginRight="20dp">
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/_radioSex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/radioMale"
+                    android:id="@+id/_radioMale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="Homme" />
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
+                    android:id="@+id/_radioFemale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Femme" />

@@ -28,8 +28,7 @@ public class DialogCoach extends Dialog {
     private Coach _coach;
     private Context _context;
     private boolean _retDialogYesNo;
-
-    private CoachControl coachControl;
+    private CoachControl _coachControl = new CoachControl();
 
     //=====
     public DialogCoach(Activity a, Context c, String opt, Coach coach) {
@@ -118,7 +117,6 @@ public class DialogCoach extends Dialog {
                 } else if (_option.equals("view") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityCoach.loadGridCoaches();
                     }
                 }
             }
@@ -130,7 +128,6 @@ public class DialogCoach extends Dialog {
                 if (_option.equals("add") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityCoach.loadGridCoaches();
                     }
 
                 } else if (_option.equals("view")) {
@@ -146,22 +143,25 @@ public class DialogCoach extends Dialog {
 
         boolean ret = false;
 
-        Coach _coach = new Coach();
+            if (_option.equals("view")) {
 
-        _coach.set_name(_nameCoach.getText().toString());
-        _coach.set_eMail(_eMailCoach.getText().toString());
-        _coach.set_phone(_phoneCoach.getText().toString());
-        _coach.set_login(_loginCoach.getText().toString());
-        _coach.set_password(_passwordCoach.getText().toString());
+            Coach _coach = new Coach();
+
+            _coach.set_name(_nameCoach.getText().toString());
+            _coach.set_eMail(_eMailCoach.getText().toString());
+            _coach.set_phone(_phoneCoach.getText().toString());
+            _coach.set_login(_loginCoach.getText().toString());
+            _coach.set_password(_passwordCoach.getText().toString());
 
 
-        if (_option.equals("modify")) {
-            _coach.set_id(_idCoach);
-            ret = coachControl.editData(_coach);
+            if (_option.equals("modify")) {
+                _coach.set_id(_idCoach);
+                ret = _coachControl.editData(_coach);
 
-        } else if (_option.equals("add")) {
-            ret = coachControl.saveData(_coach);
+            } else if (_option.equals("add")) {
+                ret = _coachControl.saveData(_coach);
 
+            }
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce coach ?");
 
@@ -232,7 +232,6 @@ public class DialogCoach extends Dialog {
                 if (validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityCoach.loadGridCoaches();
                     }
                 }
             }
@@ -249,9 +248,8 @@ public class DialogCoach extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _coach.set_id(_idCoach);
-                _retDialogYesNo = coachControl.deleteData(_coach);
+                _retDialogYesNo = _coachControl.deleteData(_coach);
                 dismiss();
-                ActivityCoach.loadGridCoaches();
             }
         }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
             @Override

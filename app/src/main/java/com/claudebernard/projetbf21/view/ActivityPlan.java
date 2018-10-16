@@ -63,14 +63,14 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     //=====
     public void definitionsMenu(){
 
-        Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
+       // Intent _intent = getIntent();
+       // Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
+       // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       // View headerView = navigationView.getHeaderView(0);
 
-        TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(coachControl.getData(_id).get_login());
+       // TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
+       // _namePersonal.setText(coachControl.getData(_id).get_login());
     }
 
     //=====

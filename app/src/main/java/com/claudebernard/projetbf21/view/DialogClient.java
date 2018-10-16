@@ -12,12 +12,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
+import com.claudebernard.projetbf21.control.CaloricCalculation;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.model.Client;
+import com.claudebernard.projetbf21.model.ClientActivityLevel;
+import com.claudebernard.projetbf21.model.ClientGoal;
+import com.claudebernard.projetbf21.model.ClientProteinRequirement;
 
 public class DialogClient extends Dialog {
 
@@ -25,14 +31,16 @@ public class DialogClient extends Dialog {
     private ImageButton _btn1, _btn2, _btn3;
     private EditText _nameClient, _ageClient, _eMailClient, _phoneNumberClient, _heightClient, _weightClient, _bodyFatPercentageClient, _tdceClient, _bmrClient;
     private TextView _titleCard;
+    private RadioGroup _radioSexGroup;
+    private RadioButton _radioSexBtnMale, _radioSexBtnFemale;
     private Spinner _spClientGoal, _spActLevel, _spProteinReq;
     private String _option;
     private int _idClient;
     private Client _client;
     private Context _context;
     private boolean _retDialogYesNo;
-
-    private ClientControl clientControl;
+    private ClientControl _clientControl = new ClientControl();
+    private ArrayAdapter<CharSequence> _adapterClientGoal, _adapterActLevel, _adapterProteinReq;
 
 
     //=====
@@ -68,8 +76,11 @@ public class DialogClient extends Dialog {
         _heightClient = (EditText) findViewById(R.id._inputHeight);
         _weightClient = (EditText) findViewById(R.id._inputWeight);
         _bodyFatPercentageClient = (EditText) findViewById(R.id._inputFatPernc);
-        _tdceClient = (EditText) findViewById(R.id._inputFatPernc);
-        _bmrClient = (EditText) findViewById(R.id._inputFatPernc);
+        _tdceClient = (EditText) findViewById(R.id._inputTDCE);
+        _bmrClient = (EditText) findViewById(R.id._inputBMR);
+        _radioSexGroup = (RadioGroup) findViewById(R.id._radioSex);
+        _radioSexBtnMale = (RadioButton) findViewById(R.id._radioMale);
+        _radioSexBtnFemale = (RadioButton) findViewById(R.id._radioFemale);
 
         _spClientGoal = (Spinner) findViewById(R.id._inputSpClientGoal);
         _spActLevel   = (Spinner) findViewById(R.id._inputSpActLevel);
@@ -107,15 +118,15 @@ public class DialogClient extends Dialog {
             @Override
             public void onFocusChange(View v, boolean hasFocus) { if (!hasFocus) { hideKeyboard(v); } }});
 
-        ArrayAdapter<CharSequence> _adapterClientGoal = ArrayAdapter.createFromResource(_context, R.array.spClientGoal, android.R.layout.simple_spinner_item);
+        _adapterClientGoal = ArrayAdapter.createFromResource(_context, R.array.spClientGoal, android.R.layout.simple_spinner_item);
         _adapterClientGoal.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         _spClientGoal.setAdapter(_adapterClientGoal);
 
-        ArrayAdapter<CharSequence> _adapterActLevel = ArrayAdapter.createFromResource(_context, R.array.spActLevel, android.R.layout.simple_spinner_item);
+        _adapterActLevel = ArrayAdapter.createFromResource(_context, R.array.spActLevel, android.R.layout.simple_spinner_item);
         _adapterActLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         _spActLevel.setAdapter(_adapterActLevel);
 
-        ArrayAdapter<CharSequence> _adapterProteinReq = ArrayAdapter.createFromResource(_context, R.array.spProteinReq, android.R.layout.simple_spinner_item);
+        _adapterProteinReq = ArrayAdapter.createFromResource(_context, R.array.spProteinReq, android.R.layout.simple_spinner_item);
         _adapterProteinReq.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         _spProteinReq.setAdapter(_adapterProteinReq);
 
@@ -152,7 +163,6 @@ public class DialogClient extends Dialog {
                 } else if (_option.equals("view") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityClient.loadGridClients();
                     }
                 } else if (_option.equals("view") && !validationForm()){
                     alertForm();
@@ -166,7 +176,6 @@ public class DialogClient extends Dialog {
                 if (_option.equals("add") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityClient.loadGridClients();
                     }
 
                 } else if (_option.equals("add") && !validationForm()) {
@@ -177,38 +186,6 @@ public class DialogClient extends Dialog {
                 }
             }
         });
-    }
-
-
-    //=====
-    public boolean getDataDialog() {
-
-        boolean ret = false;
-
-        Client _client = new Client();
-
-        _client.set_name(_nameClient.getText().toString());
-        _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
-        _client.set_eMail(_eMailClient.getText().toString());
-        _client.set_phoneNumber(_phoneNumberClient.getText().toString());
-        _client.set_height(Double.valueOf(_heightClient.getText().toString()));
-        _client.set_weight(Double.valueOf(_weightClient.getText().toString()));
-        _client.set_bodyFatPercentage(Integer.valueOf(_bodyFatPercentageClient.getText().toString()));
-
-
-        if (_option.equals("modify")) {
-            _client.set_id(_idClient);
-            ret = clientControl.editData(_client);
-
-        } else if (_option.equals("add")) {
-            ret = clientControl.saveData(_client);
-
-        } else {
-            dialogYesNo("Vous êtes sure de supprimer ce client ?");
-
-        }
-
-        return ret;
     }
 
 
@@ -225,8 +202,32 @@ public class DialogClient extends Dialog {
         _heightClient.setText(String.valueOf(_client.get_height()));
         _weightClient.setText(String.valueOf(_client.get_weight()));
         _bodyFatPercentageClient.setText(String.valueOf(_client.get_bodyFatPercentage()));
-        _tdceClient.setText("X");
-        _bmrClient.setText("X");
+        _tdceClient.setText(String.valueOf(_client.get_tdce()));
+        _bmrClient.setText(String.valueOf(_client.get_bmr()));
+
+        if (_client.get_gender() == 'M'){
+            _radioSexBtnMale.setChecked(true);
+            _radioSexBtnFemale.setChecked(false);
+        } else {
+            _radioSexBtnMale.setChecked(false);
+            _radioSexBtnFemale.setChecked(true);
+        }
+
+        if (_client.getClientGoal().get_idClientGoal() != null) {
+            int spinnerPosition1 = (int) _adapterClientGoal.getItemId(_client.getClientGoal().get_idClientGoal()-1);
+            _spClientGoal.setSelection(spinnerPosition1);
+        }
+
+        if (_client.getClientactivityLevel().get_idDailyActivityLevel() != null) {
+            int spinnerPosition2 = (int) _adapterActLevel.getItemId(_client.getClientactivityLevel().get_idDailyActivityLevel()-1);
+            _spActLevel.setSelection(spinnerPosition2);
+        }
+
+        if (_client.getClientProteinRequirement().get_idProteinRequirement() != null) {
+            int spinnerPosition3 = (int) _adapterProteinReq.getItemId(_client.getClientProteinRequirement().get_idProteinRequirement()-1);
+            _spProteinReq.setSelection(spinnerPosition3);
+        }
+
 
         _nameClient.setEnabled(false);
         _ageClient.setEnabled(false);
@@ -235,6 +236,11 @@ public class DialogClient extends Dialog {
         _heightClient.setEnabled(false);
         _weightClient.setEnabled(false);
         _bodyFatPercentageClient.setEnabled(false);
+        _radioSexBtnMale.setEnabled(false);
+        _radioSexBtnFemale.setEnabled(false);
+        _spClientGoal.setEnabled(false);
+        _spActLevel.setEnabled(false);
+        _spProteinReq.setEnabled(false);
     }
 
 
@@ -261,6 +267,11 @@ public class DialogClient extends Dialog {
         _heightClient.setEnabled(true);
         _weightClient.setEnabled(true);
         _bodyFatPercentageClient.setEnabled(true);
+        _radioSexBtnMale.setEnabled(true);
+        _radioSexBtnFemale.setEnabled(true);
+        _spClientGoal.setEnabled(true);
+        _spActLevel.setEnabled(true);
+        _spProteinReq.setEnabled(true);
 
         _btn1.setVisibility(View.GONE);
         _btn2.setBackgroundResource(R.drawable.icon_cancel);
@@ -281,13 +292,68 @@ public class DialogClient extends Dialog {
                 if (validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityClient.loadGridClients();
                     }
                 } else {
                     alertForm();
                 }
             }
         });
+    }
+
+
+    //=====
+    public boolean getDataDialog() {
+
+        boolean ret = false;
+
+        if (!_option.equals("view")) {
+
+            Client _client = new Client();
+
+            _client.set_name(_nameClient.getText().toString());
+            _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
+            _client.set_eMail(_eMailClient.getText().toString());
+            _client.set_phoneNumber(_phoneNumberClient.getText().toString());
+            _client.set_height(Double.valueOf(_heightClient.getText().toString()));
+            _client.set_weight(Double.valueOf(_weightClient.getText().toString()));
+            _client.set_bodyFatPercentage(Integer.valueOf(_bodyFatPercentageClient.getText().toString()));
+            _client.set_gender('M');
+
+            if (_radioSexBtnFemale.isChecked()) {
+                _client.set_gender('F');
+            }
+
+            ClientGoal _cGol = new ClientGoal();
+            _cGol.set_idClientGoal(_spClientGoal.getSelectedItemPosition() + 1);
+            _client.setClientGoal(_cGol);
+
+            ClientActivityLevel _cAL = new ClientActivityLevel();
+            _cAL.set_idDailyActivityLevel(_spActLevel.getSelectedItemPosition() + 1);
+            _client.setClientactivityLevel(_cAL);
+
+            ClientProteinRequirement _cPR = new ClientProteinRequirement();
+            _cPR.set_idProteinRequirement(_spProteinReq.getSelectedItemPosition() + 1);
+            _client.setClientProteinRequirement(_cPR);
+
+            CaloricCalculation _cCalculation = new CaloricCalculation();
+            _client.set_bmr(_cCalculation.findBasilMetabolicRate(_client));
+            _client.set_tdce(_cCalculation.totalDailyCalories(_client));
+
+            if (_option.equals("modify")) {
+                _client.set_id(_idClient);
+                ret = _clientControl.editData(_client);
+
+            } else if (_option.equals("add")) {
+                ret = _clientControl.saveData(_client);
+
+            }
+
+        } else {
+            dialogYesNo("Vous êtes sure de supprimer ce client ?");
+
+        }
+
+        return ret;
     }
 
 
@@ -300,9 +366,8 @@ public class DialogClient extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _client.set_id(_idClient);
-                _retDialogYesNo = clientControl.deleteData(_client);
+                _retDialogYesNo = _clientControl.deleteData(_client);
                 dismiss();
-                ActivityClient.loadGridClients();
             }
         }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
             @Override
@@ -330,7 +395,6 @@ public class DialogClient extends Dialog {
                                 if (!_bodyFatPercentageClient.getText().toString().equals("")){
 
                                     return true;
-
                                 }
                             }
                         }

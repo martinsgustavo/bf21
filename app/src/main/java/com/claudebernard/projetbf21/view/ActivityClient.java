@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.control.CoachControl;
-import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 
@@ -27,12 +27,14 @@ import java.util.ArrayList;
 
 public class ActivityClient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static Context  _context;
     private static Activity _activity;
-    private static Context _context;
-    private static AdapterCardClient _adapterClient;
     private static GridView _gridClient;
-
-    private CoachControl coachControl;
+    public  static TextView _namePersonal;
+    private static NavigationView _navigationView;
+    private static AdapterCardClient _adapterClient;
+    private CoachControl _coachControl = new CoachControl();
+    private ClientControl _clientControl = new ClientControl();
 
 
     //=====
@@ -53,8 +55,11 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        _navigationView = (NavigationView) findViewById(R.id.nav_view);
+        _navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = _navigationView.getHeaderView(0);
+        _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
 
         FloatingActionButton _fabAddClient = (FloatingActionButton) findViewById(R.id.btn_add_client);
         _fabAddClient.setOnClickListener(new View.OnClickListener() {
@@ -65,31 +70,21 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
             }
         });
 
-        definitionsMenu();
-        loadGridClients();
+        _coachControl.getData("client", 5);
+        _clientControl.getDataAll();
     }
 
 
     //=====
-    public void definitionsMenu(){
-
-        Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(coachControl.getData(_id).get_login());
+    public static void loadNameCoach(String nameCoach){
+        _namePersonal.setText(nameCoach);
     }
 
 
     //=====
-    public static void loadGridClients(){
+    public static void loadGridClients(ArrayList<Client> _listClients){
 
-        ClientControl clientControl = new ClientControl();
-
-        _adapterClient = new AdapterCardClient(_activity, _context, new ArrayList<>(clientControl.getDataAll()));
+        _adapterClient = new AdapterCardClient(_activity, _context, _listClients);
         _gridClient.setAdapter(_adapterClient);
     }
 
@@ -115,18 +110,12 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
         int id = item.getItemId();
         Intent intent = null;
 
-        if (id == R.id.nav_client) {
 
-            intent = new Intent(_context, ActivityClient.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_food) {
-
+        if (id == R.id.nav_food) {
             intent = new Intent(_context, ActivityFood.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_coach) {
-
             intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 

@@ -10,7 +10,7 @@ public class Food {
 
     @SerializedName("idFood")
     @Expose
-    private int _id;
+    private Integer _id;
 
     @SerializedName("name")
     @Expose
@@ -22,7 +22,7 @@ public class Food {
 
     @SerializedName("portionSize")
     @Expose
-    private String _portionSize;
+    private Integer _portionSize;
 
     @SerializedName("nutrients")
     @Expose
@@ -35,11 +35,11 @@ public class Food {
     //=====
 
 
-    public int get_id() {
+    public Integer get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(Integer _id) {
         this._id = _id;
     }
 
@@ -59,11 +59,11 @@ public class Food {
         this._brand = _brand;
     }
 
-    public String get_portionSize() {
+    public Integer get_portionSize() {
         return _portionSize;
     }
 
-    public void set_portionSize(String _portionSize) {
+    public void set_portionSize(Integer _portionSize) {
         this._portionSize = _portionSize;
     }
 

@@ -24,7 +24,6 @@ public class ActivityMain extends AppCompatActivity {
 
     private TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
     private EditText  _inputLogin, _inputPassword;
-    private Button    _loginButton;
 
 
     //=====
@@ -35,7 +34,6 @@ public class ActivityMain extends AppCompatActivity {
 
         _inputLogin          = (EditText)findViewById(R.id._inputLogin);
         _inputPassword       = (EditText)findViewById(R.id._inputPassword);
-        _loginButton         = (Button)findViewById(R.id._loginButton);
         _inputLayoutlogin    = (TextInputLayout) findViewById(R.id.input_layout_login);
         _inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
 

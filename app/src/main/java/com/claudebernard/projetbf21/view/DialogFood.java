@@ -34,8 +34,7 @@ public class DialogFood extends Dialog {
     private int _idFood;
     private Context _context;
     private boolean _retDialogYesNo;
-
-    private FoodControl foodControl;
+    private FoodControl _foodControl = new FoodControl();
 
 
     //=====
@@ -160,7 +159,6 @@ public class DialogFood extends Dialog {
                 } else if (_option.equals("view") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityFood.loadGridFoods();
                     }
                 }
             }
@@ -172,7 +170,6 @@ public class DialogFood extends Dialog {
                 if (_option.equals("add") && validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityFood.loadGridFoods();
                     }
 
                 } else if (_option.equals("view")) {
@@ -191,13 +188,15 @@ public class DialogFood extends Dialog {
         Food _food = new Food();
         boolean ret = false;
 
-        insertDefaultValue();
+        if (_option.equals("add")) {
+            insertDefaultValues();
+        }
 
         for (int x = 0; x < 8; x++) {
 
             final FoodNutrients _foodNutrient = new FoodNutrients();
 
-            _foodNutrient.set_id(0+1);
+            _foodNutrient.set_id(x+1);
 
             if (x == 0) {
                 _foodNutrient.set_total(Double.valueOf(_lipidsFood.getText().toString()));
@@ -235,22 +234,24 @@ public class DialogFood extends Dialog {
 
             }
 
-            _listMacro.add(_foodMacro);
+            if (_foodMacro.get_idMacro()!= null) {
+                _listMacro.add(_foodMacro);
+            }
         }
 
         _food.set_name(_nameFood.getText().toString());
         _food.set_brand(_brandFood.getText().toString());
-        _food.set_portionSize(_portionFood.getText().toString());
+        _food.set_portionSize(Integer.valueOf(_portionFood.getText().toString()));
         _food.set_foodNutrients(_listNutrients);
         _food.set_foodMacros(_listMacro);
 
 
         if (_option.equals("modify")) {
             _food.set_id(_idFood);
-            ret = foodControl.editData(_food);
+            ret = _foodControl.editData(_food);
 
         } else if (_option.equals("add")) {
-            ret = foodControl.saveData(_food);
+            ret = _foodControl.saveData(_food);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce Aliment ?");
@@ -262,7 +263,9 @@ public class DialogFood extends Dialog {
 
 
     //====
-    public void insertDefaultValue() {
+    public void insertDefaultValues() {
+
+        if (_portionFood.getText().toString().equals("")){ _lipidsFood.setText("0"); }
 
         if (_lipidsFood.getText().toString().equals("")){ _lipidsFood.setText("0"); }
 
@@ -279,31 +282,68 @@ public class DialogFood extends Dialog {
         if (_cholesterolFood.getText().toString().equals("")){ _cholesterolFood.setText("0"); }
 
         if (_glycemicIndexFood.getText().toString().equals("")) { _glycemicIndexFood.setText("0"); }
-
     }
 
 
     //====
     public void loadOptionView() {
 
-        boolean _cbFat = _food.get_foodMacros().get(0).get_idMacro() != 0 ? true : false;
-        boolean _cbCarbohydrate = _food.get_foodMacros().get(1).get_idMacro() != 0 ? true : false;
-        boolean _cbProtein = _food.get_foodMacros().get(2).get_idMacro() != 0 ? true : false;
+        boolean _cbFat = false;
+        boolean _cbCarbohydrate = false;
+        boolean _cbProtein = false;
+
+
 
         _idFood = _food.get_id();
 
         _titleCard.setText("Informations sur l aliment");
         _nameFood.setText(_food.get_name());
         _brandFood.setText(_food.get_brand());
-        _portionFood.setText(_food.get_portionSize());
-        _lipidsFood.setText(String.valueOf(_food.get_foodNutrients().get(0).get_total()));
-        _glycidesFood.setText(String.valueOf(_food.get_foodNutrients().get(1).get_total()));
-        _proteinFood.setText(String.valueOf(_food.get_foodNutrients().get(2).get_total()));
-        _fibreFood.setText(String.valueOf(_food.get_foodNutrients().get(3).get_total()));
-        _sugarFood.setText(String.valueOf(_food.get_foodNutrients().get(4).get_total()));
-        _sodiumFood.setText(String.valueOf(_food.get_foodNutrients().get(5).get_total()));
-        _cholesterolFood.setText(String.valueOf(_food.get_foodNutrients().get(6).get_total()));
-        _glycemicIndexFood.setText(String.valueOf(_food.get_foodNutrients().get(7).get_total()));
+        _portionFood.setText(String.valueOf(_food.get_portionSize()));
+
+        for (int y = 0; y < _food.get_foodNutrients().size();y++){
+
+            if (_food.get_foodNutrients().get(y).get_id() == 1){
+                _lipidsFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 2){
+                _glycidesFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 3){
+                _proteinFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 4){
+                _fibreFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 5){
+                _sugarFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 6){
+                _sodiumFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 7){
+                _cholesterolFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+
+            } else if (_food.get_foodNutrients().get(y).get_id() == 8){
+                _glycemicIndexFood.setText(String.valueOf(_food.get_foodNutrients().get(y).get_total()));
+            }
+
+        }
+
+        for (int x = 0; x < _food.get_foodMacros().size();x++){
+
+            if (_food.get_foodMacros().get(x).get_macro().equals("Fat")){
+                _cbFat = true;
+
+            } else if (_food.get_foodMacros().get(x).get_macro().equals("Carbohydrate")){
+                _cbCarbohydrate = true;
+
+            } else if (_food.get_foodMacros().get(x).get_macro().equals("Protein")){
+                _cbProtein = true;
+
+            }
+        }
+
         _macroFat.setChecked(_cbFat);
         _macroCarbohydrate.setChecked(_cbCarbohydrate);
         _macroProtein.setChecked(_cbProtein);
@@ -375,7 +415,6 @@ public class DialogFood extends Dialog {
                 if (validationForm()) {
                     if (getDataDialog()) {
                         dismiss();
-                        ActivityFood.loadGridFoods();
                     }
                 }
             }
@@ -392,9 +431,8 @@ public class DialogFood extends Dialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 _food.set_id(_idFood);
-                _retDialogYesNo = foodControl.deleteData(_food);
+                _retDialogYesNo = _foodControl.deleteData(_food);
                 dismiss();
-                ActivityFood.loadGridFoods();
             }
         }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
             @Override

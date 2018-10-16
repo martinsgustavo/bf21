@@ -25,12 +25,13 @@ import java.util.ArrayList;
 
 public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static Activity _activity;
     private static Context _context;
-    private static AdapterCardCoach _adapterCoach;
+    private static Activity _activity;
     private static GridView _gridCoaches;
-
-    private CoachControl coachControl;
+    public  static TextView _namePersonal;
+    private static NavigationView _navigationView;
+    private static AdapterCardCoach _adapterCoach;
+    private CoachControl _coachControl = new CoachControl();
 
 
     @Override
@@ -50,8 +51,11 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        _navigationView = (NavigationView) findViewById(R.id.nav_view);
+        _navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = _navigationView.getHeaderView(0);
+        _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
 
         FloatingActionButton _fabAddClient = (FloatingActionButton) findViewById(R.id.btn_add_coach);
         _fabAddClient.setOnClickListener(new View.OnClickListener() {
@@ -62,33 +66,22 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
             }
         });
 
-        definitionsMenu();
-        loadGridCoaches();
+        _coachControl.getData("coach", 5);
+        _coachControl.getDataAll();
     }
 
 
     //=====
-    public void definitionsMenu(){
-
-        Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(coachControl.getData(_id).get_login());
+    public static void loadNameCoach(String nameCoach){
+        _namePersonal.setText(nameCoach);
     }
 
 
     //=====
-    public static void loadGridCoaches(){
+    public static void loadGridCoaches(ArrayList<Coach> _listCoaches){
 
-        CoachControl coachControl = new CoachControl();
-
-        _adapterCoach = new AdapterCardCoach(_activity, _context, new ArrayList<>(coachControl.getDataAll()));
+        _adapterCoach = new AdapterCardCoach(_activity, _context, _listCoaches);
         _gridCoaches.setAdapter(_adapterCoach);
-
     }
 
     //=====
@@ -113,18 +106,11 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
         Intent intent = null;
 
         if (id == R.id.nav_client) {
-
             intent = new Intent(_context, ActivityClient.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_food) {
-
             intent = new Intent(_context, ActivityFood.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_coach) {
-
-            intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_logout) {

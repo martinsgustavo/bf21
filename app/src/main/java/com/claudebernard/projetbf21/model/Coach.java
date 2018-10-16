@@ -3,11 +3,13 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Coach {
+import java.io.Serializable;
+
+public class Coach implements Serializable {
 
     @SerializedName("idCoach")
     @Expose
-    private int _id;
+    private Integer _id;
 
     @SerializedName("name")
     @Expose
@@ -33,22 +35,21 @@ public class Coach {
     //=====
 
 
-    public int get_id() { return _id; }
-    public void set_id(int _id) { this._id = _id; }
+    public Integer get_id() { return _id; }
+    public void set_id(Integer _id) { this._id = _id; }
 
     public String get_name() { return _name; }
     public void set_name(String _name) { this._name = _name; }
 
     public String get_eMail() { return _eMail; }
-    public String get_phone() { return _phone; }
-
     public void set_eMail(String _eMail) { this._eMail = _eMail; }
+
+    public String get_phone() { return _phone; }
     public void set_phone(String _phone) { this._phone = _phone; }
 
     public String get_login() { return _login; }
     public void set_login(String _login) { this._login = _login; }
 
     public String get_password() { return _password; }
-
     public void set_password(String _password) { this._password = _password; }
 }

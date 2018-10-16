@@ -7,7 +7,7 @@ import java.util.List;
 public interface GenericControl<T> {
 
     List<T> getDataAll();
-    T getData(Integer id);
+    T getData(String option, Integer id);
     boolean saveData(T object);
     boolean editData(T object);
     boolean deleteData(T object);

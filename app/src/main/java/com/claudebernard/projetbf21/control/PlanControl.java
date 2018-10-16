@@ -14,7 +14,7 @@ public class PlanControl implements GenericControl<Plan>{
     }
 
     @Override
-    public Plan getData(Integer id) {
+    public Plan getData(String option, Integer id) {
         return null;
     }
 

@@ -30,12 +30,15 @@ import java.util.ArrayList;
 
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static Activity _activity;
     private static Context _context;
-    private static AdapterCardFood _adapterFood;
+    private static Activity _activity;
     private static GridView _gridFood;
+    public  static TextView _namePersonal;
+    private static NavigationView _navigationView;
+    private static AdapterCardFood _adapterFood;
+    private CoachControl _coachControl = new CoachControl();
+    private FoodControl _foodControl = new FoodControl();
 
-    private CoachControl coachControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,11 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        _navigationView = (NavigationView) findViewById(R.id.nav_view);
+        _navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = _navigationView.getHeaderView(0);
+        _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
 
         FloatingActionButton _fabAddFood = (FloatingActionButton) findViewById(R.id.btn_add_food);
         _fabAddFood.setOnClickListener(new View.OnClickListener() {
@@ -66,31 +72,21 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        definitionsMenu();
-        loadGridFoods();
+        _coachControl.getData("food", 5);
+        _foodControl.getDataAll();
     }
 
 
     //=====
-    public void definitionsMenu(){
-
-        Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-
-        TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-        _namePersonal.setText(coachControl.getData(_id).get_login());
+    public static void loadNameCoach(String nameCoach){
+        _namePersonal.setText(nameCoach);
     }
 
 
     //=====
-    public static void loadGridFoods(){
+    public static void loadGridFoods(ArrayList<Food> _listFoods){
 
-        FoodControl foodControl = new FoodControl();
-
-        _adapterFood = new AdapterCardFood(_activity, _context, new ArrayList<>(foodControl.getDataAll()));
+        _adapterFood = new AdapterCardFood(_activity, _context, _listFoods);
         _gridFood.setAdapter(_adapterFood);
     }
 
@@ -116,17 +112,10 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
         Intent intent = null;
 
         if (id == R.id.nav_client) {
-
             intent = new Intent(_context, ActivityClient.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_food) {
-
-            intent = new Intent(_context, ActivityFood.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_coach) {
-
+        }  else if (id == R.id.nav_coach) {
             intent = new Intent(_context, ActivityCoach.class);
             startActivity(intent);
 
