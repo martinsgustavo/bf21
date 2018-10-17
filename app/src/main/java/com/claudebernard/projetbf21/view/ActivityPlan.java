@@ -16,12 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
-import com.claudebernard.projetbf21.control.PlanControl;
-import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.control.FoodPlanControl;
 
 import java.util.ArrayList;
 
@@ -116,9 +114,9 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     //=====
     public static void loadGridPlans(){
 
-        PlanControl planControl = new PlanControl();
+        FoodPlanControl foodPlanControl = new FoodPlanControl();
 
-        _adapterPlan = new AdapterCardPlan(_activity, _context, new ArrayList<>(planControl.getDataAll()));
+        _adapterPlan = new AdapterCardPlan(_activity, _context, new ArrayList<>(foodPlanControl.getDataAll()));
         _gridPlan.setAdapter(_adapterPlan);
     }
 

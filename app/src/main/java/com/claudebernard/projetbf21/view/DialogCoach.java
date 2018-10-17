@@ -15,15 +15,16 @@ import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
+import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Coach;
 
 public class DialogCoach extends Dialog {
 
-    private Activity _activity;
+    private static Activity _activity;
     private ImageButton _btn1, _btn2, _btn3;
     private EditText _nameCoach, _eMailCoach, _phoneCoach, _loginCoach, _passwordCoach;
     private TextView _titleCard;
-    private String _option;
+    private String _option, _passwordCoachTemp;
     private int _idCoach;
     private Coach _coach;
     private Context _context;
@@ -115,9 +116,7 @@ public class DialogCoach extends Dialog {
                     dismiss();
 
                 } else if (_option.equals("view") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
                 }
             }
         });
@@ -126,9 +125,7 @@ public class DialogCoach extends Dialog {
 
             public void onClick(View v) {
                 if (_option.equals("add") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
 
                 } else if (_option.equals("view")) {
                     loadOptionModify();
@@ -139,42 +136,42 @@ public class DialogCoach extends Dialog {
 
 
     //=====
-    public boolean getDataDialog() {
+    public void getDataDialog() {
 
-        boolean ret = false;
+        Coach _coach = new Coach();
 
-            if (_option.equals("view")) {
+        _coach.set_name(_nameCoach.getText().toString());
+        _coach.set_eMail(_eMailCoach.getText().toString());
+        _coach.set_phone(_phoneCoach.getText().toString());
+        _coach.set_login(_loginCoach.getText().toString());
 
-            Coach _coach = new Coach();
+        if (_option.equals("modify")) {
+            _coach.set_id(_idCoach);
 
-            _coach.set_name(_nameCoach.getText().toString());
-            _coach.set_eMail(_eMailCoach.getText().toString());
-            _coach.set_phone(_phoneCoach.getText().toString());
-            _coach.set_login(_loginCoach.getText().toString());
-            _coach.set_password(_passwordCoach.getText().toString());
-
-
-            if (_option.equals("modify")) {
-                _coach.set_id(_idCoach);
-                ret = _coachControl.editData(_coach);
-
-            } else if (_option.equals("add")) {
-                ret = _coachControl.saveData(_coach);
-
+            if (!_passwordCoachTemp.equals(_passwordCoach.getText().toString())) {
+                _coach.set_password(ValidationLogin.md5(_passwordCoach.getText().toString()));
+            } else {
+                _coach.set_password(_passwordCoachTemp);
             }
-        } else {
+
+            _coachControl.editData(_coach);
+
+        } else if (_option.equals("add")) {
+            _coach.set_password(ValidationLogin.md5(_passwordCoach.getText().toString()));
+            _coachControl.saveData(_coach);
+
+        }else {
             dialogYesNo("Vous êtes sure de supprimer ce coach ?");
 
         }
-
-        return ret;
     }
 
 
-    //====
+    //=====
     public void loadOptionView() {
 
         _idCoach = _coach.get_id();
+        _passwordCoachTemp = _coach.get_password();
 
         _titleCard.setText("Informations sur le coach");
         _nameCoach.setText(_coach.get_name());
@@ -230,9 +227,7 @@ public class DialogCoach extends Dialog {
                 _option = "modify";
 
                 if (validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
                 }
             }
         });

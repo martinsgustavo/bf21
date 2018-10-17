@@ -10,6 +10,7 @@ import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.claudebernard.projetbf21.view.ActivityClient;
 import com.claudebernard.projetbf21.view.ActivityFood;
+import com.claudebernard.projetbf21.view.AdapterCardFood;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -100,9 +101,12 @@ public class FoodControl implements GenericControl<Food> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Food Control", "Success - saveData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==201) {
+                    Log.i("Food Control", "Success - saveData");
+                    _isCorrect = true;
+                    ActivityFood.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
@@ -122,9 +126,12 @@ public class FoodControl implements GenericControl<Food> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Food Control", "Success - editData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==200) {
+                    Log.i("Food Control", "Success - editData");
+                    _isCorrect = true;
+                    AdapterCardFood.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

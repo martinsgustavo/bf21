@@ -2,6 +2,8 @@ package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,10 @@ import java.util.ArrayList;
 
 public class AdapterCardCoach extends BaseAdapter {
 
-    public static final String EXTRA_MESSAGE_HOME = "com.claudebernard.projetbf21.HOME";
     public Context _context;
     public Activity _activity;
     public ArrayList<Coach> _listCoaches;
+    public static DialogCoach dialogCoach;
 
 
     //=====
@@ -66,14 +68,23 @@ public class AdapterCardCoach extends BaseAdapter {
         TextView _inputName = (TextView) view.findViewById(R.id._info_name);
         _inputName.setText(_coach.get_name());
 
+        CardView _colorCard = (CardView) view.findViewById(R.id._card_list_all);
+        _colorCard.setCardBackgroundColor(Color.parseColor("#B5842D"));
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogCoach dialogCoach = new DialogCoach(_activity, _context,"view", _coach);
+                dialogCoach = new DialogCoach(_activity, _context,"view", _coach);
                 dialogCoach.show();
             }
         });
 
         return view;
+    }
+
+
+    //=====
+    public static void dismissView(){
+        dialogCoach.dismiss();
     }
 }

@@ -26,12 +26,13 @@ import java.util.ArrayList;
 public class ActivityCoach extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Context _context;
-    private static Activity _activity;
+    public static Activity _activity;
     private static GridView _gridCoaches;
     public  static TextView _namePersonal;
     private static NavigationView _navigationView;
     private static AdapterCardCoach _adapterCoach;
     private CoachControl _coachControl = new CoachControl();
+    public static DialogCoach _dialogCoach;
 
 
     @Override
@@ -61,8 +62,8 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
         _fabAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogCoach dialogCoach = new DialogCoach(_activity, _context,"add", null);
-                dialogCoach.show();
+                _dialogCoach = new DialogCoach(_activity, _context,"add", null);
+                _dialogCoach.show();
             }
         });
 
@@ -117,12 +118,20 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
-
+            ActivityClient._activity.finish();
+            ActivityFood._activity.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+
+    //=====
+    public static void dismissView(){
+        _dialogCoach.dismiss();
+
     }
 }

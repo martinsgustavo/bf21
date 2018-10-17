@@ -1,8 +1,11 @@
 package com.claudebernard.projetbf21.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ public class AdapterCardClient extends BaseAdapter {
     public Context _context;
     public Activity _activity;
     public ArrayList<Client> _listClients;
+    public static DialogClient _dialogClient;
 
 
     //=====
@@ -68,12 +72,15 @@ public class AdapterCardClient extends BaseAdapter {
         TextView _inputName = (TextView) view.findViewById(R.id._info_name);
         _inputName.setText(_client.get_name());
 
+        CardView _colorCard = (CardView) view.findViewById(R.id._card_list_all);
+        _colorCard.setCardBackgroundColor(Color.parseColor("#1DA0D0"));
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //              comentario : option view inscription client = ok
-                DialogClient dialogClient = new DialogClient(_activity, _context,"view", _client);
-                dialogClient.show();
+                _dialogClient = new DialogClient(_activity, _context,"view", _client);
+                _dialogClient.show();
 
 //                option view plan client
 //                Intent intent = new Intent(_context, ActivityPlan.class);
@@ -83,5 +90,11 @@ public class AdapterCardClient extends BaseAdapter {
         });
 
         return view;
+    }
+
+
+    //=====
+    public static void dismissView(){
+        _dialogClient.dismiss();
     }
 }

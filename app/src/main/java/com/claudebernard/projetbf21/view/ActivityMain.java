@@ -22,8 +22,11 @@ import retrofit2.Response;
 
 public class ActivityMain extends AppCompatActivity {
 
-    private TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
+    private static TextInputLayout _inputLayoutlogin;
+    private static TextInputLayout _inputLayoutPassword;
+    public static Activity _activity;
     private EditText  _inputLogin, _inputPassword;
+    private ValidationLogin _validantioLogin = new ValidationLogin();
 
 
     //=====
@@ -31,6 +34,7 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        _activity = this;
 
         _inputLogin          = (EditText)findViewById(R.id._inputLogin);
         _inputPassword       = (EditText)findViewById(R.id._inputPassword);
@@ -73,10 +77,14 @@ public class ActivityMain extends AppCompatActivity {
         _inputLogin.clearFocus();
         _inputPassword.clearFocus();
 
-        if (!ValidationLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim())){
-            _inputLayoutlogin.setError(" ");
-            _inputLayoutPassword.setError("Nom d'utilisateur ou mot de passe incorrect.");
-        }
+        _validantioLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim());
+    }
+
+
+    //=====
+    public static void returnValidation(){
+        _inputLayoutlogin.setError(" ");
+        _inputLayoutPassword.setError("Nom d'utilisateur ou mot de passe incorrect.");
     }
 
 

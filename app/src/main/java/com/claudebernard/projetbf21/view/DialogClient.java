@@ -27,7 +27,7 @@ import com.claudebernard.projetbf21.model.ClientProteinRequirement;
 
 public class DialogClient extends Dialog {
 
-    private Activity _activity;
+    private static Activity _activity;
     private ImageButton _btn1, _btn2, _btn3;
     private EditText _nameClient, _ageClient, _eMailClient, _phoneNumberClient, _heightClient, _weightClient, _bodyFatPercentageClient, _tdceClient, _bmrClient;
     private TextView _titleCard;
@@ -161,11 +161,8 @@ public class DialogClient extends Dialog {
                     dismiss();
 
                 } else if (_option.equals("view") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
-                } else if (_option.equals("view") && !validationForm()){
-                    alertForm();
+                    getDataDialog();
+
                 }
             }
         });
@@ -174,12 +171,7 @@ public class DialogClient extends Dialog {
 
             public void onClick(View v) {
                 if (_option.equals("add") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
-
-                } else if (_option.equals("add") && !validationForm()) {
-                    alertForm();
+                    getDataDialog();
 
                 } else if (_option.equals("view")) {
                    loadOptionModify();
@@ -290,11 +282,7 @@ public class DialogClient extends Dialog {
                 _option = "modify";
 
                 if (validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
-                } else {
-                    alertForm();
+                    getDataDialog();
                 }
             }
         });
@@ -302,9 +290,7 @@ public class DialogClient extends Dialog {
 
 
     //=====
-    public boolean getDataDialog() {
-
-        boolean ret = false;
+    public void getDataDialog() {
 
         if (!_option.equals("view")) {
 
@@ -341,10 +327,10 @@ public class DialogClient extends Dialog {
 
             if (_option.equals("modify")) {
                 _client.set_id(_idClient);
-                ret = _clientControl.editData(_client);
+                 _clientControl.editData(_client);
 
             } else if (_option.equals("add")) {
-                ret = _clientControl.saveData(_client);
+                _clientControl.saveData(_client);
 
             }
 
@@ -352,8 +338,6 @@ public class DialogClient extends Dialog {
             dialogYesNo("Vous êtes sure de supprimer ce client ?");
 
         }
-
-        return ret;
     }
 
 
@@ -386,32 +370,56 @@ public class DialogClient extends Dialog {
     //=====
     public boolean validationForm(){
 
-        if (!_nameClient.getText().toString().equals("")){
-            if (!_ageClient.getText().toString().equals("")){
-                if (!_eMailClient.getText().toString().equals("")){
-                    if (!_phoneNumberClient.getText().toString().equals("")){
-                        if (!_heightClient.getText().toString().equals("")){
-                            if (!_weightClient.getText().toString().equals("")){
-                                if (!_bodyFatPercentageClient.getText().toString().equals("")){
+        String _msg;
+        Double _FatPerc;
 
-                                    return true;
+        if (!_nameClient.getText().toString().equals("") && _nameClient.getText().length() <= 45){
+            if (!_ageClient.getText().toString().equals("") && _ageClient.getText().length() <= 3){
+                if (!_eMailClient.getText().toString().equals("") && _eMailClient.getText().length() <= 45){
+                    if (!_phoneNumberClient.getText().toString().equals("") && _phoneNumberClient.getText().length() <= 45){
+                        if (!_heightClient.getText().toString().equals("") && _heightClient.getText().length() <= 7){
+                            if (!_weightClient.getText().toString().equals("") && _weightClient.getText().length() <= 7){
+                                if (!_bodyFatPercentageClient.getText().toString().equals("") && _bodyFatPercentageClient.getText().length() <= 2){
+                                    _FatPerc = Double.valueOf(_bodyFatPercentageClient.getText().toString());
+                                    if (_radioSexBtnFemale.isChecked() && _FatPerc >= 14 || _radioSexBtnMale.isChecked() && _FatPerc >= 10){
+                                        return true;
+
+                                    } else {
+                                        _msg = "Le champ Taux de graisse doit avoir la valeur minimale de:\nHomme -> 10\nFemme -> 14\n";
+                                    }
+                                } else {
+                                    _msg = "Le champ Taux de graisse de passe doit être remplis et le maximum sont 2 caractères.\n";
                                 }
+                            } else {
+                                _msg = "Le champ Poids doit être remplis et le maximum sont 5,2 caractères.\n";
                             }
+                        } else {
+                            _msg = "Le champ Taille doit être remplis et le maximum sont 5,2 caractères.\n";
                         }
+                    } else {
+                        _msg = "Le champ Téléphone doit être remplis et le maximum sont 45 caractères.\n";
                     }
+                } else {
+                    _msg = "Le champ Courriel doit être remplis et le maximum sont 45 caractères.\n";
                 }
+            } else {
+                _msg = "Le champ Âge doit être remplis et le maximum sont 3 caractères.\n";
             }
+        } else {
+            _msg = "Le champ Nom doit être remplis et le maximum sont 45 caractères.\n";
         }
+
+        alertForm(_msg);
 
         return false;
     }
 
 
     //=====
-    public void alertForm(){
+    public void alertForm(String _msg){
         AlertDialog alertDialog = new AlertDialog.Builder(_context).create();
         alertDialog.setTitle("Alerte !");
-        alertDialog.setMessage("Tous les champs doivent être remplis.");
+        alertDialog.setMessage(_msg);
 
         alertDialog.show();
 

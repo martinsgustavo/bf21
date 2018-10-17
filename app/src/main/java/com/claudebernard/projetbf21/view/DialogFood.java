@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class DialogFood extends Dialog {
 
-    private Activity _activity;
+    private static Activity _activity;
     private ImageButton _btn1, _btn2, _btn3;
     private EditText _nameFood, _brandFood, _portionFood, _lipidsFood, _glycidesFood, _proteinFood, _fibreFood, _sugarFood, _sodiumFood, _cholesterolFood, _glycemicIndexFood;
     private CheckBox _macroFat, _macroCarbohydrate, _macroProtein;
@@ -157,9 +157,7 @@ public class DialogFood extends Dialog {
                     dismiss();
 
                 } else if (_option.equals("view") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
                 }
             }
         });
@@ -168,9 +166,7 @@ public class DialogFood extends Dialog {
 
             public void onClick(View v) {
                 if (_option.equals("add") && validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
 
                 } else if (_option.equals("view")) {
                     loadOptionModify();
@@ -181,12 +177,11 @@ public class DialogFood extends Dialog {
 
 
     //=====
-    public boolean getDataDialog() {
+    public void getDataDialog() {
 
         ArrayList<FoodNutrients> _listNutrients = new ArrayList<>();
         ArrayList<FoodMacros>    _listMacro = new ArrayList<>();
         Food _food = new Food();
-        boolean ret = false;
 
         if (_option.equals("add")) {
             insertDefaultValues();
@@ -248,17 +243,15 @@ public class DialogFood extends Dialog {
 
         if (_option.equals("modify")) {
             _food.set_id(_idFood);
-            ret = _foodControl.editData(_food);
+            _foodControl.editData(_food);
 
         } else if (_option.equals("add")) {
-            ret = _foodControl.saveData(_food);
+            _foodControl.saveData(_food);
 
         } else {
             dialogYesNo("Vous êtes sure de supprimer ce Aliment ?");
 
         }
-
-        return ret;
     }
 
 
@@ -330,20 +323,21 @@ public class DialogFood extends Dialog {
 
         }
 
-        for (int x = 0; x < _food.get_foodMacros().size();x++){
+        if (_food.get_foodMacros() != null) {
+            for (int x = 0; x < _food.get_foodMacros().size(); x++) {
 
-            if (_food.get_foodMacros().get(x).get_macro().equals("Fat")){
-                _cbFat = true;
+                if (_food.get_foodMacros().get(x).get_macro().equals("Fat")) {
+                    _cbFat = true;
 
-            } else if (_food.get_foodMacros().get(x).get_macro().equals("Carbohydrate")){
-                _cbCarbohydrate = true;
+                } else if (_food.get_foodMacros().get(x).get_macro().equals("Carbohydrate")) {
+                    _cbCarbohydrate = true;
 
-            } else if (_food.get_foodMacros().get(x).get_macro().equals("Protein")){
-                _cbProtein = true;
+                } else if (_food.get_foodMacros().get(x).get_macro().equals("Protein")) {
+                    _cbProtein = true;
 
+                }
             }
         }
-
         _macroFat.setChecked(_cbFat);
         _macroCarbohydrate.setChecked(_cbCarbohydrate);
         _macroProtein.setChecked(_cbProtein);
@@ -413,9 +407,7 @@ public class DialogFood extends Dialog {
                 _option = "modify";
 
                 if (validationForm()) {
-                    if (getDataDialog()) {
-                        dismiss();
-                    }
+                    getDataDialog();
                 }
             }
         });

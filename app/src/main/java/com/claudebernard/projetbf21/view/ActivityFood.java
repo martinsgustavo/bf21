@@ -1,7 +1,6 @@
 package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
@@ -23,7 +20,6 @@ import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
-import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.Food;
 
 import java.util.ArrayList;
@@ -31,13 +27,14 @@ import java.util.ArrayList;
 public class ActivityFood extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Context _context;
-    private static Activity _activity;
+    public static Activity _activity;
     private static GridView _gridFood;
     public  static TextView _namePersonal;
     private static NavigationView _navigationView;
     private static AdapterCardFood _adapterFood;
     private CoachControl _coachControl = new CoachControl();
     private FoodControl _foodControl = new FoodControl();
+    public static DialogFood _dialogFood;
 
 
     @Override
@@ -67,8 +64,8 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
         _fabAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFood dialogFood = new DialogFood(_activity, _context,"add", null);
-                dialogFood.show();
+                _dialogFood = new DialogFood(_activity, _context,"add", null);
+                _dialogFood.show();
             }
         });
 
@@ -123,13 +120,18 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
-
+            ActivityClient._activity.finish();
+            ActivityCoach._activity.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
     }
 
+
+    //=====
+    public static void dismissView(){
+        _dialogFood.dismiss();
+    }
 }

@@ -6,7 +6,7 @@ import com.claudebernard.projetbf21.model.Plan;
 
 import java.util.List;
 
-public class PlanControl implements GenericControl<Plan>{
+public class FoodPlanControl implements GenericControl<Plan>{
 
     @Override
     public List<Plan> getDataAll() {

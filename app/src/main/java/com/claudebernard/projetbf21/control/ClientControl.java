@@ -8,6 +8,7 @@ import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.claudebernard.projetbf21.view.ActivityClient;
+import com.claudebernard.projetbf21.view.AdapterCardClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -97,9 +98,12 @@ public class ClientControl implements GenericControl<Client> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Client Control", "Success - saveData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==201) {
+                    Log.i("Client Control", "Success - saveData");
+                    _isCorrect = true;
+                    ActivityClient.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
@@ -119,9 +123,12 @@ public class ClientControl implements GenericControl<Client> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Client Control", "Success - editData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==200) {
+                    Log.i("Client Control", "Success - editData");
+                    _isCorrect = true;
+                    AdapterCardClient.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

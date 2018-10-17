@@ -11,6 +11,8 @@ import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.claudebernard.projetbf21.view.ActivityClient;
 import com.claudebernard.projetbf21.view.ActivityCoach;
 import com.claudebernard.projetbf21.view.ActivityFood;
+import com.claudebernard.projetbf21.view.AdapterCardCoach;
+import com.claudebernard.projetbf21.view.DialogCoach;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -111,9 +113,12 @@ public class CoachControl implements GenericControl<Coach>{
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Coach Control", "Success - saveData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==201) {
+                    Log.i("Coach Control", "Success - saveData");
+                    _isCorrect = true;
+                    ActivityCoach.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
@@ -133,9 +138,12 @@ public class CoachControl implements GenericControl<Coach>{
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Coach Control", "Success - editData");
-                _isCorrect = true;
-                getDataAll();
+                if (response.code()==200) {
+                    Log.i("Coach Control", "Success - editData");
+                    _isCorrect = true;
+                    AdapterCardCoach.dismissView();
+                    getDataAll();
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
-import com.claudebernard.projetbf21.control.PlanControl;
+import com.claudebernard.projetbf21.control.FoodPlanControl;
 import com.claudebernard.projetbf21.model.Plan;
 
 public class DialogPlan extends Dialog {
@@ -27,7 +27,7 @@ public class DialogPlan extends Dialog {
     private Context _context;
     private boolean _retDialogYesNo;
 
-    PlanControl planControl;
+    FoodPlanControl foodPlanControl;
 
 
     //=====
@@ -137,7 +137,7 @@ public class DialogPlan extends Dialog {
         _plan.set_periodStart(_inputPerStartPlan.getText().toString());
         _plan.set_periodEnd(_inputPerEndPlan.getText().toString());
 
-        return planControl.saveData(_plan);
+        return foodPlanControl.saveData(_plan);
     }
 
 
