@@ -7,6 +7,7 @@ import android.util.Log;
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.model.Coach;
+import com.claudebernard.projetbf21.model.Login;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.view.ActivityClient;
 import com.google.gson.Gson;
@@ -20,28 +21,34 @@ import retrofit2.Response;
 
 public class ValidationLogin {
 
-    public static final String EXTRA_MESSAGE = "com.claudebernard.projetbf21";
+    public final String EXTRA_MESSAGE = "com.claudebernard.projetbf21";
     private static Coach coach;
     private static boolean isCorrect;
 
-    public static boolean accessSystem(final Context c, final String login, final String password){
+    public boolean accessSystem(final Context c, final String login, final String password){
 
         final String md5Password = md5(password);
+        Login loginObj = new Login(login, md5Password);
 
         final ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
-        Call<ResponseServer> call = apiInterface.login(login);
+        Call<ResponseServer> call = apiInterface.login(loginObj);
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
 
+                System.out.println("ENTROU");
+                System.out.println(response.body().getMeta());
                 String string = new Gson().toJson(response.body().getMeta());
                 coach = new Gson().fromJson(string, Coach.class);
 
+                System.out.println(coach.get_password());
+
                 if (md5Password.equals(coach.get_password())){
                     Log.i("Validation Login", "Validation OK");
+
                     Intent intent = new Intent(c, ActivityClient.class);
-                    intent.putExtra(EXTRA_MESSAGE, coach.get_id());
+                    intent.putExtra(EXTRA_MESSAGE, String.valueOf(coach.get_id()));
                     c.startActivity(intent);
 
                     isCorrect = true;

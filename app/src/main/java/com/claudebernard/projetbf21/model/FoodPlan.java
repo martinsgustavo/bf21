@@ -3,31 +3,39 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class FoodPlan {
 
     @SerializedName("idFoodPlan")
     @Expose
-    private int _idFoodPlan;
+    private Integer _idFoodPlan;
 
-    @SerializedName("namePlan")
+    @SerializedName("planName")
     @Expose
     private String _namePlan;
 
-    @SerializedName("idCoach")
+    @SerializedName("client")
     @Expose
-    private int _idCoach;
+    private Client _client;
 
-    @SerializedName("idClient")
+    @SerializedName("coach")
     @Expose
-    private int _idClient;
+    private Coach _coach;
+
+    @SerializedName("planDays")
+    @Expose
+    private List<PlanDays> _planDays;
 
 
     //=====
-    public int get_idFoodPlan() {
+
+
+    public Integer get_idFoodPlan() {
         return _idFoodPlan;
     }
 
-    public void set_idFoodPlan(int _idFoodPlan) {
+    public void set_idFoodPlan(Integer _idFoodPlan) {
         this._idFoodPlan = _idFoodPlan;
     }
 
@@ -39,19 +47,27 @@ public class FoodPlan {
         this._namePlan = _namePlan;
     }
 
-    public int get_idCoach() {
-        return _idCoach;
+    public Client get_client() {
+        return _client;
     }
 
-    public void set_idCoach(int _idCoach) {
-        this._idCoach = _idCoach;
+    public void set_client(Client _client) {
+        this._client = _client;
     }
 
-    public int get_idClient() {
-        return _idClient;
+    public Coach get_coach() {
+        return _coach;
     }
 
-    public void set_idClient(int _idClient) {
-        this._idClient = _idClient;
+    public void set_coach(Coach _coach) {
+        this._coach = _coach;
+    }
+
+    public List<PlanDays> get_planDays() {
+        return _planDays;
+    }
+
+    public void set_planDays(List<PlanDays> _planDays) {
+        this._planDays = _planDays;
     }
 }

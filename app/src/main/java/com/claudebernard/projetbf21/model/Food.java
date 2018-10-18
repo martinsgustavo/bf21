@@ -3,14 +3,13 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 import java.util.List;
 
 public class Food {
 
     @SerializedName("idFood")
     @Expose
-    private int _id;
+    private Integer _id;
 
     @SerializedName("name")
     @Expose

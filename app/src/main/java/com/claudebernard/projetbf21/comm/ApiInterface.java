@@ -3,6 +3,7 @@ package com.claudebernard.projetbf21.comm;
 import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.Food;
+import com.claudebernard.projetbf21.model.Login;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
 
@@ -12,16 +13,14 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ApiInterface {
 
     //LOGIN
 
-    @GET("/login/json?")
-    Call<ResponseServer> login(@Path("login") String login);
-
+    @POST("/login")
+    Call<ResponseServer> login(@Body Login login);
 
     //COACH
 
@@ -76,14 +75,14 @@ public interface ApiInterface {
     Call<ResponseServer> deleteFood(@Url String url);
 
 
-//    //PLAN
-//
-//    @GET("/plan")
-//    Call<List<Plan>> findAllPlan();
-//
-//    @GET("/plan")
-//    Call<Plan> findPlan();
-//
+    //PLAN
+
+    @GET("/foodPlan/list")
+    Call<ResponseServerArray> findAllPlans();
+
+    @GET
+    Call<ResponseServerArray> findAllPlansClient(@Url String url);
+
 //    @POST("/plan")
 //    @FormUrlEncoded
 //    Call<Plan> savePlan(@Body Plan plan);

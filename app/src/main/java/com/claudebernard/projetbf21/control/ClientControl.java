@@ -33,11 +33,13 @@ public class ClientControl implements GenericControl<Client> {
             @Override
             public void onResponse(Call<ResponseServerArray> call, Response<ResponseServerArray> response) {
                 Log.i("Client Control", "Success - getDataClients");
-                if(response.body().toString() != ""){
+                if(response.body().getMeta().toString() != ""){
                     String string = new Gson().toJson(response.body().getMeta());
 
                     Type listType = new TypeToken<ArrayList<Client>>() {}.getType();
                     clients = new Gson().fromJson(string, listType);
+                } else {
+                    clients = null;
                 }
             }
 
@@ -62,6 +64,7 @@ public class ClientControl implements GenericControl<Client> {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Client Control", "Success - getDataClient");
+
                 String string = new Gson().toJson(response.body().getMeta());
                 client = new Gson().fromJson(string, Client.class);
             }

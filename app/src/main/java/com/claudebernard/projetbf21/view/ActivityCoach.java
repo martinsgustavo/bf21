@@ -30,7 +30,8 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     private static AdapterCardCoach _adapterCoach;
     private static GridView _gridCoaches;
 
-    private CoachControl coachControl;
+    private CoachControl coachControl = new CoachControl();
+    private ValidationLogin validationLogin = new ValidationLogin();
 
 
     @Override
@@ -71,7 +72,7 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
+        Integer _id = Integer.parseInt(_intent.getStringExtra(validationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

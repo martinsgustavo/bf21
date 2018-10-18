@@ -32,7 +32,8 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
     private static AdapterCardClient _adapterClient;
     private static GridView _gridClient;
 
-    private CoachControl coachControl;
+    private CoachControl coachControl = new CoachControl();
+    private ValidationLogin validationLogin = new ValidationLogin();
 
 
     //=====
@@ -74,7 +75,8 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
+        System.out.println(validationLogin.EXTRA_MESSAGE);
+        Integer _id = 5; //_intent.getStringExtra(validationLogin.EXTRA_MESSAGE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

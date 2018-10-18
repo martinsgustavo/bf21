@@ -2,17 +2,14 @@ package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
-import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.model.Plan;
+import com.claudebernard.projetbf21.model.FoodPlan;
 
 import java.util.ArrayList;
 
@@ -22,12 +19,12 @@ public class AdapterCardPlan extends BaseAdapter {
     public static final String EXTRA_MESSAGE_HOME = "com.claudebernard.projetbf21.HOME";
     public Context _context;
     public Activity _activity;
-    public ArrayList<Plan> _listPlans;
+    public ArrayList<FoodPlan> _listPlans;
     public int _numberMeal = 1;
 
 
     //=====
-    public AdapterCardPlan(Activity a,Context c, ArrayList<Plan> plans){
+    public AdapterCardPlan(Activity a,Context c, ArrayList<FoodPlan> plans){
         this._activity = a;
         this._context = c;
         this._listPlans = plans;
@@ -62,7 +59,7 @@ public class AdapterCardPlan extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
-        final Plan _plan = (Plan) this.getItem(position);
+        final FoodPlan _plan = (FoodPlan) this.getItem(position);
 
         if (position == 0 || position % 7 == 0) {
             view = LayoutInflater.from(_context).inflate(R.layout.card_plan_day, viewGroup, false);

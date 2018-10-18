@@ -7,7 +7,7 @@ public class Coach {
 
     @SerializedName("idCoach")
     @Expose
-    private int _id;
+    private Integer _id;
 
     @SerializedName("name")
     @Expose

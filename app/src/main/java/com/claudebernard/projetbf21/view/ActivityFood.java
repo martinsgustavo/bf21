@@ -35,7 +35,8 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     private static AdapterCardFood _adapterFood;
     private static GridView _gridFood;
 
-    private CoachControl coachControl;
+    private CoachControl coachControl = new CoachControl();
+    private ValidationLogin validationLogin = new ValidationLogin();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
+        Integer _id = Integer.parseInt(_intent.getStringExtra(validationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

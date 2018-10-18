@@ -8,26 +8,25 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="spClientGoal">
         <item></item>
-        <item>option A1</item>
-        <item>option A2</item>
-        <item>option A3</item>
-        <item>option A4</item>
-        <item>option A5</item>
+        <item>Perdre du poids</item>
+        <item>Garder le poids</item>
+        <item>Prendre du poids</item>
     </string-array>
     <string-array name="spActLevel">
         <item></item>
-        <item>option B1</item>
-        <item>option B2</item>
-        <item>option B3</item>
-        <item>option B4</item>
-        <item>option B5</item>
+        <item>Très léger : étudier, parler, marcher un peu.</item>
+        <item>Léger : enseignement, travail de laboratoire / atelier, quelques marches.</item>
+        <item>Modéré : Marcher avec des activités comme le cyclisme, le tennis.</item>
+        <item>Lourd : travail manuel lourd avec activités.</item>
+        <item>Très lourd : activité modérée ou importante 8 heures ou plus.</item>
     </string-array>
     <string-array name="spProteinReq">
         <item></item>
-        <item>option C1</item>
-        <item>option C2</item>
-        <item>option C3</item>
-        <item>option C4</item>
-        <item>option C5</item>
+        <item>Adulte sédentaire (ANR) 0.40</item>
+        <item>Exerciseur récréatif adulte 0,75</item>
+        <item>Bâtiment pour adultes Muscle Mass 0.90</item>
+        <item>Athlète de compétition adulte 0.90</item>
+        <item>Athlète au régime 1,00</item>
+        <item>Athlète en croissance adolescente 1,00</item>
     </string-array>
 </resources>

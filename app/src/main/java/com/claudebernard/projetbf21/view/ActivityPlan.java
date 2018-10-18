@@ -32,7 +32,8 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     private static AdapterCardPlan _adapterPlan;
     private static GridView _gridPlan;
 
-    private CoachControl coachControl;
+    private CoachControl coachControl = new CoachControl();
+    private ValidationLogin validationLogin = new ValidationLogin();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     public void definitionsMenu(){
 
         Intent _intent = getIntent();
-        Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
+        Integer _id = Integer.parseInt(_intent.getStringExtra(validationLogin.EXTRA_MESSAGE));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);

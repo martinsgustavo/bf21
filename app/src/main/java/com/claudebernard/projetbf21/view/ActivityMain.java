@@ -25,6 +25,7 @@ public class ActivityMain extends AppCompatActivity {
     private TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
     private EditText  _inputLogin, _inputPassword;
     private Button    _loginButton;
+    private ValidationLogin validationLogin = new ValidationLogin();
 
 
     //=====
@@ -75,7 +76,7 @@ public class ActivityMain extends AppCompatActivity {
         _inputLogin.clearFocus();
         _inputPassword.clearFocus();
 
-        if (!ValidationLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim())){
+        if (validationLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim())){
             _inputLayoutlogin.setError(" ");
             _inputLayoutPassword.setError("Nom d'utilisateur ou mot de passe incorrect.");
         }

@@ -22,7 +22,7 @@ public class CoachControl implements GenericControl<Coach>{
 
     private ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
     private List<Coach> coaches;
-    private Coach coach;
+    private Coach coach = new Coach();
     private boolean isCorrect;
 
     @Override
@@ -64,6 +64,7 @@ public class CoachControl implements GenericControl<Coach>{
                 Log.i("Coach Control", "Success - getDataCoach");
                 String string = new Gson().toJson(response.body().getMeta());
                 coach = new Gson().fromJson(string, Coach.class);
+                System.out.println(coach.get_name());
             }
 
             @Override
