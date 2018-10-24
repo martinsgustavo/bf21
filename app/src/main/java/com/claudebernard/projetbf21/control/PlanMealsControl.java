@@ -40,6 +40,7 @@ public class PlanMealsControl {
                             Log.i("PlanMeals Control", "Success - saveFoodToMeal");
                             if (response.code() == 202) {
                                 isCorrect = true;
+                                DialogModifyMeal._countSave = DialogModifyMeal._countSave + 1;
                                 DialogModifyMeal.saveFoodInMeat();
                             } else {
                                 isCorrect = false;
@@ -93,37 +94,43 @@ public class PlanMealsControl {
 
 
     //=====
-    public boolean deleteFoodFromMeal(FoodPlan foodPlan, PlanDays planDays, PlanMeals object, Food food){
+    public boolean deleteFoodFromMeal(final FoodPlan foodPlan, PlanDays planDays, PlanMeals object, final List<Food> listFood, String foodSelected){
 
-        StringBuilder sb = new StringBuilder("/foodPlan/");
-        sb.append(foodPlan.get_idFoodPlan());
-        sb.append("/planDay/");
-        sb.append(planDays.get_idPlanDay());
-        sb.append("/planMeal/");
-        sb.append(object.get_idPlanMeal());
-        sb.append("/food/list?idFood=");
-        sb.append(food.get_id());
+        for (int index = 0; index < listFood.size(); index++) {
+            if (listFood.get(index).get_name().equals(foodSelected)) {
 
-        Call<ResponseServer> call = apiInterface.deleteFoodFromMeal(sb.toString());
+                StringBuilder sb = new StringBuilder("/foodPlan/");
+                sb.append(foodPlan.get_idFoodPlan());
+                sb.append("/planDay/");
+                sb.append(planDays.get_idPlanDay());
+                sb.append("/planMeal/");
+                sb.append(object.get_idPlanMeal());
+                sb.append("/food/list?idFood=");
+                sb.append(listFood.get(index).get_id());
 
-        call.enqueue(new Callback<ResponseServer>() {
-            @Override
-            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("PlanMeals Control", "Success - deleteFoodFromMeal");
-                if(response.code() == 202) {
-                    isCorrect = true;
-                } else {
-                    isCorrect = false;
-                }
+                Call<ResponseServer> call = apiInterface.deleteFoodFromMeal(sb.toString());
+
+                call.enqueue(new Callback<ResponseServer>() {
+                    @Override
+                    public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                        Log.i("PlanMeals Control", "Success - deleteFoodFromMeal");
+                        if (response.code() == 202) {
+                            isCorrect = true;
+                            DialogModifyMeal.saveFoodInMeat();
+                        } else {
+                            isCorrect = false;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseServer> call, Throwable t) {
+                        Log.e("PlanMeals Control", "Error - deleteFoodFromMeal");
+                        isCorrect = false;
+                    }
+                });
+                break;
             }
-
-            @Override
-            public void onFailure(Call<ResponseServer> call, Throwable t) {
-                Log.e("PlanMeals Control", "Error - deleteFoodFromMeal");
-                isCorrect = false;
-            }
-        });
-
+        }
         return isCorrect;
     }
 }

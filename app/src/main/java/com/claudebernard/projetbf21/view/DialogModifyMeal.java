@@ -41,7 +41,7 @@ public class DialogModifyMeal  extends Dialog {
     private static FoodPlan _listPlans;
     private static PlanDays _planDays;
     private static PlanMeals _planMeals;
-    private static int _countSave;
+    public  static int _countSave;
 
 
     //=====
@@ -79,6 +79,7 @@ public class DialogModifyMeal  extends Dialog {
 
         ArrayList<String> listFoodName = new ArrayList<>();
         _selectedItems = new ArrayList<>();
+        _selectedItemsOrig = new ArrayList<>();
         _listFood = foods;
 
         for (int x = 0; x < _listFood.size(); x++) {
@@ -102,13 +103,13 @@ public class DialogModifyMeal  extends Dialog {
         if (_planMeals.get_food() != null){
             for(int x = 0; x < _planMeals.get_food().size(); x++){
                 for (int y = 0; y < listFoodName.size(); y++) {
-                   if (_planMeals.get_food().get(x).get_name().equals(listFoodName.get(y))){
-                       _selectedItems.add(_planMeals.get_food().get(x).get_name());
-                       _list_checkable.setItemChecked(y, true);
-                   }
+                    if (_planMeals.get_food().get(x).get_name().equals(listFoodName.get(y))){
+                        _selectedItems.add(_planMeals.get_food().get(x).get_name());
+                        _selectedItemsOrig.add(_planMeals.get_food().get(x).get_name());
+                        _list_checkable.setItemChecked(y, true);
+                    }
                 }
             }
-            _selectedItemsOrig = _selectedItems;
         }
     }
 
@@ -126,10 +127,8 @@ public class DialogModifyMeal  extends Dialog {
 
             public void onClick(View v) {
 
-                if (_selectedItems.size() > 0){
-                    _countSave = 0;
-                    saveFoodInMeat();
-                }
+                _countSave = 0;
+                saveFoodInMeat();
                 dismiss();
             }
         });
@@ -137,11 +136,26 @@ public class DialogModifyMeal  extends Dialog {
 
 
     //=====
-    public static void saveFoodInMeat(){
+    public static void saveFoodInMeat() {
 
-        if (_countSave < _selectedItems.size()){
-            _planMealsControl.saveFoodToMeal(_listPlans, _planDays, _planMeals, _listFood, _selectedItems.get(_countSave));
-            _countSave++;
+        if (_countSave < _selectedItems.size()) {
+            if (_selectedItemsOrig.size() == 0) {
+                _planMealsControl.saveFoodToMeal(_listPlans, _planDays, _planMeals, _listFood, _selectedItems.get(_countSave));
+
+
+            } else if (!_selectedItemsOrig.contains(_selectedItems.get(_countSave))) {
+                _planMealsControl.saveFoodToMeal(_listPlans, _planDays, _planMeals, _listFood, _selectedItems.get(_countSave));
+
+            } else if (_selectedItemsOrig.contains(_selectedItems.get(_countSave))) {
+                _selectedItemsOrig.remove(_selectedItems.get(_countSave));
+                _countSave++;
+                saveFoodInMeat();
+            }
+
+        } else if (_selectedItemsOrig.size() > 0) {
+            String foodName = _selectedItemsOrig.get(0);
+            _selectedItemsOrig.remove(0);
+            _planMealsControl.deleteFoodFromMeal(_listPlans, _planDays, _planMeals, _listFood, foodName);
 
         } else {
             new FoodPlanControl().getDataAllClient(_listPlans.get_client(),"refresh");
