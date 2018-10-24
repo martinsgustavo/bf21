@@ -37,7 +37,6 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Claude-Bernard Millen"
                     android:textAlignment="textStart"
                     android:textColor="@android:color/background_dark"
                     android:textSize="24sp" />
@@ -56,7 +55,7 @@
 
                 <TextView
                     android:id="@+id/_titleCalJour"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/roboto"
@@ -92,7 +91,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:paddingRight="10dp"
-                    android:text="Nom du plan de la semaine 1"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp" />
@@ -103,7 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/roboto"
-                    android:text="Perte de poids"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp" />
@@ -114,7 +111,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:fontFamily="@font/roboto"
-                    android:text="2000"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorAccent"
                     android:textSize="20sp" />

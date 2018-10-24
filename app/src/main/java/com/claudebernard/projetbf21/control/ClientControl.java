@@ -1,6 +1,7 @@
 package com.claudebernard.projetbf21.control;
 
 import android.util.Log;
+import android.view.View;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
@@ -31,7 +32,7 @@ public class ClientControl implements GenericControl<Client> {
     
     //=====
     @Override
-    public ArrayList<Client> getDataAll() {
+    public ArrayList<Client> getDataAll(String option) {
         Call<ResponseServerArray> call = _apiInterface.findAllClients();
 
         call.enqueue(new Callback<ResponseServerArray>() {
@@ -102,7 +103,7 @@ public class ClientControl implements GenericControl<Client> {
                     Log.i("Client Control", "Success - saveData");
                     _isCorrect = true;
                     ActivityClient.dismissView();
-                    getDataAll();
+                    getDataAll("");
                 }
             }
             @Override
@@ -127,7 +128,7 @@ public class ClientControl implements GenericControl<Client> {
                     Log.i("Client Control", "Success - editData");
                     _isCorrect = true;
                     AdapterCardClient.dismissView();
-                    getDataAll();
+                    getDataAll("");
                 }
             }
             @Override
@@ -153,7 +154,7 @@ public class ClientControl implements GenericControl<Client> {
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Client Control", "Success - deleteData");
                 _isCorrect = true;
-                getDataAll();
+                getDataAll("");
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

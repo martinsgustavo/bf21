@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:focusableInTouchMode="true"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Sélectionnez les aliments"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/_list_checkable"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_bold" />
+
+    <LinearLayout
+        android:id="@+id/_layoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/_btn_1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="85dp"
+            android:background="@drawable/icon_cancel" />
+
+        <ImageButton
+            android:id="@+id/_btn_2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_ok" />
+
+    </LinearLayout>
+
+</LinearLayout>

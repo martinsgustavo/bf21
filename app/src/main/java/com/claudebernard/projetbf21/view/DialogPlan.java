@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.FoodPlanControl;
-import com.claudebernard.projetbf21.model.Plan;
+import com.claudebernard.projetbf21.model.FoodPlan;
 
 public class DialogPlan extends Dialog {
 
@@ -23,7 +23,7 @@ public class DialogPlan extends Dialog {
     private EditText _inputNamePlan, _inputObjectivePlan, _inputProteinPlan, _inputLipidePlan, _inputGlycidesPlan, _inputPerStartPlan, _inputPerEndPlan;
     private TextView _titlePlan;
     private String _namePlan;
-    private Plan _plan;
+    private FoodPlan _plan;
     private Context _context;
     private boolean _retDialogYesNo;
 
@@ -31,7 +31,7 @@ public class DialogPlan extends Dialog {
 
 
     //=====
-    public DialogPlan(Activity a, Context c, Plan plan) {
+    public DialogPlan(Activity a, Context c, FoodPlan plan) {
         super(a);
         this._activity = a;
         this._plan = plan;
@@ -126,16 +126,16 @@ public class DialogPlan extends Dialog {
     //=====
     public boolean getDataDialog() {
 
-        Plan _plan = new Plan();
+        FoodPlan _plan = new FoodPlan();
 
-        _plan.set_client("");
-        _plan.set_name(_inputNamePlan.getText().toString());
-        _plan.set_objective(_inputObjectivePlan.getText().toString());
-        _plan.set_protein(_inputProteinPlan.getText().toString());
-        _plan.set_lipids(_inputLipidePlan.getText().toString());
-        _plan.set_glycides(_inputGlycidesPlan.getText().toString());
-        _plan.set_periodStart(_inputPerStartPlan.getText().toString());
-        _plan.set_periodEnd(_inputPerEndPlan.getText().toString());
+//        _plan.set_client("");
+//        _plan.set_name(_inputNamePlan.getText().toString());
+//        _plan.set_objective(_inputObjectivePlan.getText().toString());
+//        _plan.set_protein(_inputProteinPlan.getText().toString());
+//        _plan.set_lipids(_inputLipidePlan.getText().toString());
+//        _plan.set_glycides(_inputGlycidesPlan.getText().toString());
+//        _plan.set_periodStart(_inputPerStartPlan.getText().toString());
+//        _plan.set_periodEnd(_inputPerEndPlan.getText().toString());
 
         return foodPlanControl.saveData(_plan);
     }

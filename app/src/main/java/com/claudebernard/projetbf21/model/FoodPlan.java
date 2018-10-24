@@ -3,6 +3,7 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodPlan {
@@ -25,7 +26,7 @@ public class FoodPlan {
 
     @SerializedName("planDays")
     @Expose
-    private List<PlanDays> _planDays;
+    private ArrayList<PlanDays> _planDays;
 
 
     //=====
@@ -63,11 +64,11 @@ public class FoodPlan {
         this._coach = _coach;
     }
 
-    public List<PlanDays> get_planDays() {
+    public ArrayList<PlanDays> get_planDays() {
         return _planDays;
     }
 
-    public void set_planDays(List<PlanDays> _planDays) {
+    public void set_planDays(ArrayList<PlanDays> _planDays) {
         this._planDays = _planDays;
     }
 }

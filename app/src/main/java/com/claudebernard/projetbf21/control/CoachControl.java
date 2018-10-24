@@ -1,6 +1,7 @@
 package com.claudebernard.projetbf21.control;
 
 import android.util.Log;
+import android.view.View;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
@@ -11,6 +12,7 @@ import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.claudebernard.projetbf21.view.ActivityClient;
 import com.claudebernard.projetbf21.view.ActivityCoach;
 import com.claudebernard.projetbf21.view.ActivityFood;
+import com.claudebernard.projetbf21.view.ActivityPlan;
 import com.claudebernard.projetbf21.view.AdapterCardCoach;
 import com.claudebernard.projetbf21.view.DialogCoach;
 import com.google.gson.Gson;
@@ -36,7 +38,7 @@ public class CoachControl implements GenericControl<Coach>{
 
     //=====
     @Override
-    public ArrayList<Coach> getDataAll() {
+    public ArrayList<Coach> getDataAll(String option) {
         Call<ResponseServerArray> call = _apiInterface.findAllCoaches();
 
         call.enqueue(new Callback<ResponseServerArray>() {
@@ -90,7 +92,10 @@ public class CoachControl implements GenericControl<Coach>{
                 } else if (_option.equals("coach")){
                     ActivityCoach.loadNameCoach(_coach.get_name());
 
-                } else {
+                } else if (_option.equals("plan")) {
+                    ActivityPlan.loadNameCoach(_coach.get_name());
+
+                } else if (_option.equals("food")){
                     ActivityFood.loadNameCoach(_coach.get_name());
                 }
             }
@@ -117,7 +122,7 @@ public class CoachControl implements GenericControl<Coach>{
                     Log.i("Coach Control", "Success - saveData");
                     _isCorrect = true;
                     ActivityCoach.dismissView();
-                    getDataAll();
+                    getDataAll("");
                 }
             }
             @Override
@@ -142,7 +147,7 @@ public class CoachControl implements GenericControl<Coach>{
                     Log.i("Coach Control", "Success - editData");
                     _isCorrect = true;
                     AdapterCardCoach.dismissView();
-                    getDataAll();
+                    getDataAll("");
                 }
             }
             @Override
@@ -168,7 +173,7 @@ public class CoachControl implements GenericControl<Coach>{
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Coach Control", "Success - deleteData");
                 _isCorrect = true;
-                getDataAll();
+                getDataAll("");
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

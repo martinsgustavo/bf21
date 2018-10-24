@@ -3,7 +3,10 @@ package com.claudebernard.projetbf21.comm;
 import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.Food;
+import com.claudebernard.projetbf21.model.FoodPlan;
 import com.claudebernard.projetbf21.model.Login;
+import com.claudebernard.projetbf21.model.PlanDays;
+import com.claudebernard.projetbf21.model.PlanMeals;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
 
@@ -13,6 +16,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ApiInterface {
@@ -76,21 +80,51 @@ public interface ApiInterface {
     Call<ResponseServer> deleteFood(@Url String url);
 
 
-//    //PLAN
-//
-//    @GET("/plan")
-//    Call<List<Plan>> findAllPlan();
-//
-//    @GET("/plan")
-//    Call<Plan> findPlan();
-//
-//    @POST("/plan")
-//    @FormUrlEncoded
-//    Call<Plan> savePlan(@Body Plan plan);
-//
-//    @PUT("/plan/{id}")
-//    Call<Plan> editPlan(@Path("id") String id, @Body Plan plan);
-//
-//    @DELETE("/plan/{id}")
-//    Call<Plan> deletePlan(@Path("id") String id);
+    //PLAN
+
+    @GET("/foodPlan/list")
+    Call<ResponseServerArray> findAllPlans();
+
+    @GET
+    Call<ResponseServerArray> findAllPlansClient(@Url String url);
+
+    @GET
+    Call<ResponseServer> findPlan(@Url String url);
+
+    @POST("/foodPlan")
+    Call<ResponseServer> saveFoodPlan(@Body FoodPlan foodPlan);
+
+    @POST("/foodPlan/{fP}/planDay/list")
+    Call<ResponseServer> addDayToPlan(@Path("fP") Integer foodPlan, @Body PlanDays planDays);
+
+    @PUT("/foodPlan")
+    Call<ResponseServer> editFoodPlan(@Body FoodPlan foodPlan);
+
+    @DELETE
+    Call<ResponseServer> deleteFoodPlan(@Url String url);
+
+    //PLAN DAYS
+
+    @GET("/foodPlan/{fP}/planDay/list")
+    Call<ResponseServerArray> findAllPlanDaysByFoodPlan(@Path("fP") Integer foodPlan);
+
+    @GET
+    Call<ResponseServer> findPlanDayById(@Url String url);
+
+    @POST("/foodPlan/{fP}/planDay/{pD}/planMeal/list")
+    Call<ResponseServer> saveMealToDay(@Path("fP") Integer foodPlan, @Path("pD") Integer planDay, @Body PlanMeals planMeals);
+
+    @DELETE
+    Call<ResponseServer> deleteMealFromDay(@Url String url);
+
+    //PLAN MEALS
+
+    @POST("/foodPlan/{fP}/planDay/{pD}/planMeal/{pM}/food/list")
+    Call<ResponseServer> saveFoodToMeal(@Path("fP") Integer foodPlan, @Path("pD") Integer planDay, @Path("pM") Integer planMeal, @Body Food food);
+
+    @DELETE
+    Call<ResponseServer> deletePlanMealById(@Url String url);
+
+    @DELETE
+    Call<ResponseServer> deleteFoodFromMeal(@Url String url);
 }

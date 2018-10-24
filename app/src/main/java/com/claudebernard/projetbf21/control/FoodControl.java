@@ -1,6 +1,7 @@
 package com.claudebernard.projetbf21.control;
 
 import android.util.Log;
+import android.view.View;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
@@ -11,6 +12,7 @@ import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.claudebernard.projetbf21.view.ActivityClient;
 import com.claudebernard.projetbf21.view.ActivityFood;
 import com.claudebernard.projetbf21.view.AdapterCardFood;
+import com.claudebernard.projetbf21.view.DialogModifyMeal;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,7 +36,7 @@ public class FoodControl implements GenericControl<Food> {
 
     //=====
     @Override
-    public ArrayList<Food> getDataAll() {
+    public ArrayList<Food> getDataAll(final String option) {
         Call<ResponseServerArray> call = _apiInterface.findAllFoods();
 
         call.enqueue(new Callback<ResponseServerArray>() {
@@ -53,7 +55,12 @@ public class FoodControl implements GenericControl<Food> {
                         }
                     });
 
-                    ActivityFood.loadGridFoods(_foods);
+                    if (option.equals("ActivityFood")) {
+                        ActivityFood.loadGridFoods(_foods);
+
+                    } else if (option.equals("DialogModifyMeal")) {
+                        DialogModifyMeal.loadInfoDialog(_foods);
+                    }
                 }
             }
 
@@ -105,7 +112,7 @@ public class FoodControl implements GenericControl<Food> {
                     Log.i("Food Control", "Success - saveData");
                     _isCorrect = true;
                     ActivityFood.dismissView();
-                    getDataAll();
+                    getDataAll("ActivityFood");
                 }
             }
             @Override
@@ -130,7 +137,7 @@ public class FoodControl implements GenericControl<Food> {
                     Log.i("Food Control", "Success - editData");
                     _isCorrect = true;
                     AdapterCardFood.dismissView();
-                    getDataAll();
+                    getDataAll("ActivityFood");
                 }
             }
             @Override
@@ -156,7 +163,7 @@ public class FoodControl implements GenericControl<Food> {
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 Log.i("Food Control", "Success - deleteData");
                 _isCorrect = true;
-                getDataAll();
+                getDataAll("ActivityFood");
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {

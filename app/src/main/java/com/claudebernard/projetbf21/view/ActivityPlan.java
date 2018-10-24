@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.design.widget.FloatingActionButton;
+import com.claudebernard.projetbf21.control.FoodControl;
+import com.github.clans.fab.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,12 +17,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.FoodPlanControl;
+import com.claudebernard.projetbf21.control.ValidationLogin;
+import com.claudebernard.projetbf21.model.FoodPlan;
+import com.github.clans.fab.FloatingActionMenu;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityPlan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,8 +34,20 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     private static Context _context;
     private static AdapterCardPlan _adapterPlan;
     private static GridView _gridPlan;
-
+    private static NavigationView _navigationView;
+    private static TextView _namePersonal;
+    private CoachControl _coachControl = new CoachControl();
+    public static List<FoodPlan> _foodPlansClient;
+    public static FoodPlan _foodPlanSelect;
     private CoachControl coachControl;
+    private static TextView _nameClient;
+    private static TextView _namePlan;
+    private static TextView _objClient;
+    private static TextView _caloriesJourClient;
+    private static TextView _proteineClient;
+    private static TextView _lipidesClient;
+    private static TextView _glucideClient;
+    public FoodPlanControl _foodPlanControl = new FoodPlanControl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +57,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _activity = this;
         _context = this;
         _gridPlan = (GridView) findViewById(R.id._gridPlan);
+        _foodPlansClient = FoodPlanControl._foodPlansClient;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,37 +67,38 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        _navigationView = (NavigationView) findViewById(R.id.nav_view);
+        _navigationView.setNavigationItemSelectedListener(this);
 
-        definitionsMenu();
-        definitionsFloatingButtons();
+        View headerView = _navigationView.getHeaderView(0);
+        _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
+
+        _coachControl.getData("plan", ValidationLogin.coach.get_id());
+
+        loadReferenceView();
+        loadHeaderPlan();
         loadGridPlans();
+        definitionsFloatingButtons();
     }
 
 
     //=====
-    public void definitionsMenu(){
-
-       // Intent _intent = getIntent();
-       // Integer _id = Integer.parseInt(_intent.getStringExtra(ValidationLogin.EXTRA_MESSAGE));
-
-       // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-       // View headerView = navigationView.getHeaderView(0);
-
-       // TextView _namePersonal = (TextView) headerView.findViewById(R.id._namePersonal);
-       // _namePersonal.setText(coachControl.getData(_id).get_login());
+    public static void loadNameCoach(String nameCoach){
+        _namePersonal.setText(nameCoach);
     }
 
     //=====
     public void definitionsFloatingButtons(){
 
+        final FloatingActionMenu _menu = (FloatingActionMenu) findViewById(R.id._floatingActionMenu);
+
         FloatingActionButton _fabAdd = (FloatingActionButton) findViewById(R.id._fabAdd);
         _fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogPlan dialogPlan = new DialogPlan(_activity, _context, null);
-                dialogPlan.show();
+                //DialogPlan dialogPlan = new DialogPlan(_activity, _context, null);
+                //dialogPlan.show();
+                _menu.close(true);
             }
         });
 
@@ -87,8 +106,9 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Action Email", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Disponible seulement dans la version Web.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                _menu.close(true);
             }
         });
 
@@ -96,8 +116,9 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabCahngePlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Action Changed plan", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                DialogChangePlan dcp = new DialogChangePlan(_activity, _context);
+                dcp.show();
+                _menu.close(true);
             }
         });
 
@@ -105,18 +126,68 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabTrash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Action Trash", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                _foodPlanControl.deleteData(_foodPlanSelect);
+                for (int x = 0; x < _foodPlansClient.size(); x++) {
+                    if (_foodPlansClient.get(x).get_idFoodPlan() == _foodPlanSelect.get_idFoodPlan()) {
+                        _foodPlansClient.remove(x);
+
+                        if (_foodPlansClient.size() > 0 ){
+                            _foodPlanSelect = _foodPlansClient.get(0);
+                            loadHeaderPlan();
+                            loadGridPlans();
+                        } else {
+                            _activity.finish();
+                        }
+                    }
+                }
+                _menu.close(true);
             }
         });
     }
 
+
+    //=====
+    public void loadReferenceView(){
+
+        _nameClient = (TextView) findViewById(R.id._nameClient);
+        _namePlan = (TextView) findViewById(R.id._namePlan);
+        _objClient = (TextView) findViewById(R.id._objClient);
+        _caloriesJourClient = (TextView) findViewById(R.id._caloriesJourClient);
+        _proteineClient = (TextView) findViewById(R.id._proteineClient);
+        _lipidesClient = (TextView) findViewById(R.id._lipidesClient);
+        _glucideClient = (TextView) findViewById(R.id._glucideClient);
+
+        _foodPlanSelect = _foodPlansClient.get(0);
+    }
+
+    //=====
+    public static void loadHeaderPlan(){
+
+        _nameClient.setText(_foodPlanSelect.get_client().get_name().toString());
+        _namePlan.setText(_foodPlanSelect.get_namePlan().toString());
+
+        if (_foodPlanSelect.get_client().getClientGoal().get_idClientGoal() == 1) {
+            _objClient.setText("Perdre du poids");
+
+        } else if (_foodPlanSelect.get_client().getClientGoal().get_idClientGoal() == 2) {
+            _objClient.setText("Garder le poids");
+
+        } else if (_foodPlanSelect.get_client().getClientGoal().get_idClientGoal() == 3) {
+            _objClient.setText("Prendre du poids");
+        }
+
+        _caloriesJourClient.setText(String.valueOf(_foodPlanSelect.get_client().get_tdce()));
+
+        _proteineClient.setText("0" + " G./jour");
+        _lipidesClient.setText("0" + " G./jour");
+        _glucideClient.setText("0" + " G./jour");
+    }
+
+
     //=====
     public static void loadGridPlans(){
 
-        FoodPlanControl foodPlanControl = new FoodPlanControl();
-
-        _adapterPlan = new AdapterCardPlan(_activity, _context, new ArrayList<>(foodPlanControl.getDataAll()));
+        _adapterPlan = new AdapterCardPlan(_activity, _context, _foodPlanSelect);
         _gridPlan.setAdapter(_adapterPlan);
     }
 

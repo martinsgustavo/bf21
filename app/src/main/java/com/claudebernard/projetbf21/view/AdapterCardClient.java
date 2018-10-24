@@ -2,7 +2,9 @@ package com.claudebernard.projetbf21.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
@@ -15,16 +17,18 @@ import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
+import com.claudebernard.projetbf21.control.FoodPlanControl;
 import com.claudebernard.projetbf21.model.Client;
 
 import java.util.ArrayList;
 
 public class AdapterCardClient extends BaseAdapter {
 
-    public Context _context;
-    public Activity _activity;
+    public static Context _context;
+    public static Activity _activity;
     public ArrayList<Client> _listClients;
     public static DialogClient _dialogClient;
+    public FoodPlanControl _foodPlanControl = new FoodPlanControl();
 
 
     //=====
@@ -78,13 +82,7 @@ public class AdapterCardClient extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//              comentario : option view inscription client = ok
-                _dialogClient = new DialogClient(_activity, _context,"view", _client);
-                _dialogClient.show();
-
-//                option view plan client
-//                Intent intent = new Intent(_context, ActivityPlan.class);
-//                _context.startActivity(intent);
+                _foodPlanControl.getDataAllClient(_client, "cardClient");
 
             }
         });
@@ -94,7 +92,38 @@ public class AdapterCardClient extends BaseAdapter {
 
 
     //=====
+    public static void showDialogClient(Client client){
+        _dialogClient = new DialogClient(_activity, _context,"view", client);
+        _dialogClient.show();
+    }
+
+
+    //=====
     public static void dismissView(){
         _dialogClient.dismiss();
+    }
+
+
+    //=====
+    public static void dialogYesNo(final Client _clientYN) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+
+        builder.setMessage("Que voulez-vous voir chez le client ?").setPositiveButton("Plan", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(_context, ActivityPlan.class);
+                _context.startActivity(intent);
+
+            }
+        }).setNegativeButton("Inscription", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showDialogClient(_clientYN);
+            }
+        }).create();
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

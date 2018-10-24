@@ -67,8 +67,8 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
             }
         });
 
-        _coachControl.getData("coach", 5);
-        _coachControl.getDataAll();
+        _coachControl.getData("coach", ValidationLogin.coach.get_id());
+        _coachControl.getDataAll("");
     }
 
 

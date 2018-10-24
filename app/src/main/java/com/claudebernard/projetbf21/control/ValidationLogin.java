@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class ValidationLogin {
 
-    private static Coach coach;
+    public static Coach coach;
 
 
     //=====

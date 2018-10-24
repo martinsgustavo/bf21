@@ -20,6 +20,7 @@ import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.control.CoachControl;
 import com.claudebernard.projetbf21.control.FoodControl;
+import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 
@@ -71,8 +72,8 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
             }
         });
 
-        _coachControl.getData("client", 5);
-        _clientControl.getDataAll();
+        _coachControl.getData("client", ValidationLogin.coach.get_id());
+        _clientControl.getDataAll("");
     }
 
 

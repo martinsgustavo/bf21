@@ -69,8 +69,8 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        _coachControl.getData("food", 5);
-        _foodControl.getDataAll();
+        _coachControl.getData("food", ValidationLogin.coach.get_id());
+        _foodControl.getDataAll("ActivityFood");
     }
 
 
