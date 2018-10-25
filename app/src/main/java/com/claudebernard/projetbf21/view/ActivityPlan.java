@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.claudebernard.projetbf21.control.FoodControl;
 import com.github.clans.fab.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -96,8 +95,8 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //DialogPlan dialogPlan = new DialogPlan(_activity, _context, null);
-                //dialogPlan.show();
+                DialogAddPlan dialogAddPlan = new DialogAddPlan(_activity, _context, _foodPlanSelect.get_client(), _foodPlanSelect.get_coach());
+                dialogAddPlan.show();
                 _menu.close(true);
             }
         });
