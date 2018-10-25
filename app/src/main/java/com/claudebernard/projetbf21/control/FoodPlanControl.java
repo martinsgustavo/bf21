@@ -5,6 +5,9 @@ import android.util.Log;
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.model.FoodPlan;
+import com.claudebernard.projetbf21.model.FoodPlanBD;
+import com.claudebernard.projetbf21.model.PlanDays;
+import com.claudebernard.projetbf21.model.PlanDaysBD;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
 import com.google.gson.Gson;
@@ -63,7 +66,27 @@ public class FoodPlanControl implements GenericControl<FoodPlan>{
 
     @Override
     public FoodPlan getData(Integer id) {
-        return null;
+
+        StringBuilder sb = new StringBuilder("/foodPlan?idFoodPlan=");
+        sb.append(id);
+
+        Call<ResponseServer> call = apiInterface.findPlan(sb.toString());
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - getDataFoodPlan");
+                String string = new Gson().toJson(response.body().getMeta());
+                foodPlan = new Gson().fromJson(string, FoodPlan.class);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - getDataFoodPlan");
+                foodPlan = null;
+            }
+        });
+        return foodPlan;
     }
 
 
@@ -108,18 +131,120 @@ public class FoodPlanControl implements GenericControl<FoodPlan>{
     @Override
     public boolean saveData(FoodPlan object) {
 
-        return false;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new DateSerializer());
+        gsonBuilder.registerTypeAdapter(Date.class, new DataDeserializer());
+        Gson gson = gsonBuilder.create();
+
+        String strJson = gson.toJson(object);
+        FoodPlanBD foodPlanBD = gson.fromJson(strJson, FoodPlanBD.class);
+
+        Call<ResponseServer> call = apiInterface.saveFoodPlan(foodPlanBD);
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - saveData");
+
+                if(response.code() == 201) {
+                    isCorrect = true;
+                } else {
+                    isCorrect = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - saveData");
+                isCorrect = false;
+            }
+        });
+
+        return isCorrect;
+    }
+
+    public boolean saveDaysToPlan(Integer id, PlanDays planDays){
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new DateSerializer());
+        gsonBuilder.registerTypeAdapter(Date.class, new DataDeserializer());
+        Gson gson = gsonBuilder.create();
+
+        String strJson = gson.toJson(planDays);
+        PlanDaysBD planDaysBD = gson.fromJson(strJson, PlanDaysBD.class);
+
+        Call<ResponseServer> call = apiInterface.addDayToPlan(id, planDaysBD);
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - saveData");
+
+                if(response.code() == 202) {
+                    isCorrect = true;
+                } else {
+                    isCorrect = false;
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - saveData");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
     }
 
     @Override
     public boolean editData(FoodPlan object) {
 
-        return false;
+        Call<ResponseServer> call = apiInterface.editFoodPlan(foodPlan);
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - editData");
+                if(response.code() == 200) {
+                    isCorrect = true;
+                } else {
+                    isCorrect = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - editData");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
     }
 
     @Override
     public boolean deleteData(FoodPlan object) {
 
-        return false;
+        StringBuilder sb = new StringBuilder("/foodPlan?idFoodPlan=");
+        sb.append(object.get_idFoodPlan());
+
+        Call<ResponseServer> call = apiInterface.deleteFoodPlan(sb.toString());
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - deleteData");
+                if(response.code() == 202) {
+                    isCorrect = true;
+                } else {
+                    isCorrect = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - deleteData");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
     }
 }
