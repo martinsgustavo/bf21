@@ -3,10 +3,11 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PlanDays {
+public class PlanDaysBD {
+
 
     @SerializedName("idPlanDay")
     @Expose
@@ -14,11 +15,11 @@ public class PlanDays {
 
     @SerializedName("day")
     @Expose
-    private Date _day;
+    private String _day;
 
     @SerializedName("planMeals")
     @Expose
-    private List<PlanMeals> _planMeals;
+    private ArrayList<PlanMeals> _planMeals;
 
 
     //=====
@@ -30,19 +31,15 @@ public class PlanDays {
         this._idPlanDay = _idPlanDay;
     }
 
-    public Date get_day() {
-        return _day;
-    }
+    public String get_day() { return _day; }
 
-    public void set_day(Date _day) {
-        this._day = _day;
-    }
+    public void set_day(String _day) { this._day = _day; }
 
     public List<PlanMeals> get_planMeals() {
         return _planMeals;
     }
 
-    public void set_planMeals(List<PlanMeals> _planMeals) {
+    public void set_planMeals(ArrayList<PlanMeals> _planMeals) {
         this._planMeals = _planMeals;
     }
 }

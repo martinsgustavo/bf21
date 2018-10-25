@@ -1,7 +1,6 @@
 package com.claudebernard.projetbf21.control;
 
 import android.util.Log;
-import android.view.View;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
@@ -26,13 +25,13 @@ public class ClientControl implements GenericControl<Client> {
 
     private ApiInterface _apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
     private ArrayList<Client> _clients;
-    private Client _client;
     private boolean _isCorrect;
+    private Client _client;
 
     
     //=====
     @Override
-    public ArrayList<Client> getDataAll(String option) {
+    public void getDataAll(String option) {
         Call<ResponseServerArray> call = _apiInterface.findAllClients();
 
         call.enqueue(new Callback<ResponseServerArray>() {
@@ -61,13 +60,12 @@ public class ClientControl implements GenericControl<Client> {
                 _clients = null;
             }
         });
-        return _clients;
     }
 
 
     //=====
     @Override
-    public Client getData(String option, Integer id) {
+    public void getData(String option, Integer id) {
         StringBuilder sb = new StringBuilder("/client?idClient=");
         sb.append(id);
 
@@ -87,13 +85,12 @@ public class ClientControl implements GenericControl<Client> {
                 _client = null;
             }
         });
-        return _client;
     }
 
 
     //=====
     @Override
-    public boolean saveData(Client object) {
+    public void saveData(Client object) {
         Call<ResponseServer> call = _apiInterface.saveClient(object);
 
         call.enqueue(new Callback<ResponseServer>() {
@@ -101,7 +98,7 @@ public class ClientControl implements GenericControl<Client> {
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 if (response.code()==201) {
                     Log.i("Client Control", "Success - saveData");
-                    _isCorrect = true;
+                    ActivityClient.messageView("Nouveau Client sauvegarde avec Succès !");
                     ActivityClient.dismissView();
                     getDataAll("");
                 }
@@ -109,16 +106,14 @@ public class ClientControl implements GenericControl<Client> {
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Client Control", "Error - saveData");
-                _isCorrect = false;
             }
         });
-        return _isCorrect;
     }
 
 
     //=====
     @Override
-    public boolean editData(Client object) {
+    public void editData(Client object) {
         Call<ResponseServer> call = _apiInterface.editClient(object);
 
         call.enqueue(new Callback<ResponseServer>() {
@@ -126,18 +121,17 @@ public class ClientControl implements GenericControl<Client> {
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 if (response.code()==200) {
                     Log.i("Client Control", "Success - editData");
-                    _isCorrect = true;
+                    ActivityClient.messageView("Mis à jour du Client sauvegarde avec Succès !");
                     AdapterCardClient.dismissView();
                     getDataAll("");
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Client Control", "Error - editData");
-                _isCorrect = false;
             }
         });
-        return _isCorrect;
     }
 
 
@@ -152,14 +146,20 @@ public class ClientControl implements GenericControl<Client> {
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Client Control", "Success - deleteData");
-                _isCorrect = true;
-                getDataAll("");
+                if (response.code()==200 || response.code() == 202) {
+                    Log.i("Client Control", "Success - deleteData");
+                    _isCorrect = true;
+                    ActivityClient.messageView("Client Supprimé avec Succès !");
+                    getDataAll("");
+                } else {
+                    ActivityClient.messageView("Échec pendant la suppression du Client !");
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Client Control", "Error - deleteData");
                 _isCorrect = false;
+                ActivityClient.messageView("Échec pendant la suppression du Client !");
             }
         });
         return _isCorrect;

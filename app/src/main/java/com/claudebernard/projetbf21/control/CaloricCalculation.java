@@ -18,6 +18,8 @@ public class CaloricCalculation {
     private final double FIXED_NUMBER_STEP3_RANGE3 = 1.65;
     private final double FIXED_NUMBER_STEP3_RANGE4 = 1.8;
 
+
+    //=====
     public Double findBasilMetabolicRate(Client client){
         Double bmr;
         Double step1;
@@ -56,6 +58,8 @@ public class CaloricCalculation {
         return bmr;
     }
 
+
+    //=====
     public Double totalDailyCalories (Client client){
 
         switch (client.getClientactivityLevel().get_idDailyActivityLevel()){

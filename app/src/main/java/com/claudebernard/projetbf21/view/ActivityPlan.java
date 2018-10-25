@@ -29,16 +29,12 @@ import java.util.List;
 
 public class ActivityPlan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static Activity _activity;
+    public  static Activity _activity;
     private static Context _context;
     private static AdapterCardPlan _adapterPlan;
     private static GridView _gridPlan;
     private static NavigationView _navigationView;
     private static TextView _namePersonal;
-    private CoachControl _coachControl = new CoachControl();
-    public static List<FoodPlan> _foodPlansClient;
-    public static FoodPlan _foodPlanSelect;
-    private CoachControl coachControl;
     private static TextView _nameClient;
     private static TextView _namePlan;
     private static TextView _objClient;
@@ -46,13 +42,19 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     private static TextView _proteineClient;
     private static TextView _lipidesClient;
     private static TextView _glucideClient;
-    public FoodPlanControl _foodPlanControl = new FoodPlanControl();
+    private CoachControl _coachControl = new CoachControl();
+    public  static List<FoodPlan> _foodPlansClient;
+    public  static FoodPlan _foodPlanSelect;
+    public  static View _view;
+    public  FoodPlanControl _foodPlanControl = new FoodPlanControl();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan);
 
+        _view = (View) findViewById(android.R.id.content);
         _activity = this;
         _context = this;
         _gridPlan = (GridView) findViewById(R.id._gridPlan);
@@ -86,6 +88,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _namePersonal.setText(nameCoach);
     }
 
+
     //=====
     public void definitionsFloatingButtons(){
 
@@ -95,7 +98,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogAddPlan dialogAddPlan = new DialogAddPlan(_activity, _context, _foodPlanSelect.get_client(), _foodPlanSelect.get_coach());
+                DialogAddPlan dialogAddPlan = new DialogAddPlan(_activity, _context, _foodPlanSelect.get_client(), _foodPlanSelect.get_coach(), "activityPlan");
                 dialogAddPlan.show();
                 _menu.close(true);
             }
@@ -158,6 +161,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
 
         _foodPlanSelect = _foodPlansClient.get(0);
     }
+
 
     //=====
     public static void loadHeaderPlan(){
@@ -231,12 +235,22 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
-
+            ActivityFood._activity.finish();
+            ActivityCoach._activity.finish();
+            ActivityClient._activity.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+
+    //=====
+    public static void messageView(String _msg){
+        Snackbar.make(_view, _msg, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
     }
 }

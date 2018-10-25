@@ -4,8 +4,9 @@ import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.Food;
 import com.claudebernard.projetbf21.model.FoodPlan;
+import com.claudebernard.projetbf21.model.FoodPlanBD;
 import com.claudebernard.projetbf21.model.Login;
-import com.claudebernard.projetbf21.model.PlanDays;
+import com.claudebernard.projetbf21.model.PlanDaysBD;
 import com.claudebernard.projetbf21.model.PlanMeals;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
@@ -20,6 +21,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ApiInterface {
+
 
     //LOGIN
 
@@ -62,6 +64,7 @@ public interface ApiInterface {
     @DELETE
     Call<ResponseServer> deleteClient(@Url String url);
 
+
     //FOOD
 
     @GET("/food/list")
@@ -92,16 +95,17 @@ public interface ApiInterface {
     Call<ResponseServer> findPlan(@Url String url);
 
     @POST("/foodPlan")
-    Call<ResponseServer> saveFoodPlan(@Body FoodPlan foodPlan);
+    Call<ResponseServer> saveFoodPlan(@Body FoodPlanBD foodPlan);
 
     @POST("/foodPlan/{fP}/planDay/list")
-    Call<ResponseServer> addDayToPlan(@Path("fP") Integer foodPlan, @Body PlanDays planDays);
+    Call<ResponseServer> addDayToPlan(@Path("fP") Integer foodPlan, @Body PlanDaysBD planDays);
 
     @PUT("/foodPlan")
     Call<ResponseServer> editFoodPlan(@Body FoodPlan foodPlan);
 
     @DELETE
     Call<ResponseServer> deleteFoodPlan(@Url String url);
+
 
     //PLAN DAYS
 
@@ -116,6 +120,7 @@ public interface ApiInterface {
 
     @DELETE
     Call<ResponseServer> deleteMealFromDay(@Url String url);
+
 
     //PLAN MEALS
 

@@ -23,7 +23,7 @@ public class DialogChangePlan extends Dialog {
     private ImageButton _btn1, _btn2;
     private Spinner _spListPlansClient;
     private ArrayAdapter<String> _adapterPlansClient;
-    public ArrayList<FoodPlan> _foodPlansClient;
+    public  ArrayList<FoodPlan> _foodPlansClient;
 
 
     //=====
@@ -33,11 +33,13 @@ public class DialogChangePlan extends Dialog {
         this._context = c;
     }
 
+
     //=====
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         _foodPlansClient = FoodPlanControl._foodPlansClient;
 
         setContentView(R.layout.dialog_change_plan);
@@ -46,6 +48,7 @@ public class DialogChangePlan extends Dialog {
         loadInfoDialog();
         loadActionButtons();
     }
+
 
     //====
     public void loadInfoDialog() {
@@ -66,6 +69,7 @@ public class DialogChangePlan extends Dialog {
 
         _spListPlansClient.setAdapter(_adapterPlansClient);
     }
+
 
     //=====
     public void loadActionButtons() {

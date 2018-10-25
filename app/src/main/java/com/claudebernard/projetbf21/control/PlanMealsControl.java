@@ -11,7 +11,6 @@ import com.claudebernard.projetbf21.model.PlanMeals;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.view.DialogModifyMeal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,8 +20,6 @@ import retrofit2.Response;
 public class PlanMealsControl {
 
     private ApiInterface apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
-    private List<PlanMeals> planMealsArr;
-    private PlanMeals planMeals;
     private boolean isCorrect;
 
 
@@ -114,7 +111,7 @@ public class PlanMealsControl {
                     @Override
                     public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                         Log.i("PlanMeals Control", "Success - deleteFoodFromMeal");
-                        if (response.code() == 202) {
+                        if (response.code()==200 || response.code() == 202) {
                             isCorrect = true;
                             DialogModifyMeal.saveFoodInMeat();
                         } else {

@@ -53,6 +53,8 @@ public class DialogCoach extends Dialog {
         loadActionButtons();
     }
 
+
+    //=====
     public void loadInfoDialog() {
 
         _titleCard = (TextView) findViewById(R.id._title);
@@ -97,6 +99,7 @@ public class DialogCoach extends Dialog {
         }
     }
 
+
     //=====
     public void loadActionButtons() {
 
@@ -140,7 +143,7 @@ public class DialogCoach extends Dialog {
 
         Coach _coach = new Coach();
 
-        _coach.set_name(_nameCoach.getText().toString());
+        _coach.set_name(_nameCoach.getText().toString().toUpperCase());
         _coach.set_eMail(_eMailCoach.getText().toString());
         _coach.set_phone(_phoneCoach.getText().toString());
         _coach.set_login(_loginCoach.getText().toString());
@@ -173,7 +176,7 @@ public class DialogCoach extends Dialog {
         _idCoach = _coach.get_id();
         _passwordCoachTemp = _coach.get_password();
 
-        _titleCard.setText("Informations sur le coach");
+        _titleCard.setText("Informations sur l'entraîneur");
         _nameCoach.setText(_coach.get_name());
         _eMailCoach.setText(_coach.get_eMail());
         _phoneCoach.setText(_coach.get_phone());
@@ -191,7 +194,7 @@ public class DialogCoach extends Dialog {
     //====
     public void loadOptionAdd() {
 
-        _titleCard.setText("Ajouter - Nouveau Coach");
+        _titleCard.setText("Ajouter - Nouveau Entraîneur");
 
         _btn1.setVisibility(View.GONE);
         _btn2.setBackgroundResource(R.drawable.icon_cancel);
@@ -202,7 +205,7 @@ public class DialogCoach extends Dialog {
     //====
     public void loadOptionModify() {
 
-        _titleCard.setText("Modifier - Les informations du coach");
+        _titleCard.setText("Modifier - Les informations d'entraîneur");
 
         _nameCoach.setEnabled(true);
         _eMailCoach.setEnabled(true);
@@ -290,7 +293,6 @@ public class DialogCoach extends Dialog {
         }
 
         alertForm(_message);
-
         return false;
     }
 

@@ -13,8 +13,8 @@ public class FoodMacros {
     @Expose
     private String _macro;
 
-    //------
 
+    //=====
     public Integer get_idMacro() {
         return _idMacro;
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,24 +20,23 @@ import android.widget.TextView;
 import com.claudebernard.projetbf21.R;
 import com.claudebernard.projetbf21.control.ClientControl;
 import com.claudebernard.projetbf21.control.CoachControl;
-import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.control.ValidationLogin;
 import com.claudebernard.projetbf21.model.Client;
-import com.claudebernard.projetbf21.model.Coach;
 
 import java.util.ArrayList;
 
 public class ActivityClient extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Context  _context;
-    public static Activity _activity;
+    public  static Activity _activity;
     private static GridView _gridClient;
     public  static TextView _namePersonal;
     private static NavigationView _navigationView;
     private static AdapterCardClient _adapterClient;
     private CoachControl _coachControl = new CoachControl();
     private ClientControl _clientControl = new ClientControl();
-    public static DialogClient _dialogClient;
+    public  static DialogClient _dialogClient;
+    public  static View _view;
 
 
     //=====
@@ -45,6 +45,7 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
+        _view = (View) findViewById(android.R.id.content);
         _activity = this;
         _context = this;
         _gridClient = (GridView) findViewById(R.id._gridClients);
@@ -127,6 +128,7 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
             finish();
             ActivityFood._activity.finish();
             ActivityCoach._activity.finish();
+            ActivityPlan._activity.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,6 +141,13 @@ public class ActivityClient extends AppCompatActivity implements NavigationView.
     //=====
     public static void dismissView(){
         _dialogClient.dismiss();
+
+    }
+
+    //=====
+    public static void messageView(String _msg){
+        Snackbar.make(_view, _msg, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
 
     }
 }

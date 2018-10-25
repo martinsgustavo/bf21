@@ -3,8 +3,6 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class Client {
 
     @SerializedName("idClient")
@@ -65,7 +63,6 @@ public class Client {
 
 
     //=====
-
     public Integer get_id() {
         return _id;
     }

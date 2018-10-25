@@ -3,7 +3,6 @@ package com.claudebernard.projetbf21.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 import java.util.List;
 
 public class Food {
@@ -32,9 +31,8 @@ public class Food {
     @Expose
     private List<FoodMacros> _foodMacros;
 
+
     //=====
-
-
     public Integer get_id() {
         return _id;
     }

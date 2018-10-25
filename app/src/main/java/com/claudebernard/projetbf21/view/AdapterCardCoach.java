@@ -34,31 +34,30 @@ public class AdapterCardCoach extends BaseAdapter {
     //=====
     @Override
     public int getCount() {
-
         return _listCoaches.size();
+
     }
 
 
     //=====
     @Override
     public Object getItem(int position) {
-
         return _listCoaches.get(position);
+
     }
 
 
     //=====
     @Override
     public long getItemId(int position) {
-
         return position;
+
     }
 
 
     //=====
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-
         final Coach _coach = (Coach) this.getItem(position);
 
         if (view == null) {
@@ -86,5 +85,6 @@ public class AdapterCardCoach extends BaseAdapter {
     //=====
     public static void dismissView(){
         dialogCoach.dismiss();
+
     }
 }

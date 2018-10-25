@@ -2,7 +2,6 @@ package com.claudebernard.projetbf21.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
-import com.claudebernard.projetbf21.control.FoodControl;
 import com.claudebernard.projetbf21.model.FoodPlan;
 import com.claudebernard.projetbf21.model.PlanDays;
 import com.claudebernard.projetbf21.model.PlanMeals;
@@ -23,14 +21,14 @@ import java.util.Calendar;
 
 public class AdapterCardPlan extends BaseAdapter {
 
-    public Context _context;
-    public Activity _activity;
-    public FoodPlan _listPlans;
-    public int _numberMeal = 1;
-    public TextView _cardDayWeek;
-    public TextView _cardDayDay;
-    public TextView _cardDayMonth;
-    public ListView _listRepas;
+    public  Context _context;
+    public  Activity _activity;
+    public  FoodPlan _listPlans;
+    public  int _numberMeal = 1;
+    public  TextView _cardDayWeek;
+    public  TextView _cardDayDay;
+    public  TextView _cardDayMonth;
+    public  ListView _listRepas;
     private int positionDay;
     private int positionMeat;
 
@@ -75,7 +73,6 @@ public class AdapterCardPlan extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
 
-
             if (position == 0 || position % 7 == 0) {
                 view = LayoutInflater.from(_context).inflate(R.layout.card_plan_day, viewGroup, false);
                 loadInfoCardDay(view, position);
@@ -107,7 +104,6 @@ public class AdapterCardPlan extends BaseAdapter {
                     }
                 });
             }
-
         return view;
     }
 

@@ -17,6 +17,8 @@ public class ClientActivityLevel {
     @Expose
     private Double tax;
 
+
+    //=====
     public Integer get_idDailyActivityLevel() {
         return _idDailyActivityLevel;
     }

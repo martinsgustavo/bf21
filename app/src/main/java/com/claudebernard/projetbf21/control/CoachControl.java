@@ -1,11 +1,9 @@
 package com.claudebernard.projetbf21.control;
 
 import android.util.Log;
-import android.view.View;
 
 import com.claudebernard.projetbf21.comm.ApiClient;
 import com.claudebernard.projetbf21.comm.ApiInterface;
-import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.ResponseServer;
 import com.claudebernard.projetbf21.model.ResponseServerArray;
@@ -14,7 +12,6 @@ import com.claudebernard.projetbf21.view.ActivityCoach;
 import com.claudebernard.projetbf21.view.ActivityFood;
 import com.claudebernard.projetbf21.view.ActivityPlan;
 import com.claudebernard.projetbf21.view.AdapterCardCoach;
-import com.claudebernard.projetbf21.view.DialogCoach;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,7 +19,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,13 +28,13 @@ public class CoachControl implements GenericControl<Coach>{
 
     private ApiInterface _apiInterface = ApiClient.getRetrofitInstance().create(ApiInterface.class);
     private ArrayList<Coach> _coaches;
-    public static Coach _coach;
     private boolean _isCorrect;
+    public  static Coach _coach;
 
 
     //=====
     @Override
-    public ArrayList<Coach> getDataAll(String option) {
+    public void getDataAll(String option) {
         Call<ResponseServerArray> call = _apiInterface.findAllCoaches();
 
         call.enqueue(new Callback<ResponseServerArray>() {
@@ -67,13 +63,12 @@ public class CoachControl implements GenericControl<Coach>{
                 _coaches = null;
             }
         });
-        return _coaches;
     }
 
 
     //=====
     @Override
-    public Coach getData(String option, Integer id) {
+    public void getData(String option, Integer id) {
         final String _option = option;
         StringBuilder sb = new StringBuilder("/coach?idCoach=");
         sb.append(id);
@@ -106,13 +101,12 @@ public class CoachControl implements GenericControl<Coach>{
                 _coach = null;
             }
         });
-        return _coach;
     }
 
 
     //=====
     @Override
-    public boolean saveData(Coach object) {
+    public void saveData(Coach object) {
         Call<ResponseServer> call = _apiInterface.saveCoach(object);
 
         call.enqueue(new Callback<ResponseServer>() {
@@ -120,7 +114,7 @@ public class CoachControl implements GenericControl<Coach>{
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 if (response.code()==201) {
                     Log.i("Coach Control", "Success - saveData");
-                    _isCorrect = true;
+                    ActivityCoach.messageView("Nouveau Entraîneur sauvegarde avec Succès !");
                     ActivityCoach.dismissView();
                     getDataAll("");
                 }
@@ -128,16 +122,14 @@ public class CoachControl implements GenericControl<Coach>{
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - saveData");
-                _isCorrect = false;
             }
         });
-        return _isCorrect;
     }
 
 
     //=====
     @Override
-    public boolean editData(Coach object) {
+    public void editData(Coach object) {
         Call<ResponseServer> call = _apiInterface.editCoach(object);
 
         call.enqueue(new Callback<ResponseServer>() {
@@ -145,18 +137,17 @@ public class CoachControl implements GenericControl<Coach>{
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                 if (response.code()==200) {
                     Log.i("Coach Control", "Success - editData");
-                    _isCorrect = true;
+                    ActivityCoach.messageView("Mis à jour d'Entraîneur sauvegarde avec Succès !");
                     AdapterCardCoach.dismissView();
                     getDataAll("");
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - editData");
-                _isCorrect = false;
             }
         });
-        return _isCorrect;
     }
 
 
@@ -171,14 +162,20 @@ public class CoachControl implements GenericControl<Coach>{
         call.enqueue(new Callback<ResponseServer>() {
             @Override
             public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
-                Log.i("Coach Control", "Success - deleteData");
-                _isCorrect = true;
-                getDataAll("");
+                if (response.code()==200 || response.code() == 202) {
+                    Log.i("Coach Control", "Success - deleteData");
+                    _isCorrect = true;
+                    ActivityCoach.messageView("Entraîneur Supprimé avec Succès !");
+                    getDataAll("");
+                } else {
+                    ActivityCoach.messageView("Échec pendant la suppression d'Entraîneur !");
+                }
             }
             @Override
             public void onFailure(Call<ResponseServer> call, Throwable t) {
                 Log.e("Coach Control", "Error - deleteData");
                 _isCorrect = false;
+                ActivityCoach.messageView("Échec pendant la suppression d'Entraîneur !");
             }
         });
         return _isCorrect;

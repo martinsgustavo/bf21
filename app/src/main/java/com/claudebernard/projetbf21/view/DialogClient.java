@@ -52,6 +52,7 @@ public class DialogClient extends Dialog {
         this._context = c;
     }
 
+
     //=====
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class DialogClient extends Dialog {
         loadInfoDialog();
         loadActionButtons();
     }
+
 
     //====
     public void loadInfoDialog() {
@@ -138,7 +140,6 @@ public class DialogClient extends Dialog {
 
             loadOptionAdd();
         }
-
     }
 
 
@@ -296,7 +297,7 @@ public class DialogClient extends Dialog {
 
             Client _client = new Client();
 
-            _client.set_name(_nameClient.getText().toString());
+            _client.set_name(_nameClient.getText().toString().toUpperCase());
             _client.set_age(Integer.valueOf(_ageClient.getText().toString()));
             _client.set_eMail(_eMailClient.getText().toString());
             _client.set_phoneNumber(_phoneNumberClient.getText().toString());

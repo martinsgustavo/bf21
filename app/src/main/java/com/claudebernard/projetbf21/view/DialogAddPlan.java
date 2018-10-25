@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.claudebernard.projetbf21.R;
+import com.claudebernard.projetbf21.control.FoodPlanControl;
 import com.claudebernard.projetbf21.model.Client;
 import com.claudebernard.projetbf21.model.Coach;
 import com.claudebernard.projetbf21.model.FoodPlan;
@@ -25,11 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class DialogAddPlan extends Dialog {
 
-    public Context  _context;
+    public static Context  _context;
     public Activity _activity;
     public ImageButton _btn1, _btn2;
     public EditText _inputNamePlan, _inputPerStartPlan, _inputPerEndPlan;
@@ -43,15 +43,18 @@ public class DialogAddPlan extends Dialog {
     public Coach _coach;
     public Date dtStart;
     public Date dtFin;
+    public FoodPlanControl foodPlanControl = new FoodPlanControl();
+    public static String _option;
 
 
     //=====
-    public DialogAddPlan(Activity a, Context c, Client client, Coach coach) {
+    public DialogAddPlan(Activity a, Context c, Client client, Coach coach, String option) {
         super(a);
         this._activity = a;
         this._context = c;
         this._client = client;
         this._coach = coach;
+        this._option = option;
     }
 
 
@@ -90,6 +93,7 @@ public class DialogAddPlan extends Dialog {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                month = month + 1;
                                 _inputPerStartPlan.setText(year + "/" + month + "/" + day);
                             }
                         }, year, month, dayOfMonth);
@@ -104,6 +108,7 @@ public class DialogAddPlan extends Dialog {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                month = month + 1;
                                 _inputPerEndPlan.setText(year + "/" + month + "/" + day);
                             }
                         }, year, month, dayOfMonth);
@@ -143,8 +148,7 @@ public class DialogAddPlan extends Dialog {
         _plan.set_coach(_coach);
         _plan.set_planDays(getDates());
 
-        System.out.println("coloca ponto de debug nessa linha");
-        // chamar para gravar
+        foodPlanControl.saveData(_plan);
     }
 
 
@@ -176,6 +180,7 @@ public class DialogAddPlan extends Dialog {
         }
         return listDatePlanDay;
     }
+
 
     //=====
     public boolean validationForm(){

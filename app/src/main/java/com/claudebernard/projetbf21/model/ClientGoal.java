@@ -13,6 +13,8 @@ public class ClientGoal {
     @Expose
     private String _goal;
 
+
+    //=====
     public Integer get_idClientGoal() {
         return _idClientGoal;
     }

@@ -17,6 +17,8 @@ public class ClientProteinRequirement {
     @Expose
     private Double tax;
 
+
+    //=====
     public Integer get_idProteinRequirement() {
         return _idProteinRequirement;
     }

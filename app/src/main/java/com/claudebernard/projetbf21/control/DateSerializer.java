@@ -13,9 +13,10 @@ public class DateSerializer implements JsonSerializer<Date> {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+
+    //=====
     @Override
-    public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context)
-    {
+    public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(dateFormat.format(date));
     }
 }

@@ -21,6 +21,8 @@ public class FoodNutrients {
     @Expose
     private Double _total;
 
+
+    //=====
     public Integer get_id() {
         return _id;
     }

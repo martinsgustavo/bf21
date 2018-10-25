@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.claudebernard.projetbf21.R;
@@ -54,6 +52,7 @@ public class DialogModifyMeal  extends Dialog {
         this._planMeals = planMeals;
     }
 
+
     //=====
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,6 @@ public class DialogModifyMeal  extends Dialog {
         _foodControl.getDataAll("DialogModifyMeal");
         loadActionButtons();
     }
-
 
 
     //====
@@ -112,6 +110,7 @@ public class DialogModifyMeal  extends Dialog {
             }
         }
     }
+
 
     //=====
     public void loadActionButtons() {

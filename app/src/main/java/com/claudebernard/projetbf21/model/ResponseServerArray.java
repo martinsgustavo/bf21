@@ -17,6 +17,8 @@ public class ResponseServerArray {
     @Expose
     private String message;
 
+
+    //=====
     public int getHttpStatus() { return httpStatus; }
 
     public void setHttpStatus(int httpStatus) { this.httpStatus = httpStatus; }

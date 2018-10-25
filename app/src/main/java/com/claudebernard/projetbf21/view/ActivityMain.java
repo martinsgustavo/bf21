@@ -4,29 +4,18 @@ import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import com.claudebernard.projetbf21.R;
-import com.claudebernard.projetbf21.comm.ApiClient;
-import com.claudebernard.projetbf21.comm.ApiInterface;
 import com.claudebernard.projetbf21.control.ValidationLogin;
-import com.claudebernard.projetbf21.model.Client;
-
-import java.util.List;
-
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ActivityMain extends AppCompatActivity {
 
-    private static TextInputLayout _inputLayoutlogin;
-    private static TextInputLayout _inputLayoutPassword;
-    public static Activity _activity;
-    private EditText  _inputLogin, _inputPassword;
-    private ValidationLogin _validantioLogin = new ValidationLogin();
+    private static TextInputLayout _inputLayoutlogin, _inputLayoutPassword;
+    public  static Activity _activity;
+    private EditText _inputLogin, _inputPassword;
+    private ValidationLogin _validationLogin = new ValidationLogin();
 
 
     //=====
@@ -77,7 +66,7 @@ public class ActivityMain extends AppCompatActivity {
         _inputLogin.clearFocus();
         _inputPassword.clearFocus();
 
-        _validantioLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim());
+        _validationLogin.accessSystem(this,_inputLogin.getText().toString().trim(),_inputPassword.getText().toString().trim());
     }
 
 

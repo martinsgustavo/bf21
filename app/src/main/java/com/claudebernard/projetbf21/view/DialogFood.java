@@ -46,6 +46,7 @@ public class DialogFood extends Dialog {
         this._context = c;
     }
 
+
     //=====
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class DialogFood extends Dialog {
         loadInfoDialog();
         loadActionButtons();
     }
+
 
     //====
     public void loadInfoDialog() {
@@ -137,6 +139,7 @@ public class DialogFood extends Dialog {
         }
 
     }
+
 
     //=====
     public void loadActionButtons() {
@@ -234,7 +237,7 @@ public class DialogFood extends Dialog {
             }
         }
 
-        _food.set_name(_nameFood.getText().toString());
+        _food.set_name(_nameFood.getText().toString().toUpperCase());
         _food.set_brand(_brandFood.getText().toString());
         _food.set_portionSize(Integer.valueOf(_portionFood.getText().toString()));
         _food.set_foodNutrients(_listNutrients);
