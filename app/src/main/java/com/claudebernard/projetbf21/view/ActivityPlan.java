@@ -235,8 +235,14 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
+
+            if (ActivityFood._activity != null)
             ActivityFood._activity.finish();
+
+            if (ActivityCoach._activity != null)
             ActivityCoach._activity.finish();
+
+            if (ActivityClient._activity != null)
             ActivityClient._activity.finish();
         }
 

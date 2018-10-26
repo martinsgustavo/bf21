@@ -143,7 +143,7 @@ public class DialogAddPlan extends Dialog {
 
         FoodPlan _plan = new FoodPlan();
 
-        _plan.set_namePlan(_inputNamePlan.getText().toString());
+        _plan.set_namePlan(_inputNamePlan.getText().toString().toUpperCase());
         _plan.set_client(_client);
         _plan.set_coach(_coach);
         _plan.set_planDays(getDates());

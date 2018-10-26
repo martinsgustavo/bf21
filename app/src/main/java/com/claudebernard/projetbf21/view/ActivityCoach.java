@@ -122,8 +122,14 @@ public class ActivityCoach extends AppCompatActivity implements NavigationView.O
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
+
+            if (ActivityClient._activity != null)
             ActivityClient._activity.finish();
+
+            if (ActivityFood._activity != null)
             ActivityFood._activity.finish();
+
+            if (ActivityPlan._activity != null)
             ActivityPlan._activity.finish();
         }
 

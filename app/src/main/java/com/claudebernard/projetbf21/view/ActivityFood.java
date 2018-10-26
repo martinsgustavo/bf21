@@ -124,8 +124,14 @@ public class ActivityFood extends AppCompatActivity implements NavigationView.On
             intent = new Intent(_context, ActivityMain.class);
             startActivity(intent);
             finish();
+
+            if (ActivityClient._activity != null)
             ActivityClient._activity.finish();
+
+            if (ActivityCoach._activity != null)
             ActivityCoach._activity.finish();
+
+            if (ActivityPlan._activity != null)
             ActivityPlan._activity.finish();
         }
 
