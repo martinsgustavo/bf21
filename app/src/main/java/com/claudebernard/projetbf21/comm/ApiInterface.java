@@ -104,6 +104,9 @@ public interface ApiInterface {
     @DELETE
     Call<ResponseServer> deleteFoodPlan(@Url String url);
 
+    @GET
+    Call<ResponseServer> sendPlanByEmail(@Url String url);
+
 
     //PLAN DAYS
 

@@ -121,7 +121,7 @@ public class ClientControl implements GenericControl<Client> {
         StringBuilder sb = new StringBuilder("/client?idClient=");
         sb.append(object.get_id());
 
-        Call<ResponseServer> call = apiInterface.deleteCoach(sb.toString());
+        Call<ResponseServer> call = apiInterface.deleteClient(sb.toString());
 
         call.enqueue(new Callback<ResponseServer>() {
             @Override

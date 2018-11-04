@@ -247,4 +247,31 @@ public class FoodPlanControl implements GenericControl<FoodPlan>{
         });
         return isCorrect;
     }
+
+    public boolean sendPlan(FoodPlan object) {
+        StringBuilder sb = new StringBuilder("/foodPlan/email?idFoodPlan=");
+        sb.append(object.get_idFoodPlan());
+
+        Call<ResponseServer> call = apiInterface.sendPlanByEmail(sb.toString());
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - sendPlan");
+                if(response.code() == 200) {
+                    isCorrect = true;
+                } else {
+                    isCorrect = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - sendPlan");
+                isCorrect = false;
+            }
+        });
+        return isCorrect;
+
+    }
 }
