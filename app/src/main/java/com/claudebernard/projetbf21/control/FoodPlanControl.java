@@ -258,4 +258,31 @@ public class FoodPlanControl implements GenericControl<FoodPlan>{
         });
         return isCorrect;
     }
+
+
+    //=====
+    public void sendPlan(FoodPlan object) {
+        StringBuilder sb = new StringBuilder("/foodPlan/email?idFoodPlan=");
+        sb.append(object.get_idFoodPlan());
+
+        Call<ResponseServer> call = _apiInterface.sendPlanByEmail(sb.toString());
+
+        call.enqueue(new Callback<ResponseServer>() {
+            @Override
+            public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
+                Log.i("FoodPlan Control", "Success - sendPlan");
+                if(response.code() == 200) {
+                    ActivityPlan.messageView("Plan envoyée avec Succès !");
+                } else {
+                    ActivityPlan.messageView("Échec pendant l'envoie du Plan !");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseServer> call, Throwable t) {
+                Log.e("FoodPlan Control", "Error - sendPlan");
+                ActivityPlan.messageView("Échec pendant l'envoie du Plan !");
+            }
+        });
+    }
 }

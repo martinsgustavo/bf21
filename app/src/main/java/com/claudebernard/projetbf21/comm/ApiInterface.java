@@ -94,6 +94,9 @@ public interface ApiInterface {
     @GET
     Call<ResponseServer> findPlan(@Url String url);
 
+    @GET
+    Call<ResponseServer> sendPlanByEmail(@Url String url);
+
     @POST("/foodPlan")
     Call<ResponseServer> saveFoodPlan(@Body FoodPlanBD foodPlan);
 

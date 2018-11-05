@@ -39,9 +39,6 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
     private static TextView _namePlan;
     private static TextView _objClient;
     private static TextView _caloriesJourClient;
-    private static TextView _proteineClient;
-    private static TextView _lipidesClient;
-    private static TextView _glucideClient;
     private CoachControl _coachControl = new CoachControl();
     public  static List<FoodPlan> _foodPlansClient;
     public  static FoodPlan _foodPlanSelect;
@@ -108,8 +105,7 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _fabEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Disponible seulement dans la version Web.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                _foodPlanControl.sendPlan(_foodPlanSelect);
                 _menu.close(true);
             }
         });
@@ -155,9 +151,6 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         _namePlan = (TextView) findViewById(R.id._namePlan);
         _objClient = (TextView) findViewById(R.id._objClient);
         _caloriesJourClient = (TextView) findViewById(R.id._caloriesJourClient);
-        _proteineClient = (TextView) findViewById(R.id._proteineClient);
-        _lipidesClient = (TextView) findViewById(R.id._lipidesClient);
-        _glucideClient = (TextView) findViewById(R.id._glucideClient);
 
         _foodPlanSelect = _foodPlansClient.get(0);
     }
@@ -180,10 +173,6 @@ public class ActivityPlan extends AppCompatActivity implements NavigationView.On
         }
 
         _caloriesJourClient.setText(String.valueOf(_foodPlanSelect.get_client().get_tdce()));
-
-        _proteineClient.setText("0" + " G./jour");
-        _lipidesClient.setText("0" + " G./jour");
-        _glucideClient.setText("0" + " G./jour");
     }
 
 
